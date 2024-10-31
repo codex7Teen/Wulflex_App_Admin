@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wulflex_admin/consts/app_colors.dart';
 import 'package:wulflex_admin/screens/authentication_screens/login_screen.dart';
+import 'package:wulflex_admin/screens/main_screens/home_screen.dart';
+import 'package:wulflex_admin/widgets/navigation_helper_widget.dart';
 
 class ScreenSplash1 extends StatefulWidget {
   const ScreenSplash1({super.key});
@@ -36,21 +39,35 @@ class _ScreenSplash12State extends State<ScreenSplash1> {
     });
 
     // Navigate to login after some seconds
-    Future.delayed(Duration(seconds: 4), () {
-      if (mounted) {
-        Navigator.pushReplacement(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) =>
-                  ScreenLogin(),
-              transitionDuration: Duration(milliseconds: 600),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                return FadeTransition(opacity: animation, child: child);
-              },
-            ));
-      }
-    });
+    _checkLoginStatus();
+  }
+
+  //! Method to check login status using sharedpreferences
+  Future<void> _checkLoginStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+    if (isLoggedIn) {
+      Future.delayed(
+        Duration(seconds: 4),
+        () {
+          if (mounted) {
+            NavigationHelper.navigateToWithReplacement(context, ScreenHome(),
+                milliseconds: 600);
+          }
+        },
+      );
+    } else {
+      Future.delayed(
+        Duration(seconds: 4),
+        () {
+          if (mounted) {
+            NavigationHelper.navigateToWithReplacement(context, ScreenLogin(),
+                milliseconds: 600);
+          }
+        },
+      );
+    }
   }
 
   @override
