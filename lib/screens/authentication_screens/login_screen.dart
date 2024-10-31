@@ -6,6 +6,7 @@ import 'package:wulflex_admin/consts/app_colors.dart';
 import 'package:wulflex_admin/consts/text_styles.dart';
 import 'package:wulflex_admin/screens/main_screens/home_screen.dart';
 import 'package:wulflex_admin/widgets/blue_button_widget.dart';
+import 'package:wulflex_admin/widgets/custom_snacbar.dart';
 import 'package:wulflex_admin/widgets/navigation_helper_widget.dart';
 
 class ScreenLogin extends StatefulWidget {
@@ -32,8 +33,15 @@ class _ScreenLoginState extends State<ScreenLogin> {
         body: SingleChildScrollView(
           child: BlocListener<AuthenticationBlocBloc, AuthenticationBlocState>(
             listener: (context, state) {
-              if(state is LoginSuccess) {
-                NavigationHelper.navigateToWithReplacement(context, ScreenHome(), milliseconds: 600);
+              if (state is LoginSuccess) {
+                CustomSnackbar.showCustomSnackBar(
+                    context, "Login success...  🎉🎉🎉");
+                NavigationHelper.navigateToWithReplacement(
+                    context, ScreenHome(),
+                    milliseconds: 600);
+              } else if (state is LoginFailture) {
+                CustomSnackbar.showCustomSnackBar(context, state.error,
+                    icon: Icons.error_outline_rounded);
               }
             },
             child: Center(
@@ -77,10 +85,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                                   validator: (value) {
                                     // Check if the field is empty
                                     if (value == null || value.trim().isEmpty) {
-                                      return 'Please enter you administrator ID';
-                                    }
-                                    if (value != 'admin@123') {
-                                      return 'incorrect administrator ID';
+                                      return 'Please enter you email address';
                                     }
                                     return null;
                                   },
@@ -117,9 +122,6 @@ class _ScreenLoginState extends State<ScreenLogin> {
                                   validator: (value) {
                                     if (value == null || value.trim().isEmpty) {
                                       return 'Please enter your password';
-                                    }
-                                    if (value != 'admin123') {
-                                      return 'incorrect password';
                                     }
                                     return null;
                                   },

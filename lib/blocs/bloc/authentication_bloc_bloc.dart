@@ -19,7 +19,7 @@ class AuthenticationBlocBloc extends Bloc<AuthenticationBlocEvent, Authenticatio
           log("LOG IN SUCCESS AND SHARED PREFS SAVED SUCCESS");
           emit(LoginSuccess());
         } else {
-          emit(LoginFailture(error: "Invalide Credentials"));
+          emit(LoginFailture(error: "ID or Password mismatch!"));
         }
     });
 
