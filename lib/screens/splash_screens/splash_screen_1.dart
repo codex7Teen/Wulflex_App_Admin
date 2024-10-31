@@ -35,7 +35,7 @@ class _ScreenSplash12State extends State<ScreenSplash1> {
       }
     });
 
-    // Navigate to intro screen after some seconds
+    // Navigate to login after some seconds
     Future.delayed(Duration(seconds: 4), () {
       if (mounted) {
         Navigator.pushReplacement(
