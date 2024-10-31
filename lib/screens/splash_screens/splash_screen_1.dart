@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wulflex_admin/consts/app_colors.dart';
 import 'package:wulflex_admin/screens/authentication_screens/login_screen.dart';
-import 'package:wulflex_admin/screens/main_screens/home_screen.dart';
+import 'package:wulflex_admin/screens/main_screens/settings_screen/signout.dart';
+import 'package:wulflex_admin/screens/main_screens/drawer_screens/side_drawer.dart';
 import 'package:wulflex_admin/widgets/navigation_helper_widget.dart';
 
 class ScreenSplash1 extends StatefulWidget {
@@ -49,10 +50,11 @@ class _ScreenSplash12State extends State<ScreenSplash1> {
 
     if (isLoggedIn) {
       Future.delayed(
-        Duration(seconds: 4),
+                //TODO CHANGE SECONDS TO 4 WHEN RELEASE
+        Duration(seconds: 1),
         () {
           if (mounted) {
-            NavigationHelper.navigateToWithReplacement(context, ScreenHome(),
+            NavigationHelper.navigateToWithReplacement(context, ScreenSideDrawer(),
                 milliseconds: 600);
           }
         },

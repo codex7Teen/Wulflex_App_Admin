@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:wulflex_admin/blocs/bloc/authentication_bloc_bloc.dart';
 import 'package:wulflex_admin/consts/app_colors.dart';
 import 'package:wulflex_admin/consts/text_styles.dart';
-import 'package:wulflex_admin/screens/main_screens/home_screen.dart';
+import 'package:wulflex_admin/screens/main_screens/drawer_screens/side_drawer.dart';
 import 'package:wulflex_admin/widgets/blue_button_widget.dart';
 import 'package:wulflex_admin/widgets/custom_snacbar.dart';
 import 'package:wulflex_admin/widgets/navigation_helper_widget.dart';
@@ -37,7 +37,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                 CustomSnackbar.showCustomSnackBar(
                     context, "Login success...  🎉🎉🎉");
                 NavigationHelper.navigateToWithReplacement(
-                    context, ScreenHome(),
+                    context, ScreenSideDrawer(),
                     milliseconds: 600);
               } else if (state is LoginFailture) {
                 CustomSnackbar.showCustomSnackBar(context, state.error,
@@ -65,7 +65,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       // heading
                       Text('WELCOME ADMIN',
                           style: GoogleFonts.bebasNeue(
-                                  textStyle: AppTextStyles.headingLarge)
+                                  textStyle: AppTextStyles.headingLarge2)
                               .copyWith(letterSpacing: 1)),
                       SizedBox(height: 14),
 
@@ -93,7 +93,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                                   decoration: InputDecoration(
                                       hintText: 'Administrator ID',
                                       hintStyle: GoogleFonts.robotoCondensed(
-                                          textStyle: AppTextStyles.mediumText
+                                          textStyle: AppTextStyles.headingSmall3
                                               .copyWith(
                                                   color: Colors.grey,
                                                   letterSpacing: 0.5)),
@@ -143,7 +143,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                                       ),
                                       hintText: 'Password',
                                       hintStyle: GoogleFonts.robotoCondensed(
-                                          textStyle: AppTextStyles.mediumText
+                                          textStyle: AppTextStyles.headingSmall3
                                               .copyWith(
                                                   color: Colors.grey,
                                                   letterSpacing: 0.5)),

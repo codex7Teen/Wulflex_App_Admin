@@ -4,8 +4,8 @@ import 'package:wulflex_admin/blocs/bloc/authentication_bloc_bloc.dart';
 import 'package:wulflex_admin/screens/authentication_screens/login_screen.dart';
 import 'package:wulflex_admin/widgets/navigation_helper_widget.dart';
 
-class ScreenHome extends StatelessWidget {
-  const ScreenHome({super.key});
+class ScreenSignOut extends StatelessWidget {
+  const ScreenSignOut({super.key});
 
   @override
   Widget build(BuildContext context) {
