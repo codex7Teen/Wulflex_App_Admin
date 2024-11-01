@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:wulflex_admin/blocs/bloc/authentication_bloc_bloc.dart';
 import 'package:wulflex_admin/consts/app_colors.dart';
 import 'package:wulflex_admin/consts/text_styles.dart';
