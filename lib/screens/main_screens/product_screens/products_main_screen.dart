@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wulflex_admin/consts/app_colors.dart';
+import 'package:wulflex_admin/screens/main_screens/product_screens/add_products_screen.dart';
+import 'package:wulflex_admin/widgets/custom_category_button.dart';
+import 'package:wulflex_admin/widgets/navigation_helper_widget.dart';
 
 class ScreenProductsMain extends StatelessWidget {
   const ScreenProductsMain({super.key});
@@ -16,27 +19,28 @@ class ScreenProductsMain extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: AppColors.blueThemeColor,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                  ),
+                  CustomCategoryButtonWidget(
+                      name: "Add Items",
+                      icon: Icons.add,
+                      onTap: () =>
+                          NavigationHelper.navigateToWithoutReplacement(
+                              context,
+                              ScreenAddProducts(
+                                title: 'Add Items',
+                              ))),
                   SizedBox(width: 20),
-                  Expanded(
-                    child: Container(
-                      height: 100, 
-                      decoration: BoxDecoration(
-                        color: AppColors.blueThemeColor,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                  ),
+                  CustomCategoryButtonWidget(
+                      name: "View Inventory",
+                      icon: Icons.manage_search_rounded),
                 ],
               ),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  CustomCategoryButtonWidget(
+                      name: "Sales Dashboard", icon: Icons.bar_chart_rounded),
+                ],
+              )
             ],
           ),
         ),

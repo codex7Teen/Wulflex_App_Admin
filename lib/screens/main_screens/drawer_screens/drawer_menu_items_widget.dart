@@ -5,7 +5,7 @@ import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 
 final productsMenu = ItemHiddenMenu(
   colorLineSelected: AppColors.lightScaffoldColor,
-  name: 'PRODUCTS',
+  name: 'Products',
   baseStyle: GoogleFonts.bebasNeue(
       textStyle: AppTextStyles.headLineSmall),
   selectedStyle: GoogleFonts.bebasNeue(
@@ -21,18 +21,18 @@ final ordersMenu = ItemHiddenMenu(
       textStyle: AppTextStyles.headLineMedium),
 );
 
-final usersMenu = ItemHiddenMenu(
+final reviewsMenu = ItemHiddenMenu(
   colorLineSelected: AppColors.lightScaffoldColor,
-  name: 'Users',
+  name: 'Reviews',
   baseStyle: GoogleFonts.bebasNeue(
       textStyle: AppTextStyles.headLineSmall),
   selectedStyle: GoogleFonts.bebasNeue(
       textStyle: AppTextStyles.headLineMedium),
 );
 
-final analyticsMenu = ItemHiddenMenu(
+final usersMenu = ItemHiddenMenu(
   colorLineSelected: AppColors.lightScaffoldColor,
-  name: 'Analytics',
+  name: 'Users',
   baseStyle: GoogleFonts.bebasNeue(
       textStyle: AppTextStyles.headLineSmall),
   selectedStyle: GoogleFonts.bebasNeue(

@@ -22,7 +22,7 @@ class ScreenSignOut extends StatelessWidget {
                   BlocProvider.of<AuthenticationBlocBloc>(context)
                       .add(LogoutButtonClicked());
                 },
-                child: Text('signout'))),
+                child: Text('SIGN OUT'))),
       ),
     );
   }
