@@ -8,7 +8,39 @@ class ScreenProductsMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.lightScaffoldColor,
-      body: Center(child: Text('PRODUCTS MAIN SCREEN'),),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 19, horizontal: 17),
+        child: Center(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: AppColors.blueThemeColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: Container(
+                      height: 100, 
+                      decoration: BoxDecoration(
+                        color: AppColors.blueThemeColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

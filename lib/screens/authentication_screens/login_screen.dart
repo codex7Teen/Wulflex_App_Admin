@@ -6,6 +6,7 @@ import 'package:wulflex_admin/consts/app_colors.dart';
 import 'package:wulflex_admin/consts/text_styles.dart';
 import 'package:wulflex_admin/screens/main_screens/drawer_screens/side_drawer.dart';
 import 'package:wulflex_admin/widgets/blue_button_widget.dart';
+import 'package:wulflex_admin/widgets/custom_auth_textfield_widget.dart';
 import 'package:wulflex_admin/widgets/custom_snacbar.dart';
 import 'package:wulflex_admin/widgets/navigation_helper_widget.dart';
 
@@ -64,94 +65,40 @@ class _ScreenLoginState extends State<ScreenLogin> {
 
                       // heading
                       Text('WELCOME ADMIN',
-                          style: GoogleFonts.bebasNeue(
-                                  textStyle: AppTextStyles.headingLarge2)
-                              .copyWith(letterSpacing: 1)),
+                          style: AppTextStyles.headLineLarge
+                              .copyWith(color: Colors.black)),
                       SizedBox(height: 14),
 
                       // email textfield
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 6),
-                            child: Icon(
-                              Icons.alternate_email_rounded,
-                              color: AppColors.greyThemeColor,
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          Expanded(
-                              child: TextFormField(
-                                  validator: (value) {
-                                    // Check if the field is empty
-                                    if (value == null || value.trim().isEmpty) {
-                                      return 'Please enter you email address';
-                                    }
-                                    return null;
-                                  },
-                                  controller: _emailTextController,
-                                  decoration: InputDecoration(
-                                      hintText: 'Administrator ID',
-                                      hintStyle: GoogleFonts.robotoCondensed(
-                                          textStyle: AppTextStyles.headingSmall3
-                                              .copyWith(
-                                                  color: Colors.grey,
-                                                  letterSpacing: 0.5)),
-                                      enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: AppColors.greyThemeColor,
-                                              width: 0.4))))),
-                        ],
-                      ),
+                      CustomAuthenticationTetxfieldWidget(
+                          controller: _emailTextController,
+                          hintText: 'Administrator ID',
+                          icon: Icons.alternate_email_sharp,
+                          validator: (value) {
+                            // Check if the field is empty
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Please enter you email address';
+                            }
+                            return null;
+                          }),
                       SizedBox(height: 30),
 
                       // password field
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Icon(
-                              Icons.lock_outline_rounded,
-                              color: AppColors.greyThemeColor,
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          Expanded(
-                              child: TextFormField(
-                                  obscureText: !_isPasswordVisible,
-                                  validator: (value) {
-                                    if (value == null || value.trim().isEmpty) {
-                                      return 'Please enter your password';
-                                    }
-                                    return null;
-                                  },
-                                  controller: _passwordTextController,
-                                  decoration: InputDecoration(
-                                      suffixIcon: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            _isPasswordVisible =
-                                                !_isPasswordVisible;
-                                          });
-                                        },
-                                        child: Icon(
-                                          _isPasswordVisible
-                                              ? Icons.visibility_off_sharp
-                                              : Icons.visibility,
-                                          color: AppColors.greyThemeColor,
-                                        ),
-                                      ),
-                                      hintText: 'Password',
-                                      hintStyle: GoogleFonts.robotoCondensed(
-                                          textStyle: AppTextStyles.headingSmall3
-                                              .copyWith(
-                                                  color: Colors.grey,
-                                                  letterSpacing: 0.5)),
-                                      enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: AppColors.greyThemeColor,
-                                              width: 0.4))))),
-                        ],
+                      CustomAuthenticationTetxfieldWidget(
+                        controller: _passwordTextController,
+                        hintText: 'Password',
+                        icon: Icons.lock_outline_rounded,
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          return null;
+                        },
+                        isPasswordVisible: _isPasswordVisible,
+                        obscureText: true,
+                        toggleVisibility: () => setState(() {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        }),
                       ),
                       SizedBox(height: 25),
 

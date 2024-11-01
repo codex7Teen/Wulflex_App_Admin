@@ -7,43 +7,43 @@ final productsMenu = ItemHiddenMenu(
   colorLineSelected: AppColors.lightScaffoldColor,
   name: 'PRODUCTS',
   baseStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headingSmall1.copyWith(color: AppColors.lightScaffoldColor)),
+      textStyle: AppTextStyles.headLineSmall),
   selectedStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headingMedium1.copyWith(color: AppColors.lightScaffoldColor)),
+      textStyle: AppTextStyles.headLineMedium),
 );
 
 final ordersMenu = ItemHiddenMenu(
   colorLineSelected: AppColors.lightScaffoldColor,
   name: 'Orders',
   baseStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headingSmall1.copyWith(color: AppColors.lightScaffoldColor)),
+      textStyle: AppTextStyles.headLineSmall),
   selectedStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headingMedium1.copyWith(color: AppColors.lightScaffoldColor)),
+      textStyle: AppTextStyles.headLineMedium),
 );
 
 final usersMenu = ItemHiddenMenu(
   colorLineSelected: AppColors.lightScaffoldColor,
   name: 'Users',
   baseStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headingSmall1.copyWith(color: AppColors.lightScaffoldColor)),
+      textStyle: AppTextStyles.headLineSmall),
   selectedStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headingMedium1.copyWith(color: AppColors.lightScaffoldColor)),
+      textStyle: AppTextStyles.headLineMedium),
 );
 
 final analyticsMenu = ItemHiddenMenu(
   colorLineSelected: AppColors.lightScaffoldColor,
   name: 'Analytics',
   baseStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headingSmall1.copyWith(color: AppColors.lightScaffoldColor)),
+      textStyle: AppTextStyles.headLineSmall),
   selectedStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headingMedium1.copyWith(color: AppColors.lightScaffoldColor)),
+      textStyle: AppTextStyles.headLineMedium),
 );
 
 final settingsMenu = ItemHiddenMenu(
   colorLineSelected: AppColors.lightScaffoldColor,
   name: 'Settings',
   baseStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headingSmall1.copyWith(color: AppColors.lightScaffoldColor)),
+      textStyle: AppTextStyles.headLineSmall),
   selectedStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headingMedium1.copyWith(color: AppColors.lightScaffoldColor)),
+      textStyle: AppTextStyles.headLineMedium),
 );

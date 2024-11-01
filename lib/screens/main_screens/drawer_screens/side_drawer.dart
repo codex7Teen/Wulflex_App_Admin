@@ -46,12 +46,11 @@ class _ScreenSideDrawerState extends State<ScreenSideDrawer> {
       enableShadowItensMenu: true,
       elevationAppBar: 10,
       curveAnimation: Curves.easeInOutCubic,
-      styleAutoTittleName:
-          GoogleFonts.bebasNeue(textStyle: AppTextStyles.headingMedium1),
+      styleAutoTittleName: AppTextStyles.headLineMedium.copyWith(color: AppColors.darkScaffoldColor),
       isTitleCentered: true,
       leadingAppBar:
           Icon(Icons.menu, color: AppColors.darkScaffoldColor, size: 36),
-      backgroundColorAppBar: Colors.transparent,
+      backgroundColorAppBar: AppColors.xtraLightBlueThemeColor,
     );
   }
 }

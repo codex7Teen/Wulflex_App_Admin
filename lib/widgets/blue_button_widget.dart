@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:wulflex_admin/consts/app_colors.dart';
 import 'package:wulflex_admin/consts/text_styles.dart';
 
@@ -18,8 +17,7 @@ class BlueButtonWidget extends StatelessWidget {
                   child: Center(
                     child: Text(
                       buttonText,
-                      style: GoogleFonts.robotoCondensed(
-                          textStyle: AppTextStyles.greenButtonText).copyWith(letterSpacing: 1),
+                      style: AppTextStyles.titleMedium,
                     ),
                   ),
                 );
