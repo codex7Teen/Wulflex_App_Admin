@@ -3,13 +3,21 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:wulflex_admin/consts/app_colors.dart';
 
 class CustomSnackbar {
-  static void showCustomSnackBar(BuildContext context, String message, {IconData icon = Icons.done_outline_rounded}) {
+  static void showCustomSnackBar(BuildContext context, String message,
+      {IconData icon = Icons.done_outline_rounded,
+      bool applyErrorIconColor = false}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: AppColors.lightScaffoldColor, size: 18,),
+            Icon(
+              icon,
+              color: applyErrorIconColor
+                  ? AppColors.redErrorColor
+                  : AppColors.lightScaffoldColor,
+              size: 18,
+            ),
             SizedBox(width: 15),
             Text(
               overflow: TextOverflow.ellipsis,

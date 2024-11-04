@@ -9,4 +9,5 @@ class AppColors {
   static Color? lightGreyThemeColor = Colors.grey[200];
   static const Color lightBlueThemeColor = Color.fromARGB(255, 192, 199, 255);
   static const Color xtraLightBlueThemeColor = Color.fromARGB(255, 225, 228, 255);
+  static const Color redErrorColor = Colors.red;
 }

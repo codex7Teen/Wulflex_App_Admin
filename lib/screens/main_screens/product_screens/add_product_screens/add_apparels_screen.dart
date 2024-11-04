@@ -8,15 +8,15 @@ import 'package:wulflex_admin/widgets/custom_image_picker_container_widget.dart'
 import 'package:wulflex_admin/widgets/custom_snacbar.dart';
 import 'package:wulflex_admin/widgets/custom_weightandsize_selector_container_widget.dart';
 
-class ScreenAddEquipments extends StatefulWidget {
+class ScreenAddApparels extends StatefulWidget {
   final String screenTitle;
-  const ScreenAddEquipments({super.key, required this.screenTitle});
+  const ScreenAddApparels({super.key, required this.screenTitle});
 
   @override
-  State<ScreenAddEquipments> createState() => _ScreenAddEquipmentsState();
+  State<ScreenAddApparels> createState() => _ScreenAddApparelsState();
 }
 
-class _ScreenAddEquipmentsState extends State<ScreenAddEquipments> {
+class _ScreenAddApparelsState extends State<ScreenAddApparels> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
@@ -109,60 +109,60 @@ class _ScreenAddEquipmentsState extends State<ScreenAddEquipments> {
                     textInputType: TextInputType.multiline,
                     minLines: 4),
                 SizedBox(height: 25),
-                // Weight
-                Text('Pick available Weight',
+                // Sizes
+                Text('Pick available sizes',
                     style: AppTextStyles.headLineMediumSmall),
                 SizedBox(height: 8),
                 Row(
                   children: [
                     CustomWeightandsizeSelectorContainerWidget(
-                        weightOrSize: '5 KG',
-                        isSelected: selectedWeights.contains('5 KG'),
+                        weightOrSize: 'S',
+                        isSelected: selectedWeights.contains('S'),
                         onTap: () {
                           setState(() {
-                            if (selectedWeights.contains('5 KG')) {
-                              selectedWeights.remove('5 KG');
+                            if (selectedWeights.contains('S')) {
+                              selectedWeights.remove('S');
                             } else {
-                              selectedWeights.add('5 KG');
+                              selectedWeights.add('S');
                             }
                           });
                         }),
                     SizedBox(width: 8),
                     CustomWeightandsizeSelectorContainerWidget(
-                        weightOrSize: '10 KG',
-                        isSelected: selectedWeights.contains('10 KG'),
+                        weightOrSize: 'M',
+                        isSelected: selectedWeights.contains('M'),
                         onTap: () {
                           setState(() {
-                            if (selectedWeights.contains('10 KG')) {
-                              selectedWeights.remove('10 KG');
+                            if (selectedWeights.contains('M')) {
+                              selectedWeights.remove('M');
                             } else {
-                              selectedWeights.add('10 KG');
+                              selectedWeights.add('M');
                             }
                           });
                         }),
                     SizedBox(width: 8),
                     CustomWeightandsizeSelectorContainerWidget(
-                        weightOrSize: '20 KG',
-                        isSelected: selectedWeights.contains('20 KG'),
+                        weightOrSize: 'L',
+                        isSelected: selectedWeights.contains('L'),
                         onTap: () {
                           setState(() {
-                            if (selectedWeights.contains('20 KG')) {
-                              selectedWeights.remove('20 KG');
+                            if (selectedWeights.contains('L')) {
+                              selectedWeights.remove('L');
                             } else {
-                              selectedWeights.add('20 KG');
+                              selectedWeights.add('L');
                             }
                           });
                         }),
                     SizedBox(width: 8),
                     CustomWeightandsizeSelectorContainerWidget(
-                        weightOrSize: '30 KG',
-                        isSelected: selectedWeights.contains('30 KG'),
+                        weightOrSize: 'XL',
+                        isSelected: selectedWeights.contains('XL'),
                         onTap: () {
                           setState(() {
-                            if (selectedWeights.contains('30 KG')) {
-                              selectedWeights.remove('30 KG');
+                            if (selectedWeights.contains('XL')) {
+                              selectedWeights.remove('XL');
                             } else {
-                              selectedWeights.add('30 KG');
+                              selectedWeights.add('XL');
                             }
                           });
                         }),
