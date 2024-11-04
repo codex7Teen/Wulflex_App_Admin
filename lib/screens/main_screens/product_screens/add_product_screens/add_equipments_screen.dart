@@ -60,12 +60,12 @@ class _ScreenAddEquipmentsState extends State<ScreenAddEquipments> {
                     style: AppTextStyles.headLineMediumSmall),
                 SizedBox(height: 8),
                 CustomAddFieldsWidget(
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Please enter an item description';
-                    }
-                    return null;
-                  },
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Please enter an item description';
+                      }
+                      return null;
+                    },
                     controller: _descriptionController,
                     textInputType: TextInputType.multiline,
                     minLines: 4),
@@ -171,4 +171,3 @@ class _ScreenAddEquipmentsState extends State<ScreenAddEquipments> {
     );
   }
 }
-
