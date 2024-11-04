@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTextStyles {
-  static final TextStyle headLineMedium= GoogleFonts.bebasNeue(
+  static final TextStyle headLineMedium = GoogleFonts.bebasNeue(
       fontSize: 33, color: Colors.white, letterSpacing: 1);
 
-      static final TextStyle headLineSmall= GoogleFonts.bebasNeue(
+  static final TextStyle headLineSmall = GoogleFonts.bebasNeue(
       fontSize: 22, color: Colors.white, letterSpacing: 1);
 
+      static final TextStyle headLineMediumSmall = GoogleFonts.bebasNeue(
+      fontSize: 24, color: Colors.black, letterSpacing: 1);
 
-    static final TextStyle headLineLarge = GoogleFonts.bebasNeue(
+  static final TextStyle headLineLarge = GoogleFonts.bebasNeue(
       fontSize: 40, color: Colors.white, letterSpacing: 1);
 
   static final TextStyle titleSmall = GoogleFonts.robotoCondensed(
@@ -33,7 +35,7 @@ class AppTextStyles {
   static final TextStyle titleMedium = GoogleFonts.robotoCondensed(
       fontSize: 18,
       color: Colors.white,
-      letterSpacing: 1,
+      letterSpacing: 0.9,
       fontWeight: FontWeight.bold);
 
   static final TextStyle bodySmall = GoogleFonts.robotoCondensed(

@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wulflex_admin/blocs/bloc/authentication_bloc_bloc.dart';
 import 'package:wulflex_admin/consts/app_colors.dart';
-import 'package:wulflex_admin/consts/text_styles.dart';
+import 'package:wulflex_admin/screens/authentication_screens/widgets/login_widgets.dart';
 import 'package:wulflex_admin/screens/main_screens/drawer_screens/side_drawer.dart';
-import 'package:wulflex_admin/widgets/blue_button_widget.dart';
-import 'package:wulflex_admin/widgets/custom_auth_textfield_widget.dart';
 import 'package:wulflex_admin/widgets/custom_snacbar.dart';
 import 'package:wulflex_admin/widgets/navigation_helper_widget.dart';
 
@@ -56,62 +54,28 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       SizedBox(height: 75),
 
                       // image
-                      Center(
-                        child: Image.asset('assets/Login-amico.png',
-                            width: MediaQuery.sizeOf(context).width * 0.645),
-                      ),
+                      buildLoginText(context),
                       SizedBox(height: 45),
-
                       // heading
-                      Text('WELCOME ADMIN',
-                          style: AppTextStyles.headLineLarge
-                              .copyWith(color: Colors.black)),
+                      buildWelcomeText(),
                       SizedBox(height: 14),
 
                       // email textfield
-                      CustomAuthenticationTetxfieldWidget(
-                          controller: _emailTextController,
-                          hintText: 'Administrator ID',
-                          icon: Icons.alternate_email_sharp,
-                          validator: (value) {
-                            // Check if the field is empty
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Please enter you email address';
-                            }
-                            return null;
-                          }),
+                      buildIdTextfield(_emailTextController),
                       SizedBox(height: 30),
 
                       // password field
-                      CustomAuthenticationTetxfieldWidget(
-                        controller: _passwordTextController,
-                        hintText: 'Password',
-                        icon: Icons.lock_outline_rounded,
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Please enter your password';
-                          }
-                          return null;
-                        },
-                        isPasswordVisible: _isPasswordVisible,
-                        obscureText: true,
-                        toggleVisibility: () => setState(() {
-                          _isPasswordVisible = !_isPasswordVisible;
-                        }),
-                      ),
+                      buildPasswordTextfield(
+                          _passwordTextController,
+                          _isPasswordVisible,
+                          () => setState(() {
+                                _isPasswordVisible = !_isPasswordVisible;
+                              })),
                       SizedBox(height: 25),
 
                       //! L O G I N - B U T T O N
-                      GestureDetector(
-                          onTap: () {
-                            if (_formKey.currentState!.validate()) {
-                              BlocProvider.of<AuthenticationBlocBloc>(context)
-                                  .add(LoginButtonClicked(
-                                      email: _emailTextController.text,
-                                      password: _passwordTextController.text));
-                            }
-                          },
-                          child: BlueButtonWidget(buttonText: 'Login')),
+                      buildLoginButton(_formKey, _emailTextController,
+                          _passwordTextController, context),
                       SizedBox(height: 22),
                     ],
                   ),

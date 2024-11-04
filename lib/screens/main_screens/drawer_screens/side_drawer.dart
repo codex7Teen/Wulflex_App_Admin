@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 import 'package:wulflex_admin/consts/app_colors.dart';
 import 'package:wulflex_admin/consts/text_styles.dart';
+import 'package:wulflex_admin/screens/main_screens/category_screens/main_catetgory_screen.dart';
 import 'package:wulflex_admin/screens/main_screens/reviews_screens/review_screen.dart';
-import 'package:wulflex_admin/screens/main_screens/drawer_screens/drawer_menu_items_widget.dart';
+import 'package:wulflex_admin/screens/main_screens/drawer_screens/widgets/drawer_menu_items_widget.dart';
 import 'package:wulflex_admin/screens/main_screens/order_screens/orders_main_screen.dart';
 import 'package:wulflex_admin/screens/main_screens/product_screens/products_main_screen.dart';
 import 'package:wulflex_admin/screens/main_screens/settings_screen/signout.dart';
@@ -26,6 +27,7 @@ class _ScreenSideDrawerState extends State<ScreenSideDrawer> {
     //! D R A W E R - S C R E E N S
     _pages = [
       ScreenHiddenDrawer(productsMenu, ScreenProductsMain()),
+      ScreenHiddenDrawer(categoryMenu, ScreenMainCategory()),
       ScreenHiddenDrawer(ordersMenu, ScreenOrdersMainScreen()),
       ScreenHiddenDrawer(reviewsMenu, ScreenReviews()),
       ScreenHiddenDrawer(usersMenu, ScreenUsers()),

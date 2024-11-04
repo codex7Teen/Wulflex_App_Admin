@@ -12,6 +12,15 @@ final productsMenu = ItemHiddenMenu(
       textStyle: AppTextStyles.headLineMedium),
 );
 
+final categoryMenu = ItemHiddenMenu(
+  colorLineSelected: AppColors.lightScaffoldColor,
+  name: 'Categories',
+  baseStyle: GoogleFonts.bebasNeue(
+      textStyle: AppTextStyles.headLineSmall),
+  selectedStyle: GoogleFonts.bebasNeue(
+      textStyle: AppTextStyles.headLineMedium),
+);
+
 final ordersMenu = ItemHiddenMenu(
   colorLineSelected: AppColors.lightScaffoldColor,
   name: 'Orders',

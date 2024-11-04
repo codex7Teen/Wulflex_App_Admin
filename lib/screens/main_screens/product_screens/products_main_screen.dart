@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wulflex_admin/consts/app_colors.dart';
-import 'package:wulflex_admin/screens/main_screens/product_screens/add_products_screen.dart';
+import 'package:wulflex_admin/screens/main_screens/product_screens/add_product_screens/add_products_screen.dart';
 import 'package:wulflex_admin/widgets/custom_category_button.dart';
 import 'package:wulflex_admin/widgets/navigation_helper_widget.dart';
 
@@ -31,14 +31,14 @@ class ScreenProductsMain extends StatelessWidget {
                   SizedBox(width: 20),
                   CustomCategoryButtonWidget(
                       name: "View Inventory",
-                      icon: Icons.manage_search_rounded),
+                      icon: Icons.manage_search_sharp),
                 ],
               ),
               SizedBox(height: 20),
               Row(
                 children: [
                   CustomCategoryButtonWidget(
-                      name: "Sales Dashboard", icon: Icons.bar_chart_rounded),
+                      name: "Sales Dashboard", icon: Icons.bar_chart_sharp),
                 ],
               )
             ],

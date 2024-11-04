@@ -7,5 +7,6 @@ class AppColors {
   static const Color blueThemeColor = Color.fromARGB(255, 0, 6, 169);
   static const Color greyThemeColor = Colors.grey;
   static Color? lightGreyThemeColor = Colors.grey[200];
+  static const Color lightBlueThemeColor = Color.fromARGB(255, 192, 199, 255);
   static const Color xtraLightBlueThemeColor = Color.fromARGB(255, 225, 228, 255);
 }

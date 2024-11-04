@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wulflex_admin/consts/app_colors.dart';
 import 'package:wulflex_admin/consts/text_styles.dart';
+import 'package:wulflex_admin/screens/main_screens/product_screens/add_product_screens/add_equipments_screen.dart';
 import 'package:wulflex_admin/widgets/custom_category_button.dart';
+import 'package:wulflex_admin/widgets/navigation_helper_widget.dart';
 
 class ScreenAddProducts extends StatelessWidget {
   final String title;
@@ -16,12 +18,12 @@ class ScreenAddProducts extends StatelessWidget {
                 .copyWith(color: AppColors.darkScaffoldColor)),
         centerTitle: true,
         leading: InkWell(
-          onTap: () => Navigator.pop(context),
+            onTap: () => Navigator.pop(context),
             child: Icon(
-          Icons.arrow_back_ios_new_rounded,
-          color: Colors.black,
-          size: 25,
-        )),
+              Icons.arrow_back_ios_new_rounded,
+              color: Colors.black,
+              size: 25,
+            )),
       ),
       backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
       body: Padding(
@@ -33,6 +35,10 @@ class ScreenAddProducts extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomCategoryButtonWidget(
+                      onTap: () =>
+                          NavigationHelper.navigateToWithoutReplacement(
+                              context,
+                              ScreenAddEquipments(screenTitle: "Add New Equipment")),
                       name: "Add Equipments",
                       icon: Icons.fitness_center_outlined),
                   SizedBox(width: 20),

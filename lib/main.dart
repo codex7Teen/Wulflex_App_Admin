@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wulflex_admin/blocs/bloc/authentication_bloc_bloc.dart';
+import 'package:wulflex_admin/consts/app_colors.dart';
 import 'package:wulflex_admin/screens/splash_screens/splash_screen_1.dart';
 
 void main() {
@@ -22,7 +23,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Wulflex Admin',
-          theme: ThemeData(),
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              primary: AppColors.blueThemeColor
+            )
+          ),
           home: const ScreenSplash1()),
     );
   }

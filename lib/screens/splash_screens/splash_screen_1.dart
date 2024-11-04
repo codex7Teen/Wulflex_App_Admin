@@ -20,8 +20,8 @@ class _ScreenSplash12State extends State<ScreenSplash1> {
   void initState() {
     super.initState();
 
-    // Delay for 1 second before triggering the animations
-    Future.delayed(Duration(seconds: 2), () {
+    // Delay for 1.5 second before triggering the animations
+    Future.delayed(Duration(milliseconds: 1500), () {
       if (mounted) {
         setState(() {
           _animateLogo = true;
@@ -49,18 +49,18 @@ class _ScreenSplash12State extends State<ScreenSplash1> {
 
     if (isLoggedIn) {
       Future.delayed(
-                //TODO CHANGE SECONDS TO 4 WHEN RELEASE
-        Duration(seconds: 1),
+        Duration(microseconds: 2500),
         () {
           if (mounted) {
-            NavigationHelper.navigateToWithReplacement(context, ScreenSideDrawer(),
+            NavigationHelper.navigateToWithReplacement(
+                context, ScreenSideDrawer(),
                 milliseconds: 600);
           }
         },
       );
     } else {
       Future.delayed(
-        Duration(seconds: 4),
+        Duration(milliseconds: 2500),
         () {
           if (mounted) {
             NavigationHelper.navigateToWithReplacement(context, ScreenLogin(),
