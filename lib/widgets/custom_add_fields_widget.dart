@@ -25,7 +25,7 @@ class CustomAddFieldsWidget extends StatelessWidget {
         color: AppColors.lightGreyThemeColor,
       ),
       child: Padding(
-        padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
+        padding: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 3),
         child: TextFormField(
           autovalidateMode: AutovalidateMode.onUserInteraction,
           controller: controller,
