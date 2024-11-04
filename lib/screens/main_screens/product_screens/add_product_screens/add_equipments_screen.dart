@@ -171,3 +171,4 @@ class _ScreenAddEquipmentsState extends State<ScreenAddEquipments> {
     );
   }
 }
+
