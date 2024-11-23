@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wulflex_admin/blocs/bloc/authentication_bloc_bloc.dart';
-import 'package:wulflex_admin/consts/text_styles.dart';
+import 'package:wulflex_admin/blocs/authentication_bloc/authentication_bloc_bloc.dart';
+import 'package:wulflex_admin/utils/consts/text_styles.dart';
 import 'package:wulflex_admin/widgets/blue_button_widget.dart';
 import 'package:wulflex_admin/widgets/custom_auth_textfield_widget.dart';
 

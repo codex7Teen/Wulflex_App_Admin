@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wulflex_admin/blocs/bloc/authentication_bloc_bloc.dart';
-import 'package:wulflex_admin/consts/app_colors.dart';
+import 'package:wulflex_admin/blocs/authentication_bloc/authentication_bloc_bloc.dart';
+import 'package:wulflex_admin/utils/consts/app_colors.dart';
 import 'package:wulflex_admin/screens/authentication_screens/widgets/login_widgets.dart';
 import 'package:wulflex_admin/screens/main_screens/drawer_screens/side_drawer.dart';
 import 'package:wulflex_admin/widgets/custom_snacbar.dart';

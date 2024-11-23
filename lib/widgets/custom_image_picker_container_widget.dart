@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:wulflex_admin/consts/app_colors.dart';
-import 'package:wulflex_admin/consts/text_styles.dart';
+import 'package:wulflex_admin/utils/consts/app_colors.dart';
+import 'package:wulflex_admin/utils/consts/text_styles.dart';
 
 class CustomImagePickerContainerWidget extends StatelessWidget {
   final VoidCallback onTap;

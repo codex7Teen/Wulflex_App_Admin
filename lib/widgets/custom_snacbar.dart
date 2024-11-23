@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wulflex_admin/consts/app_colors.dart';
+import 'package:wulflex_admin/utils/consts/app_colors.dart';
 
 class CustomSnackbar {
   static void showCustomSnackBar(BuildContext context, String message,

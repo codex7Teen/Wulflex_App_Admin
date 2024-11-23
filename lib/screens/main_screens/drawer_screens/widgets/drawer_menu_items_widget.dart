@@ -1,6 +1,6 @@
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wulflex_admin/consts/app_colors.dart';
-import 'package:wulflex_admin/consts/text_styles.dart';
+import 'package:wulflex_admin/utils/consts/app_colors.dart';
+import 'package:wulflex_admin/utils/consts/text_styles.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 
 final productsMenu = ItemHiddenMenu(

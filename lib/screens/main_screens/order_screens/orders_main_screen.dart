@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wulflex_admin/consts/app_colors.dart';
+import 'package:wulflex_admin/utils/consts/app_colors.dart';
 import 'package:wulflex_admin/widgets/custom_category_button.dart';
 
 class ScreenOrdersMainScreen extends StatelessWidget {

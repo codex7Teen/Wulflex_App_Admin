@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wulflex_admin/consts/app_colors.dart';
+import 'package:wulflex_admin/utils/consts/app_colors.dart';
 import 'package:wulflex_admin/screens/authentication_screens/login_screen.dart';
 import 'package:wulflex_admin/screens/main_screens/drawer_screens/side_drawer.dart';
 import 'package:wulflex_admin/widgets/navigation_helper_widget.dart';
