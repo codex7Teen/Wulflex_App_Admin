@@ -35,7 +35,7 @@ class ProductServices {
             '${DateTime.now().millisecondsSinceEpoch}_${image.path.split('/').last}';
         final ref = _storage.ref().child('product_images/$customId/$fileName');
         final uploadTask = ref.putFile(image);
-        final snapShot = await uploadTask;
+        final snapShot = await uploadTask.whenComplete(() => null);
         final downloadUrl = await snapShot.ref.getDownloadURL();
         downloadUrls.add(downloadUrl);
       }

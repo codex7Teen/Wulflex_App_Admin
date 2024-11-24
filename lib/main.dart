@@ -2,7 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:wulflex_admin/blocs/authentication_bloc/authentication_bloc_bloc.dart';
+import 'package:wulflex_admin/blocs/category_bloc/category_bloc.dart';
+import 'package:wulflex_admin/blocs/product_bloc/product_bloc.dart';
+import 'package:wulflex_admin/services/category_services.dart';
+import 'package:wulflex_admin/services/product_services.dart';
 import 'package:wulflex_admin/utils/consts/app_colors.dart';
 import 'package:wulflex_admin/screens/splash_screens/splash_screen_1.dart';
 
@@ -31,10 +36,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final productServices = ProductServices();
+    final imagePicker = ImagePicker();
+    final categoryServices = CategoryServices();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => AuthenticationBlocBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ProductBloc(productServices, imagePicker),
+        ),
+        BlocProvider(
+          create: (context) => CategoryBloc(categoryServices),
         ),
       ],
       child: MaterialApp(
