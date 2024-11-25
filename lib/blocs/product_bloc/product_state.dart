@@ -55,3 +55,6 @@ class ImageUploadProgress extends ProductState {
   @override
   List<Object> get props => [progress, selectedImage];
 }
+
+//! PRODUCT DELETE SUCCESS
+class ProductDeleteSuccess extends ProductState {} 

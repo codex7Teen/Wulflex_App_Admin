@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,6 +7,7 @@ import 'package:wulflex_admin/blocs/product_bloc/product_bloc.dart';
 import 'package:wulflex_admin/models/product_model.dart';
 import 'package:wulflex_admin/utils/consts/app_colors.dart';
 import 'package:wulflex_admin/widgets/appbar_with_back_button_widget.dart';
+import 'package:wulflex_admin/widgets/custom_snacbar.dart';
 
 class ScreenViewInventory extends StatefulWidget {
   final String screenTitle;
@@ -47,104 +50,118 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      appBar: AppbarWithbackbuttonWidget(appBarTitle: widget.screenTitle),
-      backgroundColor: AppColors.lightScaffoldColor,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 18, right: 18, top: 15),
-          child: Column(
-            children: [
-              Container(
-                height: 50,
-                width: screenWidth * 0.92,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18),
-                    color: AppColors.lightGreyThemeColor),
-                child: Row(
-                  children: [
-                    const SizedBox(width: 16),
-                    Image.asset(
-                      'assets/Search.png',
-                      scale: 28,
-                      color: AppColors.darkishGrey,
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: TextField(
-                        onChanged: (value) {
-                          // Handle search logic here
-                          setState(() {
-                            _searchQuery = value;
-                          });
-                          // Get current products from bloc state and filter
-                          if (context.read<ProductBloc>().state
-                              is ProductLoaded) {
-                            final products = (context.read<ProductBloc>().state
-                                    as ProductLoaded)
-                                .products;
-                            _filterProducts(products);
-                          }
-                        },
-                        style: GoogleFonts.robotoCondensed(
-                            fontSize: 18, color: AppColors.darkScaffoldColor),
-                        decoration: InputDecoration(
-                          hintText: 'Search by product or category',
-                          hintStyle: GoogleFonts.robotoCondensed(
-                              fontSize: 18, color: AppColors.darkishGrey),
-                          border: InputBorder.none,
+    return BlocListener<ProductBloc, ProductState>(
+      listenWhen: (previous, current) => current is ProductDeleteSuccess,
+      listener: (context, state) {
+        if (state is ProductDeleteSuccess) {
+          CustomSnackbar.showCustomSnackBar(
+              context, 'Product deleted successfully... 🎉🎉🎉');
+        }
+      },
+      child: Scaffold(
+        appBar: AppbarWithbackbuttonWidget(appBarTitle: widget.screenTitle),
+        backgroundColor: AppColors.lightScaffoldColor,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 18, right: 18, top: 15),
+            child: Column(
+              children: [
+                Container(
+                  height: 50,
+                  width: screenWidth * 0.92,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(18),
+                      color: AppColors.lightGreyThemeColor),
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 16),
+                      Image.asset(
+                        'assets/Search.png',
+                        scale: 28,
+                        color: AppColors.darkishGrey,
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: TextField(
+                          onChanged: (value) {
+                            // Handle search logic here
+                            setState(() {
+                              _searchQuery = value;
+                            });
+                            // Get current products from bloc state and filter
+                            if (context.read<ProductBloc>().state
+                                is ProductLoaded) {
+                              final products = (context
+                                      .read<ProductBloc>()
+                                      .state as ProductLoaded)
+                                  .products;
+                              _filterProducts(products);
+                            }
+                          },
+                          style: GoogleFonts.robotoCondensed(
+                              fontSize: 18, color: AppColors.darkScaffoldColor),
+                          decoration: InputDecoration(
+                            hintText: 'Search by product or category',
+                            hintStyle: GoogleFonts.robotoCondensed(
+                                fontSize: 18, color: AppColors.darkishGrey),
+                            border: InputBorder.none,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 22),
-              // Build products
-              BlocBuilder<ProductBloc, ProductState>(
-                builder: (context, state) {
-                  if (state is ProductLoading) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (state is ProductError) {
-                    return Center(child: Text('Error: ${state.message}'));
-                  } else if (state is ProductLoaded) {
-                    if (_searchQuery.isEmpty) {
-                      _filteredProducts = state.products;
-                    }
+                SizedBox(height: 22),
+                // Build products
+                BlocBuilder<ProductBloc, ProductState>(
+                  buildWhen: (previous, current) =>
+                      current is ProductLoading ||
+                      current is ProductLoaded ||
+                      current is ProductError,
+                  builder: (context, state) {
+                    if (state is ProductLoading && _filteredProducts.isEmpty) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is ProductError) {
+                      return Center(child: Text('Error: ${state.message}'));
+                    } else if (state is ProductLoaded) {
+                      if (_searchQuery.isEmpty) {
+                        _filteredProducts = state.products;
+                      }
 
-                    if (_filteredProducts.isEmpty) {
-                      return Center(
-                          child: Text('No products found! 😔',
-                              style: GoogleFonts.robotoCondensed(
-                                  fontSize: 20,
-                                  color: AppColors.darkScaffoldColor,
-                                  letterSpacing: 1)));
+                      if (_filteredProducts.isEmpty) {
+                        return Center(
+                            child: Text('No products found! 😔',
+                                style: GoogleFonts.robotoCondensed(
+                                    fontSize: 20,
+                                    color: AppColors.darkScaffoldColor,
+                                    letterSpacing: 1)));
+                      }
+                      // Show product card
+                      return Expanded(
+                        child: ListView.separated(
+                          itemCount: _filteredProducts.length,
+                          itemBuilder: (context, index) {
+                            return buildItemCard(
+                                context, _filteredProducts[index]);
+                          },
+                          separatorBuilder: (context, index) {
+                            return SizedBox(height: 15);
+                          },
+                        ),
+                      );
                     }
-                    // Show product card
-                    return Expanded(
-                      child: ListView.separated(
-                        itemCount: _filteredProducts.length,
-                        itemBuilder: (context, index) {
-                          return buildItemCard(
-                              context, _filteredProducts[index]);
-                        },
-                        separatorBuilder: (context, index) {
-                          return SizedBox(height: 15);
-                        },
-                      ),
-                    );
-                  }
-                  return Center(
-                      child: Text(
-                    'Start searching for products...',
-                    style: GoogleFonts.robotoCondensed(
-                        fontSize: 20,
-                        color: AppColors.darkScaffoldColor,
-                        letterSpacing: 1),
-                  ));
-                },
-              )
-            ],
+                    return Center(
+                        child: Text(
+                      'Start searching for products...',
+                      style: GoogleFonts.robotoCondensed(
+                          fontSize: 20,
+                          color: AppColors.darkScaffoldColor,
+                          letterSpacing: 1),
+                    ));
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -233,10 +250,11 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
                 onSelected: (value) {
                   if (value == 0) {
                     // Handle Edit action
-                    // _handleEdit(context, product);
                   } else if (value == 1) {
                     // Handle Delete action
-                    // _handleDelete(context, product);
+                    context.read<ProductBloc>().add(DeleteProductEvent(
+                        productId: product.id!, imageUrls: product.imageUrls));
+                    log('${product.id} DELETE ATTEMPTED');
                   }
                 },
                 icon: Icon(Icons.more_vert_rounded,

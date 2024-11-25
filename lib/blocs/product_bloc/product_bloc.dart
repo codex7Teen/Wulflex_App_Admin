@@ -80,5 +80,24 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         emit(ProductError(error.toString()));
       }
     });
+
+    //! DELETE PRODUCT BLOC
+    on<DeleteProductEvent>((event, emit) async {
+      try {
+        await _productServices.deleteProduct(event.productId, event.imageUrls);
+        // Emit delete success without changing the current products state
+        emit(ProductDeleteSuccess());
+        // Re-emit the previous state with products
+        if (state is ProductLoaded) {
+          emit(state);
+        }
+      } catch (error) {
+        emit(ProductError('Failed to delete product: $error'));
+        // Re-emit the previous state with products
+        if (state is ProductLoaded) {
+          emit(state);
+        }
+      }
+    });
   }
 }

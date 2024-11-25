@@ -50,3 +50,14 @@ class AddProductEvent extends ProductEvent {
 
 //! LOAD PRODUCT EVENT
 class LoadProducts extends ProductEvent {}
+
+//! DELETE PRODUCT EVENT
+class DeleteProductEvent extends ProductEvent {
+  final String productId;
+  final List<String> imageUrls;
+
+  DeleteProductEvent({required this.productId, required this.imageUrls});
+
+  @override
+  List<Object> get props => [productId, imageUrls];
+}

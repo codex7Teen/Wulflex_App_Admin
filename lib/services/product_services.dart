@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,7 +13,9 @@ class ProductServices {
   //! GET PRODUCTS
   Stream<List<ProductModel>> getProducts() {
     return _firestore.collection('products').snapshots().map((snapshot) =>
-        snapshot.docs.map((doc) => ProductModel.fromMap(doc.data())).toList());
+        snapshot.docs
+            .map((doc) => ProductModel.fromMap(doc.data(), doc.id))
+            .toList());
   }
 
   //! ADD PRODUCT TO FIREBASE
@@ -48,6 +51,27 @@ class ProductServices {
       return downloadUrls;
     } catch (error) {
       throw Exception('Failed to upload images: $error');
+    }
+  }
+
+  //! DELETE PRODUCT
+  Future<void> deleteProduct(String productId, List<String> imageUrls) async {
+    try {
+      // Delete product document
+      await _firestore.collection('products').doc(productId).delete();
+
+      // Delete associated images from storage
+      for (String imageUrl in imageUrls) {
+        try {
+          // Get reference from url
+          final ref = _storage.refFromURL(imageUrl);
+          await ref.delete();
+        } catch (imageDeleteError) {
+          log('error deleting image: $imageDeleteError');
+        }
+      }
+    } catch (deleteError) {
+      throw Exception('Failed to delete product: $deleteError');
     }
   }
 }
