@@ -10,19 +10,42 @@ import 'package:wulflex_admin/utils/consts/text_styles.dart';
 import 'package:wulflex_admin/widgets/appbar_with_back_button_widget.dart';
 import 'package:wulflex_admin/widgets/blue_button_widget.dart';
 import 'package:wulflex_admin/widgets/custom_add_fields_widget.dart';
+import 'package:wulflex_admin/widgets/custom_edit_image_picker_widget.dart';
 import 'package:wulflex_admin/widgets/custom_image_picker_container_widget.dart';
 import 'package:wulflex_admin/widgets/custom_snacbar.dart';
 import 'package:wulflex_admin/widgets/custom_weightandsize_selector_container_widget.dart';
 
-class ScreenAddProducts extends StatefulWidget {
+class ScreenEditProducts extends StatefulWidget {
   final String screenTitle;
-  const ScreenAddProducts({super.key, required this.screenTitle});
+  final String productId;
+  final String productName;
+  final String productDescription;
+  final String productCategory;
+  final List<String> productWeight;
+  final List<String> productSize;
+  final double productRetailPrice;
+  final double productOfferPrice;
+  final bool productIsOnSale;
+  final List<String> existingImageUrls;
+  const ScreenEditProducts(
+      {super.key,
+      required this.screenTitle,
+      required this.productId,
+      required this.productName,
+      required this.productDescription,
+      required this.productCategory,
+      required this.productWeight,
+      required this.productSize,
+      required this.productRetailPrice,
+      required this.productOfferPrice,
+      required this.productIsOnSale,
+      required this.existingImageUrls});
 
   @override
-  State<ScreenAddProducts> createState() => ScreenAddProductsState();
+  State<ScreenEditProducts> createState() => ScreenEditProductsState();
 }
 
-class ScreenAddProductsState extends State<ScreenAddProducts> {
+class ScreenEditProductsState extends State<ScreenEditProducts> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -43,6 +66,13 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
   @override
   void initState() {
     context.read<CategoryBloc>().add(LoadCategoriesEvent());
+    _nameController.text = widget.productName;
+    _descriptionController.text = widget.productDescription;
+    _selectedCategory = widget.productCategory;
+    selectedWeights = widget.productWeight.toSet();
+    selectedSizes = widget.productSize.toSet();
+    _retailPriceController.text = widget.productRetailPrice.toString();
+    _offerPriceController.text = widget.productOfferPrice.toString();
     super.initState();
   }
 
@@ -53,24 +83,6 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
     _descriptionController.dispose();
     _retailPriceController.dispose();
     _offerPriceController.dispose();
-  }
-
-  void _clearAllFields() {
-    setState(() {
-      // Reset form validation state
-      formKey.currentState?.reset();
-      // Clear text controllers
-      _nameController.clear();
-      _descriptionController.clear();
-      _retailPriceController.clear();
-      _offerPriceController.clear();
-      // Clear selections
-      _selectedCategory = null;
-      selectedWeights.clear();
-      selectedSizes.clear();
-      selectedImages.clear();
-      isOnSale = false;
-    });
   }
 
   @override
@@ -85,14 +97,12 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
               state.message,
               icon: Icons.error_outline_rounded,
             );
-          } else if (state is ProductAddSuccess) {
+          } else if (state is ProductUpdateSuccess) {
             CustomSnackbar.showCustomSnackBar(
               context,
-              'Product added successfully... 🎉🎉🎉',
+              'Product updated successfully... 🎉🎉🎉',
               icon: Icons.check_circle_outline_rounded,
             );
-            // clears all the fields
-            _clearAllFields();
           } else if (state is ImagesPickedSuccess) {
             setState(() {
               selectedImages = state.imagePaths;
@@ -114,13 +124,15 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                             style: AppTextStyles.headLineMediumSmall),
                         SizedBox(height: 8),
                         Center(
-                          child: CustomImagePickerContainerWidget(
+                          child: CustomEditImagePickerWidget(
                               onTap: () {
                                 context
                                     .read<ProductBloc>()
                                     .add(PickImagesEvent());
                               },
-                              imagePaths: selectedImages),
+                              imagePaths: selectedImages.isEmpty
+                                  ? widget.existingImageUrls
+                                  : selectedImages),
                         ),
                         SizedBox(height: 25),
                         Text('Item Name',
@@ -427,12 +439,6 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         SizedBox(height: 25),
                         GestureDetector(onTap: () async {
                           if (formKey.currentState!.validate() &&
-                              selectedImages.isEmpty) {
-                            CustomSnackbar.showCustomSnackBar(
-                                context, "Please upload an image",
-                                icon: Icons.error_outline_rounded);
-                            return;
-                          } else if (formKey.currentState!.validate() &&
                               selectedWeights.isEmpty &&
                               selectedSizes.isEmpty) {
                             CustomSnackbar.showCustomSnackBar(
@@ -446,26 +452,33 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                                 icon: Icons.error_outline_rounded);
                             return;
                           }
+                          if (formKey.currentState!.validate()) {
+                            // Dispatch update event
+                            context.read<ProductBloc>().add(
+                                  UpdateProductEvent(
+                                    productId: widget.productId,
+                                    name: _nameController.text.trim(),
+                                    description:
+                                        _descriptionController.text.trim(),
+                                    category: _selectedCategory!,
+                                    existingImageUrls: selectedImages.isEmpty
+                                        ? widget.existingImageUrls
+                                        : [],
+                                    newImagePaths: selectedImages.isNotEmpty
+                                        ? selectedImages
+                                        : null,
+                                    weights: selectedWeights,
+                                    sizes: selectedSizes,
+                                    retailPrice: double.parse(
+                                        _retailPriceController.text.trim()),
+                                    offerPrice: double.parse(
+                                        _offerPriceController.text.trim()),
+                                    isOnSale: isOnSale,
+                                  ),
+                                );
+                          }
 
                           //! Add product to fbase
-                          context.read<ProductBloc>().add(
-                                AddProductEvent(
-                                  name: _nameController.text.trim(),
-                                  description:
-                                      _descriptionController.text.trim(),
-                                  category: _selectedCategory!,
-                                  images: selectedImages
-                                      .map((path) => File(path))
-                                      .toList(),
-                                  weights: selectedWeights,
-                                  sizes: selectedSizes,
-                                  retailPrice:
-                                      double.parse(_retailPriceController.text),
-                                  offerPrice:
-                                      double.parse(_offerPriceController.text),
-                                  isOnSale: isOnSale,
-                                ),
-                              );
                         }, child: BlocBuilder<ProductBloc, ProductState>(
                           builder: (context, state) {
                             return BlueButtonWidget(
@@ -480,7 +493,7 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                 ),
               ),
               //! Show loading when product is uploading
-              if (state is ProductLoading)
+              if (state is ProductLoading && selectedImages.isNotEmpty)
                 Container(
                   color: Colors.black.withOpacity(0.5),
                   child: Center(

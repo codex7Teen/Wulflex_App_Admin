@@ -57,4 +57,7 @@ class ImageUploadProgress extends ProductState {
 }
 
 //! PRODUCT DELETE SUCCESS
-class ProductDeleteSuccess extends ProductState {} 
+class ProductDeleteSuccess extends ProductState {}
+
+//! PRODUCT UPDATED SUCCESS
+class ProductUpdateSuccess extends ProductState {}

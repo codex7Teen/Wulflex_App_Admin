@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:wulflex_admin/utils/consts/app_colors.dart';
 import 'package:wulflex_admin/utils/consts/text_styles.dart';
 
-class CustomImagePickerContainerWidget extends StatelessWidget {
+class CustomEditImagePickerWidget extends StatelessWidget {
   final VoidCallback onTap;
   final List<String> imagePaths;
-  const CustomImagePickerContainerWidget(
+  const CustomEditImagePickerWidget(
       {super.key, required this.onTap, required this.imagePaths});
 
   @override
@@ -67,15 +67,19 @@ class CustomImagePickerContainerWidget extends StatelessWidget {
                                     }
                                     // show image loading indicator
                                     return Center(
-                                        child: CircularProgressIndicator(
-                                            value: loadingProgress
-                                                        .expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                        .cumulativeBytesLoaded /
-                                                    loadingProgress
-                                                        .expectedTotalBytes!
-                                                : null));
+                                        child: SizedBox(
+                                          width: 22,
+                                          height: 22,
+                                          child: CircularProgressIndicator(
+                                              value: loadingProgress
+                                                          .expectedTotalBytes !=
+                                                      null
+                                                  ? loadingProgress
+                                                          .cumulativeBytesLoaded /
+                                                      loadingProgress
+                                                          .expectedTotalBytes!
+                                                  : null),
+                                        ));
                                   },
                                 )
                               : Image.file(

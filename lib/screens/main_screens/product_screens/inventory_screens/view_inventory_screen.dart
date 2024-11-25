@@ -5,9 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wulflex_admin/blocs/product_bloc/product_bloc.dart';
 import 'package:wulflex_admin/models/product_model.dart';
+import 'package:wulflex_admin/screens/main_screens/product_screens/inventory_screens/edit_product_screen.dart';
 import 'package:wulflex_admin/utils/consts/app_colors.dart';
 import 'package:wulflex_admin/widgets/appbar_with_back_button_widget.dart';
 import 'package:wulflex_admin/widgets/custom_snacbar.dart';
+import 'package:wulflex_admin/widgets/navigation_helper_widget.dart';
 
 class ScreenViewInventory extends StatefulWidget {
   final String screenTitle;
@@ -195,11 +197,15 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
                     }
                     // show image loading indicator
                     return Center(
-                        child: CircularProgressIndicator(
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes!
-                                : null));
+                        child: SizedBox(
+                      width: 26,
+                      height: 26,
+                      child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null),
+                    ));
                   },
                 )),
           ),
@@ -250,6 +256,21 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
                 onSelected: (value) {
                   if (value == 0) {
                     // Handle Edit action
+                    NavigationHelper.navigateToWithoutReplacement(
+                        context,
+                        ScreenEditProducts(
+                          screenTitle: 'Edit Product',
+                          productId: product.id!,
+                          productName: product.name,
+                          productDescription: product.description,
+                          productCategory: product.category,
+                          productWeight: product.weights,
+                          productSize: product.sizes,
+                          productRetailPrice: product.retailPrice,
+                          productOfferPrice: product.offerPrice,
+                          productIsOnSale: product.isOnSale,
+                          existingImageUrls: product.imageUrls,
+                        ));
                   } else if (value == 1) {
                     // Handle Delete action
                     context.read<ProductBloc>().add(DeleteProductEvent(

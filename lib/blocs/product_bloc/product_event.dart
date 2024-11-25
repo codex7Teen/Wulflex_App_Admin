@@ -61,3 +61,46 @@ class DeleteProductEvent extends ProductEvent {
   @override
   List<Object> get props => [productId, imageUrls];
 }
+
+class UpdateProductEvent extends ProductEvent {
+  final String productId;
+  final String name;
+  final String description;
+  final String category;
+  final List<String> existingImageUrls;
+  final List<String>? newImagePaths;
+  final Set<String> weights;
+  final Set<String> sizes;
+  final double retailPrice;
+  final double offerPrice;
+  final bool isOnSale;
+
+  UpdateProductEvent({
+    required this.productId,
+    required this.name,
+    required this.description,
+    required this.category,
+    required this.existingImageUrls,
+    this.newImagePaths,
+    required this.weights,
+    required this.sizes,
+    required this.retailPrice,
+    required this.offerPrice,
+    required this.isOnSale,
+  });
+
+  @override
+  List<Object> get props => [
+        productId,
+        name,
+        description,
+        category,
+        existingImageUrls,
+        newImagePaths ?? [],
+        weights,
+        sizes,
+        retailPrice,
+        offerPrice,
+        isOnSale,
+      ];
+}

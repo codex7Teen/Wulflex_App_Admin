@@ -99,5 +99,40 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         }
       }
     });
+
+    //! UPDATE PRODUCT EVENT
+    on<UpdateProductEvent>((event, emit) async {
+      try {
+        emit(ProductLoading());
+
+        // Create product model with updated details
+        final updatedProduct = ProductModel(
+          name: event.name.trim(),
+          description: event.description.trim(),
+          category: event.category,
+          imageUrls: event.existingImageUrls,
+          weights: event.weights.toList(),
+          sizes: event.sizes.toList(),
+          retailPrice: event.retailPrice,
+          offerPrice: event.offerPrice,
+          isOnSale: event.isOnSale,
+        );
+
+        // Convert new image paths to files
+        List<File>? newImageFiles;
+        if (event.newImagePaths != null) {
+          newImageFiles =
+              event.newImagePaths!.map((path) => File(path)).toList();
+        }
+
+        // Update product in Firebase
+        await _productServices.updateProduct(
+            updatedProduct, event.productId, newImageFiles);
+
+        emit(ProductUpdateSuccess());
+      } catch (error) {
+        emit(ProductError('Failed to update product: $error'));
+      }
+    });
   }
 }
