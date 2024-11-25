@@ -13,6 +13,15 @@ final class ProductInitial extends ProductState {}
 //! PRODUCT LOADING STATE
 class ProductLoading extends ProductState {}
 
+//! PRODUCT LOADED STATE
+class ProductLoaded extends ProductState {
+  final List<ProductModel> products;
+  ProductLoaded(this.products);
+
+  @override
+  List<Object> get props => [products];
+}
+
 //! IMAGE PICKED SUCCESS STATE
 class ImagesPickedSuccess extends ProductState {
   final List<String> imagePaths;

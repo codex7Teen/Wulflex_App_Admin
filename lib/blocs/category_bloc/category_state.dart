@@ -11,6 +11,8 @@ class CategoryInitial extends CategoryState {}
 
 class CategoryLoading extends CategoryState {}
 
+class CategoryAddSuccess extends CategoryState {}
+
 class CategoriesLoaded extends CategoryState {
   final List<String> defaultCategories;
   final List<String> customCategories;

@@ -47,3 +47,6 @@ class AddProductEvent extends ProductEvent {
         isOnSale,
       ];
 }
+
+//! LOAD PRODUCT EVENT
+class LoadProducts extends ProductEvent {}

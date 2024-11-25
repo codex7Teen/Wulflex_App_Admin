@@ -11,7 +11,6 @@ class CategoryServices {
     'Supplements',
     'Accessories',
     'Apparels',
-    'Clothing'
   ];
 
   //! Add a new category

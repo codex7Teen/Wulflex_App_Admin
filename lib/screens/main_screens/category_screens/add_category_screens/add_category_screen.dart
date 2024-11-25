@@ -37,12 +37,20 @@ class _ScreenAddCategoryState extends State<ScreenAddCategory> {
               state.message,
               icon: Icons.error,
             );
-          } else if (state is CategoriesLoaded) {
+          } else if (state is CategoryAddSuccess) {
             CustomSnackbar.showCustomSnackBar(
               context,
               'Category added successfully... 🎉🎉🎉',
               icon: Icons.check_circle_outline_rounded,
             );
+            setState(() {
+              setState(() {
+                // Reset form validation state
+                formKey.currentState?.reset();
+                // Clear text controllers
+                _categoryNameController.clear();
+              });
+            });
           }
         },
         builder: (context, state) {

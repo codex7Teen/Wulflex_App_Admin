@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wulflex_admin/screens/main_screens/product_screens/add_product_screens/add_product_screen.dart';
+import 'package:wulflex_admin/screens/main_screens/product_screens/inventory_screens/view_inventory_screen.dart';
 import 'package:wulflex_admin/utils/consts/app_colors.dart';
 import 'package:wulflex_admin/widgets/custom_category_button.dart';
 import 'package:wulflex_admin/widgets/navigation_helper_widget.dart';
@@ -23,11 +24,15 @@ class ScreenProductsMain extends StatelessWidget {
                       name: "Add Items",
                       icon: Icons.add,
                       onTap: () =>
-                          NavigationHelper.navigateToWithoutReplacement(
-                              context,
+                          NavigationHelper.navigateToWithoutReplacement(context,
                               ScreenAddProducts(screenTitle: 'Add Items'))),
                   SizedBox(width: 20),
                   CustomCategoryButtonWidget(
+                      onTap: () =>
+                          NavigationHelper.navigateToWithoutReplacement(
+                              context,
+                              ScreenViewInventory(
+                                  screenTitle: 'View Inventory')),
                       name: "View Inventory",
                       icon: Icons.manage_search_sharp),
                 ],

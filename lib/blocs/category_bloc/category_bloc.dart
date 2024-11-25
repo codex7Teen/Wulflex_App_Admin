@@ -59,6 +59,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         }
 
         await _categoryServices.addCategory(event.categoryName);
+        emit(CategoryAddSuccess());
 
         // No need to emit CategoriesLoaded here as the stream will handle that
       } catch (error) {

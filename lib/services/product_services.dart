@@ -9,6 +9,12 @@ class ProductServices {
   final _firestore = FirebaseFirestore.instance;
   final _storage = FirebaseStorage.instanceFor(bucket: bucket);
 
+  //! GET PRODUCTS
+  Stream<List<ProductModel>> getProducts() {
+    return _firestore.collection('products').snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => ProductModel.fromMap(doc.data())).toList());
+  }
+
   //! ADD PRODUCT TO FIREBASE
   Future<void> addProduct(ProductModel product, String customId) async {
     try {

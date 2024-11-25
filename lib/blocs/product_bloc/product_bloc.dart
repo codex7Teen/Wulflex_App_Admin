@@ -66,5 +66,19 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         emit(ProductError('Failed to upload product: $error'));
       }
     });
+
+    //! GET PRODUCT BLOC
+    on<LoadProducts>((event, emit) async {
+      emit(ProductLoading());
+      try {
+        await emit.forEach(
+          _productServices.getProducts(),
+          onData: (List<ProductModel> products) => ProductLoaded(products),
+          onError: (error, stackTrace) => ProductError(error.toString()),
+        );
+      } catch (error) {
+        emit(ProductError(error.toString()));
+      }
+    });
   }
 }
