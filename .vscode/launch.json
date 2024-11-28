@@ -9,7 +9,7 @@
             "request": "launch",
             "type": "dart"
         },
-        { 
+        {
             "name": "wulflex_admin (profile mode)",
             "request": "launch",
             "type": "dart",

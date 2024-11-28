@@ -30,7 +30,7 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
     context.read<ProductBloc>().add(LoadProducts());
   }
 
-  // filter products
+  // Filter products
   void _filterProducts(List<ProductModel> products) {
     if (_searchQuery.isEmpty) {
       _filteredProducts = products;
@@ -68,12 +68,14 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
             padding: const EdgeInsets.only(left: 18, right: 18, top: 15),
             child: Column(
               children: [
+                // Search Container
                 Container(
                   height: 50,
                   width: screenWidth * 0.92,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(18),
-                      color: AppColors.lightGreyThemeColor),
+                    borderRadius: BorderRadius.circular(18),
+                    color: AppColors.lightGreyThemeColor,
+                  ),
                   child: Row(
                     children: [
                       const SizedBox(width: 16),
@@ -86,7 +88,6 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
                       Expanded(
                         child: TextField(
                           onChanged: (value) {
-                            // Handle search logic here
                             setState(() {
                               _searchQuery = value;
                             });
@@ -101,11 +102,15 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
                             }
                           },
                           style: GoogleFonts.robotoCondensed(
-                              fontSize: 18, color: AppColors.darkScaffoldColor),
+                            fontSize: 18,
+                            color: AppColors.darkScaffoldColor,
+                          ),
                           decoration: InputDecoration(
                             hintText: 'Search by product or category',
                             hintStyle: GoogleFonts.robotoCondensed(
-                                fontSize: 18, color: AppColors.darkishGrey),
+                              fontSize: 18,
+                              color: AppColors.darkishGrey,
+                            ),
                             border: InputBorder.none,
                           ),
                         ),
@@ -113,8 +118,10 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
                     ],
                   ),
                 ),
+
                 SizedBox(height: 22),
-                // Build products
+
+                // Products List
                 BlocBuilder<ProductBloc, ProductState>(
                   buildWhen: (previous, current) =>
                       current is ProductLoading ||
@@ -132,12 +139,17 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
 
                       if (_filteredProducts.isEmpty) {
                         return Center(
-                            child: Text('No products found! 😔',
-                                style: GoogleFonts.robotoCondensed(
-                                    fontSize: 20,
-                                    color: AppColors.darkScaffoldColor,
-                                    letterSpacing: 1)));
+                          child: Text(
+                            'No products found! 😔',
+                            style: GoogleFonts.robotoCondensed(
+                              fontSize: 20,
+                              color: AppColors.darkScaffoldColor,
+                              letterSpacing: 1,
+                            ),
+                          ),
+                        );
                       }
+
                       // Show product card
                       return Expanded(
                         child: ListView.separated(
@@ -153,13 +165,15 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
                       );
                     }
                     return Center(
-                        child: Text(
-                      'Start searching for products...',
-                      style: GoogleFonts.robotoCondensed(
+                      child: Text(
+                        'Start searching for products...',
+                        style: GoogleFonts.robotoCondensed(
                           fontSize: 20,
                           color: AppColors.darkScaffoldColor,
-                          letterSpacing: 1),
-                    ));
+                          letterSpacing: 1,
+                        ),
+                      ),
+                    );
                   },
                 )
               ],
@@ -170,116 +184,136 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
     );
   }
 
-  // buildItemCard widget
+  // Build Item Card Widget
   Widget buildItemCard(BuildContext context, ProductModel product) {
     return Container(
-        padding: EdgeInsets.all(13),
-        height: 110,
-        width: MediaQuery.sizeOf(context).width,
-        decoration: BoxDecoration(
-          color: AppColors.lightGreyThemeColor,
-          borderRadius: BorderRadius.circular(18),
-        ),
-        child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      padding: EdgeInsets.all(13),
+      width: MediaQuery.of(context).size.width, // Full width
+      decoration: BoxDecoration(
+        color: AppColors.lightGreyThemeColor,
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Row(
+        children: [
+          // Product Image
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: SizedBox(
-                height: MediaQuery.sizeOf(context).height,
-                width: MediaQuery.sizeOf(context).width * 0.21,
-                child: Image.network(
-                  product.imageUrls[0],
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) =>
-                      Image.asset('assets/wulflex_logo_nobg.png'),
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) {
-                      return child;
-                    }
-                    // show image loading indicator
-                    return Center(
-                        child: SizedBox(
+              height: 84, // Fixed height
+              width: MediaQuery.of(context).size.width * 0.21,
+              child: Image.network(
+                product.imageUrls[0],
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) =>
+                    Image.asset('assets/wulflex_logo_nobg.png'),
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(
+                    child: SizedBox(
                       width: 26,
                       height: 26,
                       child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                              : null),
-                    ));
-                  },
-                )),
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
           ),
-          SizedBox(width: 13),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                product.name,
-                style: GoogleFonts.robotoCondensed(
+
+          SizedBox(width: 14),
+
+          // Product Details
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  product.brandName,
+                  style: GoogleFonts.robotoCondensed(
                     fontWeight: FontWeight.bold,
                     color: AppColors.darkScaffoldColor,
                     fontSize: 18,
-                    letterSpacing: 1),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
-                product.category,
-                style: GoogleFonts.robotoCondensed(
+                    letterSpacing: 1,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  product.name,
+                  style: GoogleFonts.robotoCondensed(
                     fontWeight: FontWeight.bold,
                     color: AppColors.darkishGrey,
                     fontSize: 13,
-                    letterSpacing: 1),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Spacer(),
-              Text(
-                "₹${product.offerPrice.round()}",
-                style: GoogleFonts.robotoCondensed(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.darkScaffoldColor,
-                  fontSize: 18,
-                  letterSpacing: 1,
+                    letterSpacing: 1,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-            ],
+                SizedBox(height: 9),
+                Text(
+                  "₹${product.offerPrice.round()}",
+                  style: GoogleFonts.robotoCondensed(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.darkScaffoldColor,
+                    fontSize: 18,
+                    letterSpacing: 1,
+                  ),
+                ),
+              ],
+            ),
           ),
-          Spacer(),
+
+          // Action Column
           Column(
             children: [
-              SizedBox(height: 4),
-              Icon(Icons.arrow_forward_ios_rounded,
-                  color: AppColors.darkishGrey, size: 19),
-              Spacer(),
+              Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: AppColors.darkishGrey,
+                size: 19,
+              ),
+              SizedBox(height: 8),
               PopupMenuButton<int>(
                 onSelected: (value) {
                   if (value == 0) {
                     // Handle Edit action
                     NavigationHelper.navigateToWithoutReplacement(
-                        context,
-                        ScreenEditProducts(
-                          screenTitle: 'Edit Product',
-                          productId: product.id!,
-                          productName: product.name,
-                          productDescription: product.description,
-                          productCategory: product.category,
-                          productWeight: product.weights,
-                          productSize: product.sizes,
-                          productRetailPrice: product.retailPrice,
-                          productOfferPrice: product.offerPrice,
-                          productIsOnSale: product.isOnSale,
-                          existingImageUrls: product.imageUrls,
-                        ));
+                      context,
+                      ScreenEditProducts(
+                        screenTitle: 'Edit Product',
+                        productId: product.id!,
+                        brandName: product.brandName,
+                        productName: product.name,
+                        productDescription: product.description,
+                        productCategory: product.category,
+                        productWeight: product.weights,
+                        productSize: product.sizes,
+                        productRetailPrice: product.retailPrice,
+                        productOfferPrice: product.offerPrice,
+                        productIsOnSale: product.isOnSale,
+                        existingImageUrls: product.imageUrls,
+                      ),
+                    );
                   } else if (value == 1) {
                     // Handle Delete action
-                    context.read<ProductBloc>().add(DeleteProductEvent(
-                        productId: product.id!, imageUrls: product.imageUrls));
+                    context.read<ProductBloc>().add(
+                          DeleteProductEvent(
+                            productId: product.id!,
+                            imageUrls: product.imageUrls,
+                          ),
+                        );
                     log('${product.id} DELETE ATTEMPTED');
                   }
                 },
-                icon: Icon(Icons.more_vert_rounded,
-                    color: AppColors.darkishGrey, size: 24),
+                icon: Icon(
+                  Icons.more_vert_rounded,
+                  color: AppColors.darkishGrey,
+                  size: 24,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18),
                 ),
@@ -320,6 +354,8 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
               )
             ],
           ),
-        ]));
+        ],
+      ),
+    );
   }
 }

@@ -1,5 +1,6 @@
 class ProductModel {
   final String? id;
+  final String brandName;
   final String name;
   final String description;
   final String category;
@@ -12,6 +13,7 @@ class ProductModel {
 
   ProductModel(
       {this.id,
+      required this.brandName,
       required this.name,
       required this.description,
       required this.category,
@@ -24,6 +26,7 @@ class ProductModel {
 
   Map<String, dynamic> toMap() {
     return {
+      'brandName': brandName,
       'name': name,
       'description': description,
       'category': category,
@@ -39,6 +42,7 @@ class ProductModel {
   factory ProductModel.fromMap(Map<String, dynamic> map, [String? id]) {
     return ProductModel(
       id: id,
+      brandName: map['brandName'] ?? '',
       name: map['name'] ?? '',
       description: map['description'] ?? '',
       category: map['category'] ?? '',

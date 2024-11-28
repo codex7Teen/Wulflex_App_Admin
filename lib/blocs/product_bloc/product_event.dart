@@ -12,6 +12,7 @@ class PickImagesEvent extends ProductEvent {}
 
 //! ADD PRODUCT EVENT
 class AddProductEvent extends ProductEvent {
+  final String brandName;
   final String name;
   final String description;
   final String category;
@@ -23,6 +24,7 @@ class AddProductEvent extends ProductEvent {
   final bool isOnSale;
 
   AddProductEvent({
+    required this.brandName,
     required this.name,
     required this.description,
     required this.category,
@@ -36,6 +38,7 @@ class AddProductEvent extends ProductEvent {
 
   @override
   List<Object> get props => [
+    brandName,
         name,
         description,
         category,
@@ -64,6 +67,7 @@ class DeleteProductEvent extends ProductEvent {
 
 class UpdateProductEvent extends ProductEvent {
   final String productId;
+  final String brandName;
   final String name;
   final String description;
   final String category;
@@ -77,6 +81,7 @@ class UpdateProductEvent extends ProductEvent {
 
   UpdateProductEvent({
     required this.productId,
+    required this.brandName,
     required this.name,
     required this.description,
     required this.category,
@@ -92,6 +97,7 @@ class UpdateProductEvent extends ProductEvent {
   @override
   List<Object> get props => [
         productId,
+        brandName,
         name,
         description,
         category,

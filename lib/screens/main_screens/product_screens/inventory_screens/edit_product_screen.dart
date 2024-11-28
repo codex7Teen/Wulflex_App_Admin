@@ -1,6 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wulflex_admin/blocs/category_bloc/category_bloc.dart';
@@ -11,13 +9,13 @@ import 'package:wulflex_admin/widgets/appbar_with_back_button_widget.dart';
 import 'package:wulflex_admin/widgets/blue_button_widget.dart';
 import 'package:wulflex_admin/widgets/custom_add_fields_widget.dart';
 import 'package:wulflex_admin/widgets/custom_edit_image_picker_widget.dart';
-import 'package:wulflex_admin/widgets/custom_image_picker_container_widget.dart';
 import 'package:wulflex_admin/widgets/custom_snacbar.dart';
 import 'package:wulflex_admin/widgets/custom_weightandsize_selector_container_widget.dart';
 
 class ScreenEditProducts extends StatefulWidget {
   final String screenTitle;
   final String productId;
+  final String brandName;
   final String productName;
   final String productDescription;
   final String productCategory;
@@ -31,6 +29,7 @@ class ScreenEditProducts extends StatefulWidget {
       {super.key,
       required this.screenTitle,
       required this.productId,
+      required this.brandName,
       required this.productName,
       required this.productDescription,
       required this.productCategory,
@@ -51,6 +50,7 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _retailPriceController = TextEditingController();
   final TextEditingController _offerPriceController = TextEditingController();
+  final TextEditingController _brandNameController = TextEditingController();
 
   // To store the selected category
   String? _selectedCategory;
@@ -66,6 +66,7 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
   @override
   void initState() {
     context.read<CategoryBloc>().add(LoadCategoriesEvent());
+    _brandNameController.text = widget.brandName;
     _nameController.text = widget.productName;
     _descriptionController.text = widget.productDescription;
     _selectedCategory = widget.productCategory;
@@ -80,6 +81,7 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
   void dispose() {
     super.dispose();
     _nameController.dispose();
+    _brandNameController.dispose();
     _descriptionController.dispose();
     _retailPriceController.dispose();
     _offerPriceController.dispose();
@@ -133,6 +135,19 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
                               imagePaths: selectedImages.isEmpty
                                   ? widget.existingImageUrls
                                   : selectedImages),
+                        ),
+                        SizedBox(height: 25),
+                        Text('Brand Name',
+                            style: AppTextStyles.headLineMediumSmall),
+                        SizedBox(height: 8),
+                        CustomAddFieldsWidget(
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Please enter a brand name';
+                            }
+                            return null;
+                          },
+                          controller: _brandNameController,
                         ),
                         SizedBox(height: 25),
                         Text('Item Name',
@@ -457,6 +472,7 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
                             context.read<ProductBloc>().add(
                                   UpdateProductEvent(
                                     productId: widget.productId,
+                                    brandName: _brandNameController.text.trim(),
                                     name: _nameController.text.trim(),
                                     description:
                                         _descriptionController.text.trim(),

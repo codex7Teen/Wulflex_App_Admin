@@ -47,6 +47,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
         // Create product model
         final newProduct = ProductModel(
+          brandName: event.brandName.trim(),
           name: event.name.trim(),
           description: event.description.trim(),
           category: event.category,
@@ -107,6 +108,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
         // Create product model with updated details
         final updatedProduct = ProductModel(
+          brandName: event.brandName.trim(),
           name: event.name.trim(),
           description: event.description.trim(),
           category: event.category,

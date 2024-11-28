@@ -101,6 +101,7 @@ class ProductServices {
       // Create updated product with correct image URLs
       final updatedProduct = ProductModel(
         id: productId,
+        brandName: product.brandName,
         name: product.name,
         description: product.description,
         category: product.category,
