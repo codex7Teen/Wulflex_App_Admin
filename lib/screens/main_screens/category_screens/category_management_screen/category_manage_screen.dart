@@ -1,11 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wulflex_admin/blocs/category_bloc/category_bloc.dart';
 import 'package:wulflex_admin/screens/main_screens/category_screens/add_edit_category_screens/add_edit_category_screen.dart';
 import 'package:wulflex_admin/utils/consts/app_colors.dart';
+import 'package:wulflex_admin/widgets/alert_boxes_widgets.dart';
 import 'package:wulflex_admin/widgets/appbar_with_back_button_widget.dart';
 import 'package:wulflex_admin/widgets/custom_snacbar.dart';
 import 'package:wulflex_admin/widgets/navigation_helper_widget.dart';
@@ -151,11 +150,19 @@ class ScreenCategoryManage extends StatelessWidget {
                                                         existingCategory:
                                                             category));
                                           } else if (value == 1) {
-                                            // Handle Delete action
-                                            context.read<CategoryBloc>().add(
-                                                DeleteCategoryEvent(
-                                                    categoryId:
-                                                        category['id']));
+                                            // Delete
+                                            CustomAlertBox
+                                                .showDeleteConfirmationDialog(
+                                                    context,
+                                                    productName:
+                                                        category['name'],
+                                                    onDeleteConfirmed: () {
+                                              // Handle Delete action
+                                              context.read<CategoryBloc>().add(
+                                                  DeleteCategoryEvent(
+                                                      categoryId:
+                                                          category['id']));
+                                            });
                                           }
                                         },
                                         icon: Icon(

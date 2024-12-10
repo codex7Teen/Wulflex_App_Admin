@@ -8,6 +8,7 @@ import 'package:wulflex_admin/models/product_model.dart';
 import 'package:wulflex_admin/screens/main_screens/product_screens/inventory_screens/edit_product_screen.dart';
 import 'package:wulflex_admin/utils/consts/app_colors.dart';
 import 'package:wulflex_admin/widgets/appbar_with_back_button_widget.dart';
+import 'package:wulflex_admin/widgets/alert_boxes_widgets.dart';
 import 'package:wulflex_admin/widgets/custom_snacbar.dart';
 import 'package:wulflex_admin/widgets/navigation_helper_widget.dart';
 
@@ -36,9 +37,10 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
       _filteredProducts = products;
     } else {
       _filteredProducts = products.where((product) {
-        return product.name
+        return product.brandName
                 .toLowerCase()
                 .contains(_searchQuery.toLowerCase()) ||
+            product.name.toLowerCase().contains(_searchQuery.toLowerCase()) ||
             product.description
                 .toLowerCase()
                 .contains(_searchQuery.toLowerCase()) ||
@@ -300,13 +302,16 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
                     );
                   } else if (value == 1) {
                     // Handle Delete action
-                    context.read<ProductBloc>().add(
-                          DeleteProductEvent(
-                            productId: product.id!,
-                            imageUrls: product.imageUrls,
-                          ),
-                        );
-                    log('${product.id} DELETE ATTEMPTED');
+                    CustomAlertBox.showDeleteConfirmationDialog(context,
+                        productName: product.brandName, onDeleteConfirmed: () {
+                      context.read<ProductBloc>().add(
+                            DeleteProductEvent(
+                              productId: product.id!,
+                              imageUrls: product.imageUrls,
+                            ),
+                          );
+                      log('${product.id} DELETE ATTEMPTED');
+                    });
                   }
                 },
                 icon: Icon(

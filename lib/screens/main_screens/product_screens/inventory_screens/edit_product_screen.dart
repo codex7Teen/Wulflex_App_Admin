@@ -101,6 +101,7 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
               icon: Icons.error_outline_rounded,
             );
           } else if (state is ProductUpdateSuccess) {
+            Navigator.pop(context);
             CustomSnackbar.showCustomSnackBar(
               context,
               'Product updated successfully... 🎉🎉🎉',
@@ -137,7 +138,49 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
                                   ? widget.existingImageUrls
                                   : selectedImages),
                         ),
-                        SizedBox(height: 25),
+                        Visibility(
+                            visible: selectedImages.isNotEmpty,
+                            child: SizedBox(height: 16)),
+                        Visibility(
+                          visible: selectedImages.isNotEmpty,
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedImages = [];
+                              });
+                            },
+                            child: Center(
+                              child: Container(
+                                width: 150,
+                                padding: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                    color: AppColors.blueThemeColor,
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.clear,
+                                      size: 17,
+                                      color: AppColors.lightScaffoldColor,
+                                    ),
+                                    SizedBox(width: 3),
+                                    Text('CLEAR IMAGES',
+                                        style: AppTextStyles.bodySmall.copyWith(
+                                            fontWeight: FontWeight.bold)),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                            visible: selectedImages.isNotEmpty,
+                            child: SizedBox(height: 10)),
+                        Visibility(
+                          visible: selectedImages.isEmpty,
+                          child: SizedBox(height: 25)),
                         Text('Brand Name',
                             style: AppTextStyles.headLineMediumSmall),
                         SizedBox(height: 8),
