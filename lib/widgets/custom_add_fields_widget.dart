@@ -6,6 +6,7 @@ class CustomAddFieldsWidget extends StatelessWidget {
   final TextInputType? textInputType;
   final int? minLines;
   final int? maxLines;
+  final int? maxLength;
   final FormFieldValidator<String>? validator;
   final TextEditingController controller;
   const CustomAddFieldsWidget(
@@ -13,6 +14,7 @@ class CustomAddFieldsWidget extends StatelessWidget {
       this.textInputType = TextInputType.text,
       this.minLines = 1,
       this.maxLines = 30,
+      this.maxLength,
       this.validator,
       required this.controller});
 
@@ -32,6 +34,7 @@ class CustomAddFieldsWidget extends StatelessWidget {
           validator: validator,
           minLines: minLines,
           maxLines: maxLines,
+          maxLength: maxLength,
           keyboardType: textInputType,
           style: AppTextStyles.titleMedium.copyWith(color: Colors.black),
           decoration: InputDecoration(border: InputBorder.none),

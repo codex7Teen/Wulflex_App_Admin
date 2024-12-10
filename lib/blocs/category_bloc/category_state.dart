@@ -13,6 +13,10 @@ class CategoryLoading extends CategoryState {}
 
 class CategoryAddSuccess extends CategoryState {}
 
+class CategoryEditSuccess extends CategoryState {}
+
+class CategoyDeleteSuccess extends CategoryState {}
+
 class CategoriesLoaded extends CategoryState {
   final List<String> defaultCategories;
   final List<String> customCategories;
@@ -35,4 +39,13 @@ class CategoryError extends CategoryState {
 
   @override
   List<Object> get props => [message];
+}
+
+class CategoryDetailsLoaded extends CategoryState {
+  final List<Map<String, dynamic>> categoryDetails;
+  
+  const CategoryDetailsLoaded({required this.categoryDetails});
+  
+  @override
+  List<Object> get props => [categoryDetails];
 }

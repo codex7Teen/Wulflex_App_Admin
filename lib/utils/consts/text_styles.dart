@@ -8,7 +8,7 @@ class AppTextStyles {
   static final TextStyle headLineSmall = GoogleFonts.bebasNeue(
       fontSize: 22, color: Colors.white, letterSpacing: 1);
 
-      static final TextStyle headLineMediumSmall = GoogleFonts.bebasNeue(
+  static final TextStyle headLineMediumSmall = GoogleFonts.bebasNeue(
       fontSize: 24, color: Colors.black, letterSpacing: 1);
 
   static final TextStyle headLineLarge = GoogleFonts.bebasNeue(

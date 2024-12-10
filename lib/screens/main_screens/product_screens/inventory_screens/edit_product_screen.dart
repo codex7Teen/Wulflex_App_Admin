@@ -74,6 +74,7 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
     selectedSizes = widget.productSize.toSet();
     _retailPriceController.text = widget.productRetailPrice.toString();
     _offerPriceController.text = widget.productOfferPrice.toString();
+    isOnSale = widget.productIsOnSale;
     super.initState();
   }
 
@@ -290,126 +291,146 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
                             SizedBox(width: 10),
                           ],
                         ),
-                        SizedBox(height: 20),
+                        Visibility(
+                            visible: selectedSizes.isEmpty,
+                            child: SizedBox(height: 20)),
                         // Weight
-                        Text('Pick available Weight',
-                            style: AppTextStyles.headLineMediumSmall),
-                        SizedBox(height: 8),
-                        Row(
-                          children: [
-                            CustomWeightandsizeSelectorContainerWidget(
-                                weightOrSize: '5 KG',
-                                isSelected: selectedWeights.contains('5 KG'),
-                                onTap: () {
-                                  setState(() {
-                                    if (selectedWeights.contains('5 KG')) {
-                                      selectedWeights.remove('5 KG');
-                                    } else {
-                                      selectedWeights.add('5 KG');
-                                    }
-                                  });
-                                }),
-                            SizedBox(width: 8),
-                            CustomWeightandsizeSelectorContainerWidget(
-                                weightOrSize: '10 KG',
-                                isSelected: selectedWeights.contains('10 KG'),
-                                onTap: () {
-                                  setState(() {
-                                    if (selectedWeights.contains('10 KG')) {
-                                      selectedWeights.remove('10 KG');
-                                    } else {
-                                      selectedWeights.add('10 KG');
-                                    }
-                                  });
-                                }),
-                            SizedBox(width: 8),
-                            CustomWeightandsizeSelectorContainerWidget(
-                                weightOrSize: '20 KG',
-                                isSelected: selectedWeights.contains('20 KG'),
-                                onTap: () {
-                                  setState(() {
-                                    if (selectedWeights.contains('20 KG')) {
-                                      selectedWeights.remove('20 KG');
-                                    } else {
-                                      selectedWeights.add('20 KG');
-                                    }
-                                  });
-                                }),
-                            SizedBox(width: 8),
-                            CustomWeightandsizeSelectorContainerWidget(
-                                weightOrSize: '30 KG',
-                                isSelected: selectedWeights.contains('30 KG'),
-                                onTap: () {
-                                  setState(() {
-                                    if (selectedWeights.contains('30 KG')) {
-                                      selectedWeights.remove('30 KG');
-                                    } else {
-                                      selectedWeights.add('30 KG');
-                                    }
-                                  });
-                                }),
-                          ],
+                        Visibility(
+                          visible: selectedSizes.isEmpty,
+                          child: Text('Pick available Weight',
+                              style: AppTextStyles.headLineMediumSmall),
                         ),
-                        SizedBox(height: 25),
+                        Visibility(
+                            visible: selectedSizes.isEmpty,
+                            child: SizedBox(height: 8)),
+                        Visibility(
+                          visible: selectedSizes.isEmpty,
+                          child: Row(
+                            children: [
+                              CustomWeightandsizeSelectorContainerWidget(
+                                  weightOrSize: '5 KG',
+                                  isSelected: selectedWeights.contains('5 KG'),
+                                  onTap: () {
+                                    setState(() {
+                                      if (selectedWeights.contains('5 KG')) {
+                                        selectedWeights.remove('5 KG');
+                                      } else {
+                                        selectedWeights.add('5 KG');
+                                      }
+                                    });
+                                  }),
+                              SizedBox(width: 8),
+                              CustomWeightandsizeSelectorContainerWidget(
+                                  weightOrSize: '10 KG',
+                                  isSelected: selectedWeights.contains('10 KG'),
+                                  onTap: () {
+                                    setState(() {
+                                      if (selectedWeights.contains('10 KG')) {
+                                        selectedWeights.remove('10 KG');
+                                      } else {
+                                        selectedWeights.add('10 KG');
+                                      }
+                                    });
+                                  }),
+                              SizedBox(width: 8),
+                              CustomWeightandsizeSelectorContainerWidget(
+                                  weightOrSize: '20 KG',
+                                  isSelected: selectedWeights.contains('20 KG'),
+                                  onTap: () {
+                                    setState(() {
+                                      if (selectedWeights.contains('20 KG')) {
+                                        selectedWeights.remove('20 KG');
+                                      } else {
+                                        selectedWeights.add('20 KG');
+                                      }
+                                    });
+                                  }),
+                              SizedBox(width: 8),
+                              CustomWeightandsizeSelectorContainerWidget(
+                                  weightOrSize: '30 KG',
+                                  isSelected: selectedWeights.contains('30 KG'),
+                                  onTap: () {
+                                    setState(() {
+                                      if (selectedWeights.contains('30 KG')) {
+                                        selectedWeights.remove('30 KG');
+                                      } else {
+                                        selectedWeights.add('30 KG');
+                                      }
+                                    });
+                                  }),
+                            ],
+                          ),
+                        ),
+                        Visibility(
+                            visible: selectedWeights.isEmpty,
+                            child: SizedBox(height: 25)),
 
                         // Sizes
-                        Text('Pick available sizes',
-                            style: AppTextStyles.headLineMediumSmall),
-                        SizedBox(height: 8),
-                        Row(
-                          children: [
-                            CustomWeightandsizeSelectorContainerWidget(
-                                weightOrSize: 'S',
-                                isSelected: selectedSizes.contains('S'),
-                                onTap: () {
-                                  setState(() {
-                                    if (selectedSizes.contains('S')) {
-                                      selectedSizes.remove('S');
-                                    } else {
-                                      selectedSizes.add('S');
-                                    }
-                                  });
-                                }),
-                            SizedBox(width: 8),
-                            CustomWeightandsizeSelectorContainerWidget(
-                                weightOrSize: 'M',
-                                isSelected: selectedSizes.contains('M'),
-                                onTap: () {
-                                  setState(() {
-                                    if (selectedSizes.contains('M')) {
-                                      selectedSizes.remove('M');
-                                    } else {
-                                      selectedSizes.add('M');
-                                    }
-                                  });
-                                }),
-                            SizedBox(width: 8),
-                            CustomWeightandsizeSelectorContainerWidget(
-                                weightOrSize: 'L',
-                                isSelected: selectedSizes.contains('L'),
-                                onTap: () {
-                                  setState(() {
-                                    if (selectedSizes.contains('L')) {
-                                      selectedSizes.remove('L');
-                                    } else {
-                                      selectedSizes.add('L');
-                                    }
-                                  });
-                                }),
-                            SizedBox(width: 8),
-                            CustomWeightandsizeSelectorContainerWidget(
-                                weightOrSize: 'XL',
-                                isSelected: selectedSizes.contains('XL'),
-                                onTap: () {
-                                  setState(() {
-                                    if (selectedSizes.contains('XL')) {
-                                      selectedSizes.remove('XL');
-                                    } else {
-                                      selectedSizes.add('XL');
-                                    }
-                                  });
-                                }),
-                          ],
+                        Visibility(
+                          visible: selectedWeights.isEmpty,
+                          child: Text('Pick available sizes',
+                              style: AppTextStyles.headLineMediumSmall),
+                        ),
+                        Visibility(
+                            visible: selectedWeights.isEmpty,
+                            child: SizedBox(height: 8)),
+                        Visibility(
+                          visible: selectedWeights.isEmpty,
+                          child: Row(
+                            children: [
+                              CustomWeightandsizeSelectorContainerWidget(
+                                  weightOrSize: 'S',
+                                  isSelected: selectedSizes.contains('S'),
+                                  onTap: () {
+                                    setState(() {
+                                      if (selectedSizes.contains('S')) {
+                                        selectedSizes.remove('S');
+                                      } else {
+                                        selectedSizes.add('S');
+                                      }
+                                    });
+                                  }),
+                              SizedBox(width: 8),
+                              CustomWeightandsizeSelectorContainerWidget(
+                                  weightOrSize: 'M',
+                                  isSelected: selectedSizes.contains('M'),
+                                  onTap: () {
+                                    setState(() {
+                                      if (selectedSizes.contains('M')) {
+                                        selectedSizes.remove('M');
+                                      } else {
+                                        selectedSizes.add('M');
+                                      }
+                                    });
+                                  }),
+                              SizedBox(width: 8),
+                              CustomWeightandsizeSelectorContainerWidget(
+                                  weightOrSize: 'L',
+                                  isSelected: selectedSizes.contains('L'),
+                                  onTap: () {
+                                    setState(() {
+                                      if (selectedSizes.contains('L')) {
+                                        selectedSizes.remove('L');
+                                      } else {
+                                        selectedSizes.add('L');
+                                      }
+                                    });
+                                  }),
+                              SizedBox(width: 8),
+                              CustomWeightandsizeSelectorContainerWidget(
+                                  weightOrSize: 'XL',
+                                  isSelected: selectedSizes.contains('XL'),
+                                  onTap: () {
+                                    setState(() {
+                                      if (selectedSizes.contains('XL')) {
+                                        selectedSizes.remove('XL');
+                                      } else {
+                                        selectedSizes.add('XL');
+                                      }
+                                    });
+                                  }),
+                            ],
+                          ),
                         ),
                         SizedBox(height: 25),
                         Text('Item Retail Price (₹)',

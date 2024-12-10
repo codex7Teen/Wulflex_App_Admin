@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:wulflex_admin/services/category_services.dart';
@@ -13,7 +14,6 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     on<LoadCategoriesEvent>((event, emit) async {
       try {
         emit(CategoryLoading());
-
         // Initialize with default categories
         List<String> defaultCategories = CategoryServices.defaultCategories;
         List<String> customCategories = [];
@@ -58,12 +58,57 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
           return;
         }
 
-        await _categoryServices.addCategory(event.categoryName);
+        await _categoryServices.addCategory(
+            event.categoryName, event.categoryImage);
         emit(CategoryAddSuccess());
 
         // No need to emit CategoriesLoaded here as the stream will handle that
       } catch (error) {
         emit(CategoryError('Failed to add category: $error'));
+      }
+    });
+
+    //! GET ALL CATEGORY DETAILS
+    on<LoadCategoryDetailsEvent>((event, emit) async {
+      try {
+        emit(CategoryLoading());
+        final categoryDetails = await _categoryServices.getCategoryDetails();
+        emit(CategoryDetailsLoaded(categoryDetails: categoryDetails));
+      } catch (error) {
+        emit(CategoryError('Failed to load category details: $error'));
+      }
+    });
+
+    //! EDIT CATEGORY BLOC
+    on<EditCategoryEvent>((event, emit) async {
+      try {
+        emit(CategoryLoading());
+
+        await _categoryServices.editCategory(
+            event.categoryId, event.newCategoryName, event.newImageFile);
+
+        emit(CategoryEditSuccess());
+        // loading the updated categories
+        final categoryDetails = await _categoryServices.getCategoryDetails();
+        emit(CategoryDetailsLoaded(categoryDetails: categoryDetails));
+        log('CATEGORY EDIT SUCCESS');
+      } catch (error) {
+        emit(CategoryError('Failed to edit category: $error'));
+      }
+    });
+
+    //! DELETE CATEGORY BLOC
+    on<DeleteCategoryEvent>((event, emit) async {
+      try {
+        emit(CategoryLoading());
+
+        await _categoryServices.deleteCategory(event.categoryId);
+        emit(CategoyDeleteSuccess());
+        // loading the updated categories
+        final categoryDetails = await _categoryServices.getCategoryDetails();
+        emit(CategoryDetailsLoaded(categoryDetails: categoryDetails));
+      } catch (error) {
+        emit(CategoryError('Failed to delete category: $error'));
       }
     });
   }

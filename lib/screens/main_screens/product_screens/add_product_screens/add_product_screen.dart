@@ -280,8 +280,8 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                           ],
                         ),
                         Visibility(
-                          visible: selectedSizes.isEmpty,
-                          child: SizedBox(height: 20)),
+                            visible: selectedSizes.isEmpty,
+                            child: SizedBox(height: 20)),
                         // Weight
                         Visibility(
                           visible: selectedSizes.isEmpty,
@@ -289,8 +289,8 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                               style: AppTextStyles.headLineMediumSmall),
                         ),
                         Visibility(
-                          visible: selectedSizes.isEmpty,
-                          child: SizedBox(height: 8)),
+                            visible: selectedSizes.isEmpty,
+                            child: SizedBox(height: 8)),
                         Visibility(
                           visible: selectedSizes.isEmpty,
                           child: Row(
@@ -350,8 +350,8 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                           ),
                         ),
                         Visibility(
-                          visible: selectedWeights.isEmpty,
-                          child: SizedBox(height: 25)),
+                            visible: selectedWeights.isEmpty,
+                            child: SizedBox(height: 25)),
 
                         // Sizes
                         Visibility(
@@ -360,8 +360,8 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                               style: AppTextStyles.headLineMediumSmall),
                         ),
                         Visibility(
-                          visible: selectedWeights.isEmpty,
-                          child: SizedBox(height: 8)),
+                            visible: selectedWeights.isEmpty,
+                            child: SizedBox(height: 8)),
                         Visibility(
                           visible: selectedWeights.isEmpty,
                           child: Row(
