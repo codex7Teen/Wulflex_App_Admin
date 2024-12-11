@@ -8,8 +8,12 @@ import 'package:wulflex_admin/utils/consts/text_styles.dart';
 class CustomEditImagePickerWidget extends StatelessWidget {
   final VoidCallback onTap;
   final List<String> imagePaths;
+  final Function(int)? onDeleteImage;
   const CustomEditImagePickerWidget(
-      {super.key, required this.onTap, required this.imagePaths});
+      {super.key,
+      required this.onTap,
+      required this.imagePaths,
+      this.onDeleteImage});
 
   @override
   Widget build(BuildContext context) {
@@ -46,28 +50,31 @@ class CustomEditImagePickerWidget extends StatelessWidget {
                   itemCount: imagePaths.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: SizedBox(
-                          width: 100,
-                          height: 100,
-                          child: imagePaths[index].startsWith('http')
-                              ? Image.network(
-                                  imagePaths[index],
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Icon(Icons.error);
-                                  },
-                                  loadingBuilder:
-                                      (context, child, loadingProgress) {
-                                    if (loadingProgress == null) {
-                                      return child;
-                                    }
-                                    // show image loading indicator
-                                    return Center(
-                                        child: SizedBox(
+                    return Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: SizedBox(
+                              width: 100,
+                              height: 100,
+                              child: imagePaths[index].startsWith('http')
+                                  ? Image.network(
+                                      imagePaths[index],
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Icon(Icons.error);
+                                      },
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        }
+                                        // show image loading indicator
+                                        return Center(
+                                            child: SizedBox(
                                           width: 22,
                                           height: 22,
                                           child: CircularProgressIndicator(
@@ -80,14 +87,42 @@ class CustomEditImagePickerWidget extends StatelessWidget {
                                                           .expectedTotalBytes!
                                                   : null),
                                         ));
-                                  },
-                                )
-                              : Image.file(
-                                  File(imagePaths[index]),
-                                  fit: BoxFit.cover,
-                                ),
+                                      },
+                                    )
+                                  : Image.file(
+                                      File(imagePaths[index]),
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
+                          ),
                         ),
-                      ),
+                        // Show Delete button for each image when selected images are shown .
+                        Visibility(
+                          visible: !imagePaths[index].startsWith('http'),
+                          child: Positioned(
+                            top: 5,
+                            right: 5,
+                            child: GestureDetector(
+                              onTap: () {
+                                // Call the delete function if provided
+                                onDeleteImage?.call(index);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: AppColors.blueThemeColor,
+                                  shape: BoxShape.circle,
+                                ),
+                                padding: EdgeInsets.all(4),
+                                child: Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                  size: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     );
                   },
                 ),

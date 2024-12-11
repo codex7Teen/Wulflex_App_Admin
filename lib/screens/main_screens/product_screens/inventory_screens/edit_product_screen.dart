@@ -129,6 +129,12 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
                         SizedBox(height: 8),
                         Center(
                           child: CustomEditImagePickerWidget(
+                              // delete individual selected images
+                              onDeleteImage: (index) {
+                                setState(() {
+                                  selectedImages.removeAt(index);
+                                });
+                              },
                               onTap: () {
                                 context
                                     .read<ProductBloc>()
@@ -179,8 +185,8 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
                             visible: selectedImages.isNotEmpty,
                             child: SizedBox(height: 10)),
                         Visibility(
-                          visible: selectedImages.isEmpty,
-                          child: SizedBox(height: 25)),
+                            visible: selectedImages.isEmpty,
+                            child: SizedBox(height: 25)),
                         Text('Brand Name',
                             style: AppTextStyles.headLineMediumSmall),
                         SizedBox(height: 8),

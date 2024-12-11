@@ -113,11 +113,17 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Upload Image',
+                        Text('Upload Image', 
                             style: AppTextStyles.headLineMediumSmall),
                         SizedBox(height: 8),
                         Center(
                           child: CustomImagePickerContainerWidget(
+                              // delte individual images
+                              onDeleteImage: (index) {
+                                setState(() {
+                                  selectedImages.removeAt(index);
+                                });
+                              },
                               onTap: () {
                                 context
                                     .read<ProductBloc>()
