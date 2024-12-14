@@ -3,15 +3,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:wulflex_admin/blocs/authentication_bloc/authentication_bloc_bloc.dart';
-import 'package:wulflex_admin/blocs/category_bloc/category_bloc.dart';
-import 'package:wulflex_admin/blocs/order_bloc/order_bloc.dart';
-import 'package:wulflex_admin/blocs/product_bloc/product_bloc.dart';
-import 'package:wulflex_admin/services/category_services.dart';
-import 'package:wulflex_admin/services/order_services.dart';
-import 'package:wulflex_admin/services/product_services.dart';
-import 'package:wulflex_admin/utils/consts/app_colors.dart';
-import 'package:wulflex_admin/screens/splash_screens/splash_screen_1.dart';
+import 'package:wulflex_admin/features/auth/bloc/authentication_bloc/authentication_bloc_bloc.dart';
+import 'package:wulflex_admin/features/categories/bloc/category_bloc/category_bloc.dart';
+import 'package:wulflex_admin/features/orders/bloc/order_bloc/order_bloc.dart';
+import 'package:wulflex_admin/features/products/bloc/product_bloc/product_bloc.dart';
+import 'package:wulflex_admin/data/services/category_services.dart';
+import 'package:wulflex_admin/data/services/order_services.dart';
+import 'package:wulflex_admin/data/services/product_services.dart';
+import 'package:wulflex_admin/core/config/app_colors.dart';
+import 'package:wulflex_admin/features/auth/presentation/screens/splash_screen_1.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
