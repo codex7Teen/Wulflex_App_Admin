@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:wulflex_admin/screens/main_screens/order_screens/order_manage_screen.dart';
 import 'package:wulflex_admin/utils/consts/app_colors.dart';
 import 'package:wulflex_admin/widgets/custom_category_button.dart';
+import 'package:wulflex_admin/widgets/navigation_helper_widget.dart';
 
 class ScreenOrdersMainScreen extends StatelessWidget {
   const ScreenOrdersMainScreen({super.key});
@@ -18,6 +20,7 @@ class ScreenOrdersMainScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomCategoryButtonWidget( 
+                    onTap: () => NavigationHelper.navigateToWithoutReplacement(context, ScreenOrderManage()),
                     name: "Order Management",
                     icon: Icons.assignment,
                   ),
