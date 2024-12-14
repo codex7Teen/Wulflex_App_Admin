@@ -29,7 +29,16 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
 
         // Reflect all orders to get updated list
         final orders = await _orderServices.fetchAllOrders();
-        emit(OrderLoaded(orders: orders));
+        // First emit the success state
+        emit(OrderUpdateSuccess());
+
+        // Use a Timer to delay the transition to OrderLoaded
+        await Future.delayed(
+          Duration(milliseconds: 500),
+          () {
+            emit(OrderLoaded(orders: orders));
+          },
+        );
       } catch (error) {
         emit(OrderError(errorMessage: error.toString()));
       }

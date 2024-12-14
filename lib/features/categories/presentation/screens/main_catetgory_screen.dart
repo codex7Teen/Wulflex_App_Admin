@@ -11,7 +11,7 @@ class ScreenMainCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.lightScaffoldColor,
+      backgroundColor: AppColors.whiteThemeColor,
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 19, horizontal: 17),
         child: Center(

@@ -64,7 +64,7 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
       },
       child: Scaffold(
         appBar: AppbarWithbackbuttonWidget(appBarTitle: widget.screenTitle),
-        backgroundColor: AppColors.lightScaffoldColor,
+        backgroundColor: AppColors.whiteThemeColor,
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(left: 18, right: 18, top: 15),
@@ -105,7 +105,7 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
                           },
                           style: GoogleFonts.robotoCondensed(
                             fontSize: 18,
-                            color: AppColors.darkScaffoldColor,
+                            color: AppColors.blackThemeColor,
                           ),
                           decoration: InputDecoration(
                             hintText: 'Search by product or category',
@@ -145,7 +145,7 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
                             'No products found! 😔',
                             style: GoogleFonts.robotoCondensed(
                               fontSize: 20,
-                              color: AppColors.darkScaffoldColor,
+                              color: AppColors.blackThemeColor,
                               letterSpacing: 1,
                             ),
                           ),
@@ -171,7 +171,7 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
                         'Start searching for products...',
                         style: GoogleFonts.robotoCondensed(
                           fontSize: 20,
-                          color: AppColors.darkScaffoldColor,
+                          color: AppColors.blackThemeColor,
                           letterSpacing: 1,
                         ),
                       ),
@@ -238,7 +238,7 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
                   product.brandName,
                   style: GoogleFonts.robotoCondensed(
                     fontWeight: FontWeight.bold,
-                    color: AppColors.darkScaffoldColor,
+                    color: AppColors.blackThemeColor,
                     fontSize: 18,
                     letterSpacing: 1,
                   ),
@@ -261,7 +261,7 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
                   "₹${product.offerPrice.round()}",
                   style: GoogleFonts.robotoCondensed(
                     fontWeight: FontWeight.bold,
-                    color: AppColors.darkScaffoldColor,
+                    color: AppColors.blackThemeColor,
                     fontSize: 18,
                     letterSpacing: 1,
                   ),
@@ -332,7 +332,7 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
                         Text(
                           'Edit',
                           style: GoogleFonts.robotoCondensed(
-                            color: AppColors.darkScaffoldColor,
+                            color: AppColors.blackThemeColor,
                             fontSize: 16,
                           ),
                         ),
@@ -348,7 +348,7 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
                         Text(
                           'Delete',
                           style: GoogleFonts.robotoCondensed(
-                            color: AppColors.darkScaffoldColor,
+                            color: AppColors.blackThemeColor,
                             fontSize: 16,
                           ),
                         ),

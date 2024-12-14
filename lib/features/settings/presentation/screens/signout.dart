@@ -28,7 +28,7 @@ class ScreenSignOut extends StatelessWidget {
                 },
                 child: Text('SIGN OUT',
                     style: AppTextStyles.titleMedium
-                        .copyWith(color: AppColors.darkScaffoldColor)))),
+                        .copyWith(color: AppColors.blackThemeColor)))),
       ),
     );
   }

@@ -125,7 +125,7 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Upload Image',
-                            style: AppTextStyles.headLineMediumSmall),
+                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         Center(
                           child: CustomEditImagePickerWidget(
@@ -169,7 +169,7 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
                                     Icon(
                                       Icons.clear,
                                       size: 17,
-                                      color: AppColors.lightScaffoldColor,
+                                      color: AppColors.whiteThemeColor,
                                     ),
                                     SizedBox(width: 3),
                                     Text('CLEAR IMAGES',
@@ -188,7 +188,7 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
                             visible: selectedImages.isEmpty,
                             child: SizedBox(height: 25)),
                         Text('Brand Name',
-                            style: AppTextStyles.headLineMediumSmall),
+                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         CustomAddFieldsWidget(
                           validator: (value) {
@@ -201,7 +201,7 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
                         ),
                         SizedBox(height: 25),
                         Text('Item Name',
-                            style: AppTextStyles.headLineMediumSmall),
+                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         CustomAddFieldsWidget(
                           validator: (value) {
@@ -214,7 +214,7 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
                         ),
                         SizedBox(height: 25),
                         Text('Item Description',
-                            style: AppTextStyles.headLineMediumSmall),
+                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         CustomAddFieldsWidget(
                             validator: (value) {
@@ -229,7 +229,7 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
                         SizedBox(height: 25),
                         //! Category
                         Text('Item Category',
-                            style: AppTextStyles.headLineMediumSmall),
+                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         Row(
                           children: [
@@ -347,7 +347,7 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
                         Visibility(
                           visible: selectedSizes.isEmpty,
                           child: Text('Pick available Weight',
-                              style: AppTextStyles.headLineMediumSmall),
+                              style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         ),
                         Visibility(
                             visible: selectedSizes.isEmpty,
@@ -418,7 +418,7 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
                         Visibility(
                           visible: selectedWeights.isEmpty,
                           child: Text('Pick available sizes',
-                              style: AppTextStyles.headLineMediumSmall),
+                              style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         ),
                         Visibility(
                             visible: selectedWeights.isEmpty,
@@ -483,7 +483,7 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
                         ),
                         SizedBox(height: 25),
                         Text('Item Retail Price (₹)',
-                            style: AppTextStyles.headLineMediumSmall),
+                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         CustomAddFieldsWidget(
                           validator: (value) {
@@ -497,7 +497,7 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
                         ),
                         SizedBox(height: 25),
                         Text('Item Offer Price (₹)',
-                            style: AppTextStyles.headLineMediumSmall),
+                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         CustomAddFieldsWidget(
                           validator: (value) {
@@ -511,7 +511,7 @@ class ScreenEditProductsState extends State<ScreenEditProducts> {
                         ),
                         SizedBox(height: 25),
                         Text('ADD ITEM TO SALE SECTION',
-                            style: AppTextStyles.headLineMediumSmall),
+                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         Transform.scale(
                           scale: 1.5,

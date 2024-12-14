@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wulflex_admin/features/orders/presentation/screens/cancelled_orders_screen.dart';
+import 'package:wulflex_admin/features/orders/presentation/screens/delivered_orders_screen.dart';
 import 'package:wulflex_admin/features/orders/presentation/screens/order_manage_screen.dart';
 import 'package:wulflex_admin/core/config/app_colors.dart';
 import 'package:wulflex_admin/shared/widgets/custom_category_button.dart';
@@ -10,7 +12,7 @@ class ScreenOrdersMainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.lightScaffoldColor,
+      backgroundColor: AppColors.whiteThemeColor,
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 19, horizontal: 17),
         child: Center(
@@ -19,8 +21,9 @@ class ScreenOrdersMainScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomCategoryButtonWidget( 
-                    onTap: () => NavigationHelper.navigateToWithoutReplacement(context, ScreenOrderManage()),
+                  CustomCategoryButtonWidget(
+                    onTap: () => NavigationHelper.navigateToWithoutReplacement(
+                        context, ScreenOrderManage()),
                     name: "Order Management",
                     icon: Icons.assignment,
                   ),
@@ -31,11 +34,17 @@ class ScreenOrdersMainScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomCategoryButtonWidget(
+                    onTap: () => NavigationHelper.navigateToWithoutReplacement(
+                        context, ScreenDeliveredOrders()),
                     name: "Delivered Orders",
                     icon: Icons.done_all,
                   ),
-                  SizedBox(width: 20,),
+                  SizedBox(
+                    width: 20,
+                  ),
                   CustomCategoryButtonWidget(
+                    onTap: () => NavigationHelper.navigateToWithoutReplacement(
+                        context, ScreenCancelledOrders()),
                     name: "Cancelled Orders",
                     icon: Icons.cancel,
                   ),

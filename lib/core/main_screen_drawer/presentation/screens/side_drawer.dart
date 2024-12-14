@@ -47,11 +47,11 @@ class _ScreenSideDrawerState extends State<ScreenSideDrawer> {
       enableShadowItensMenu: true,
       elevationAppBar: 10,
       curveAnimation: Curves.easeInOutCubic,
-      styleAutoTittleName: AppTextStyles.headLineMedium
-          .copyWith(color: AppColors.darkScaffoldColor),
+      styleAutoTittleName: AppTextStyles.sideDrawerSelectedHeading
+          .copyWith(color: AppColors.blackThemeColor),
       isTitleCentered: true,
       leadingAppBar:
-          Icon(Icons.menu, color: AppColors.darkScaffoldColor, size: 36),
+          Icon(Icons.menu, color: AppColors.blackThemeColor, size: 36),
       backgroundColorAppBar: AppColors.xtraLightBlueThemeColor,
     );
   }

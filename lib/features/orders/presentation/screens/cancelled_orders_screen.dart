@@ -8,15 +8,17 @@ import 'package:wulflex_admin/core/config/text_styles.dart';
 import 'package:wulflex_admin/shared/widgets/appbar_with_back_button_widget.dart';
 import 'package:wulflex_admin/shared/widgets/navigation_helper_widget.dart';
 
-class ScreenOrderManage extends StatelessWidget {
-  const ScreenOrderManage({super.key});
+class ScreenCancelledOrders extends StatelessWidget {
+  const ScreenCancelledOrders({super.key});
 
   @override
   Widget build(BuildContext context) {
-    context.read<OrderBloc>().add(FetchAllOrdersEvent());
+    context
+        .read<OrderBloc>()
+        .add(FilterOrderByStatusEvent(status: OrderStatus.cancelled));
     return Scaffold(
         backgroundColor: AppColors.whiteThemeColor,
-        appBar: AppbarWithbackbuttonWidget(appBarTitle: 'Manage Orders'),
+        appBar: AppbarWithbackbuttonWidget(appBarTitle: 'Deliverd Orders'),
         body: BlocBuilder<OrderBloc, OrderState>(
           builder: (context, state) {
             if (state is OrderLoading) {
@@ -26,7 +28,7 @@ class ScreenOrderManage extends StatelessWidget {
             } else if (state is OrderLoaded) {
               final orders = state.orders;
               if (orders.isEmpty) {
-                return Center(child: Text('Orders are empty'));
+                return Center(child: Text("No cancelled orders"));
               }
               return Padding(
                 padding: const EdgeInsets.all(18),

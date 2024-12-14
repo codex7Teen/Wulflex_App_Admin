@@ -115,7 +115,7 @@ class ScreenCategoryManage extends StatelessWidget {
                                     category['name'],
                                     style: GoogleFonts.robotoCondensed(
                                       fontWeight: FontWeight.bold,
-                                      color: AppColors.darkScaffoldColor,
+                                      color: AppColors.blackThemeColor,
                                       fontSize: 19,
                                       letterSpacing: 1,
                                     ),
@@ -188,7 +188,7 @@ class ScreenCategoryManage extends StatelessWidget {
                                                   style: GoogleFonts
                                                       .robotoCondensed(
                                                     color: AppColors
-                                                        .darkScaffoldColor,
+                                                        .blackThemeColor,
                                                     fontSize: 16,
                                                   ),
                                                 ),
@@ -207,7 +207,7 @@ class ScreenCategoryManage extends StatelessWidget {
                                                   style: GoogleFonts
                                                       .robotoCondensed(
                                                     color: AppColors
-                                                        .darkScaffoldColor,
+                                                        .blackThemeColor,
                                                     fontSize: 16,
                                                   ),
                                                 ),

@@ -26,7 +26,7 @@ class CustomAuthenticationTetxfieldWidget extends StatelessWidget {
         SizedBox(width: 10),
         Expanded(
           child: TextFormField(
-            style: AppTextStyles.titleMedium.copyWith(fontWeight: FontWeight.w500, color: AppColors.darkScaffoldColor),
+            style: AppTextStyles.titleMedium.copyWith(fontWeight: FontWeight.w500, color: AppColors.blackThemeColor),
             controller: controller,
             obscureText: obscureText && !isPasswordVisible,
             autovalidateMode: AutovalidateMode.onUserInteraction,

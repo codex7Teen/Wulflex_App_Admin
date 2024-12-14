@@ -11,6 +11,8 @@ final class OrderInitial extends OrderState {}
 
 final class OrderLoading extends OrderState {}
 
+final class OrderUpdateSuccess extends OrderState {}
+
 final class OrderLoaded extends OrderState {
   final List<OrderModel> orders;
 

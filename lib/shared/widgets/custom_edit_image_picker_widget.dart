@@ -42,7 +42,7 @@ class CustomEditImagePickerWidget extends StatelessWidget {
                       Text(
                           'Tap here & upload upto 4 images...\n Upload atleast one image!',
                           style: AppTextStyles.bodySmall
-                              .copyWith(color: AppColors.darkScaffoldColor)),
+                              .copyWith(color: AppColors.blackThemeColor)),
                     ],
                   ),
                 )

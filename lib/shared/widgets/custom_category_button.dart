@@ -80,16 +80,13 @@ class _CustomCategoryButtonWidgetState extends State<CustomCategoryButtonWidget>
                 children: [
                   Icon(
                     widget.icon,
-                    color: AppColors.lightScaffoldColor,
+                    color: AppColors.whiteThemeColor,
                     size: 28,
                   ),
                   const SizedBox(height: 4),
                   Text(
                     widget.name,
-                    style: AppTextStyles.titleSmall.copyWith(
-                      color: AppColors.lightScaffoldColor,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: AppTextStyles.screenSubTitleText,
                   ),
                 ],
               ),

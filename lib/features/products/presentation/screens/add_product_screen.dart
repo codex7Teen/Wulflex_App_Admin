@@ -114,7 +114,7 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Upload Image', 
-                            style: AppTextStyles.headLineMediumSmall),
+                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         Center(
                           child: CustomImagePickerContainerWidget(
@@ -156,7 +156,7 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                                     Icon(
                                       Icons.clear,
                                       size: 17,
-                                      color: AppColors.lightScaffoldColor,
+                                      color: AppColors.whiteThemeColor,
                                     ),
                                     SizedBox(width: 3),
                                     Text('CLEAR IMAGES',
@@ -175,7 +175,7 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                             visible: selectedImages.isEmpty,
                             child: SizedBox(height: 25)),
                         Text('Item Brand',
-                            style: AppTextStyles.headLineMediumSmall),
+                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         CustomAddFieldsWidget(
                           validator: (value) {
@@ -188,7 +188,7 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         ),
                         SizedBox(height: 25),
                         Text('Item Name',
-                            style: AppTextStyles.headLineMediumSmall),
+                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         CustomAddFieldsWidget(
                           validator: (value) {
@@ -201,7 +201,7 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         ),
                         SizedBox(height: 25),
                         Text('Item Description',
-                            style: AppTextStyles.headLineMediumSmall),
+                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         CustomAddFieldsWidget(
                             validator: (value) {
@@ -216,7 +216,7 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         SizedBox(height: 25),
                         //! Category
                         Text('Item Category',
-                            style: AppTextStyles.headLineMediumSmall),
+                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         Row(
                           children: [
@@ -334,7 +334,7 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         Visibility(
                           visible: selectedSizes.isEmpty,
                           child: Text('Pick available Weight',
-                              style: AppTextStyles.headLineMediumSmall),
+                              style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         ),
                         Visibility(
                             visible: selectedSizes.isEmpty,
@@ -405,7 +405,7 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         Visibility(
                           visible: selectedWeights.isEmpty,
                           child: Text('Pick available sizes',
-                              style: AppTextStyles.headLineMediumSmall),
+                              style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         ),
                         Visibility(
                             visible: selectedWeights.isEmpty,
@@ -470,7 +470,7 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         ),
                         SizedBox(height: 25),
                         Text('Item Retail Price (₹)',
-                            style: AppTextStyles.headLineMediumSmall),
+                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         CustomAddFieldsWidget(
                           validator: (value) {
@@ -484,7 +484,7 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         ),
                         SizedBox(height: 25),
                         Text('Item Offer Price (₹)',
-                            style: AppTextStyles.headLineMediumSmall),
+                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         CustomAddFieldsWidget(
                           validator: (value) {
@@ -498,7 +498,7 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         ),
                         SizedBox(height: 25),
                         Text('ADD ITEM TO SALE SECTION',
-                            style: AppTextStyles.headLineMediumSmall),
+                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         Transform.scale(
                           scale: 1.5,

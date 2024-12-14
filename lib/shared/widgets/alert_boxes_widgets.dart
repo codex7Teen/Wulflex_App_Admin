@@ -17,7 +17,7 @@ class CustomAlertBox {
             'Are you sure?',
             style: GoogleFonts.robotoCondensed(
               fontWeight: FontWeight.bold,
-              color: AppColors.darkScaffoldColor,
+              color: AppColors.blackThemeColor,
               fontSize: 22,
               letterSpacing: 1,
             ),
@@ -32,7 +32,7 @@ class CustomAlertBox {
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
-                foregroundColor: AppColors.darkScaffoldColor,
+                foregroundColor: AppColors.blackThemeColor,
                 backgroundColor: AppColors.lightGreyThemeColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -42,7 +42,7 @@ class CustomAlertBox {
                 'Cancel',
                 style: GoogleFonts.robotoCondensed(
                   fontWeight: FontWeight.bold,
-                  color: AppColors.darkScaffoldColor,
+                  color: AppColors.blackThemeColor,
                 ),
               ),
               onPressed: () {

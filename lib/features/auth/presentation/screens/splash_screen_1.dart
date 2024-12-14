@@ -74,7 +74,7 @@ class _ScreenSplash12State extends State<ScreenSplash1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.lightScaffoldColor,
+      backgroundColor: AppColors.whiteThemeColor,
       body: Center(
         child: ClipRect(
           child: SizedBox(
@@ -105,7 +105,7 @@ class _ScreenSplash12State extends State<ScreenSplash1> {
                           width: 75,
                           height: 75,
                           child:
-                              ColoredBox(color: AppColors.lightScaffoldColor)),
+                              ColoredBox(color: AppColors.whiteThemeColor)),
                       Image.asset(
                         'assets/wulflex_logo_white_bg.jpg',
                         width: 75,

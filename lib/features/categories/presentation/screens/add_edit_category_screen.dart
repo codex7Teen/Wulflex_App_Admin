@@ -110,7 +110,7 @@ class _ScreenAddCategoryState extends State<ScreenAddCategory> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Upload Image',
-                        style: AppTextStyles.headLineMediumSmall),
+                        style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                     SizedBox(height: 8),
                     Center(
                       child: GestureDetector(
@@ -143,7 +143,7 @@ class _ScreenAddCategoryState extends State<ScreenAddCategory> {
                     ),
                     SizedBox(height: 25),
                     Text('Category Name',
-                        style: AppTextStyles.headLineMediumSmall),
+                        style: AppTextStyles.sideDrawerSelectedHeadingSmall),
                     SizedBox(height: 8),
                     CustomAddFieldsWidget(
                       maxLength: 12,

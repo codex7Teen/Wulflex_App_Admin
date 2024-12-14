@@ -27,7 +27,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.lightScaffoldColor,
+        backgroundColor: AppColors.whiteThemeColor,
         body: SingleChildScrollView(
           child: BlocListener<AuthenticationBlocBloc, AuthenticationBlocState>(
             listener: (context, state) {

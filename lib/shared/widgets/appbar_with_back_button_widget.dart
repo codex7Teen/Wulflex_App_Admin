@@ -13,8 +13,8 @@ class AppbarWithbackbuttonWidget extends StatelessWidget
         centerTitle: true,
         title: Text(
           appBarTitle,
-          style: AppTextStyles.headLineMedium
-              .copyWith(color: AppColors.darkScaffoldColor),
+          style: AppTextStyles.sideDrawerSelectedHeading
+              .copyWith(color: AppColors.blackThemeColor),
         ),
         leading: InkWell(
             onTap: () => Navigator.pop(context),

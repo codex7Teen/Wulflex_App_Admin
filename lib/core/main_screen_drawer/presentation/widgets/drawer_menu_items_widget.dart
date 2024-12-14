@@ -4,55 +4,55 @@ import 'package:wulflex_admin/core/config/text_styles.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 
 final productsMenu = ItemHiddenMenu(
-  colorLineSelected: AppColors.lightScaffoldColor,
+  colorLineSelected: AppColors.whiteThemeColor,
   name: 'Products',
   baseStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headLineSmall),
+      textStyle: AppTextStyles.sideDrawerUnSelectedHeading),
   selectedStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headLineMedium),
+      textStyle: AppTextStyles.sideDrawerSelectedHeading),
 );
 
 final categoryMenu = ItemHiddenMenu(
-  colorLineSelected: AppColors.lightScaffoldColor,
+  colorLineSelected: AppColors.whiteThemeColor,
   name: 'Categories',
   baseStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headLineSmall),
+      textStyle: AppTextStyles.sideDrawerUnSelectedHeading),
   selectedStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headLineMedium),
+      textStyle: AppTextStyles.sideDrawerSelectedHeading),
 );
 
 final ordersMenu = ItemHiddenMenu(
-  colorLineSelected: AppColors.lightScaffoldColor,
+  colorLineSelected: AppColors.whiteThemeColor,
   name: 'Orders',
   baseStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headLineSmall),
+      textStyle: AppTextStyles.sideDrawerUnSelectedHeading),
   selectedStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headLineMedium),
+      textStyle: AppTextStyles.sideDrawerSelectedHeading),
 );
 
 final reviewsMenu = ItemHiddenMenu(
-  colorLineSelected: AppColors.lightScaffoldColor,
+  colorLineSelected: AppColors.whiteThemeColor,
   name: 'Reviews',
   baseStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headLineSmall),
+      textStyle: AppTextStyles.sideDrawerUnSelectedHeading),
   selectedStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headLineMedium),
+      textStyle: AppTextStyles.sideDrawerSelectedHeading),
 );
 
 final usersMenu = ItemHiddenMenu(
-  colorLineSelected: AppColors.lightScaffoldColor,
+  colorLineSelected: AppColors.whiteThemeColor,
   name: 'Users',
   baseStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headLineSmall),
+      textStyle: AppTextStyles.sideDrawerUnSelectedHeading),
   selectedStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headLineMedium),
+      textStyle: AppTextStyles.sideDrawerSelectedHeading),
 );
 
 final settingsMenu = ItemHiddenMenu(
-  colorLineSelected: AppColors.lightScaffoldColor,
+  colorLineSelected: AppColors.whiteThemeColor,
   name: 'Settings',
   baseStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headLineSmall),
+      textStyle: AppTextStyles.sideDrawerUnSelectedHeading),
   selectedStyle: GoogleFonts.bebasNeue(
-      textStyle: AppTextStyles.headLineMedium),
+      textStyle: AppTextStyles.sideDrawerSelectedHeading),
 );

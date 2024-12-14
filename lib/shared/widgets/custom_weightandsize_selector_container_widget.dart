@@ -67,7 +67,7 @@ class CustomWeightandsizeSelectorContainerWidgetState
             child: Text(
               widget.weightOrSize,
               style: AppTextStyles.bodySmall
-                  .copyWith(color: AppColors.darkScaffoldColor),
+                  .copyWith(color: AppColors.blackThemeColor),
             ),
           ),
         ),
