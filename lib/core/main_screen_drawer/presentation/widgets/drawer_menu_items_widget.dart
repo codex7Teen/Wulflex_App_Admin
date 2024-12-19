@@ -39,9 +39,9 @@ final reviewsMenu = ItemHiddenMenu(
       textStyle: AppTextStyles.sideDrawerSelectedHeading),
 );
 
-final usersMenu = ItemHiddenMenu(
+final chatMenu = ItemHiddenMenu(
   colorLineSelected: AppColors.whiteThemeColor,
-  name: 'Users',
+  name: 'chats',
   baseStyle: GoogleFonts.bebasNeue(
       textStyle: AppTextStyles.sideDrawerUnSelectedHeading),
   selectedStyle: GoogleFonts.bebasNeue(

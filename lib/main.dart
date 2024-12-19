@@ -3,9 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:wulflex_admin/data/services/chat_services.dart';
 import 'package:wulflex_admin/data/services/review_services.dart';
 import 'package:wulflex_admin/features/auth/bloc/authentication_bloc/authentication_bloc_bloc.dart';
 import 'package:wulflex_admin/features/categories/bloc/category_bloc/category_bloc.dart';
+import 'package:wulflex_admin/features/chats/bloc/bloc/chat_bloc.dart';
 import 'package:wulflex_admin/features/orders/bloc/order_bloc/order_bloc.dart';
 import 'package:wulflex_admin/features/products/bloc/product_bloc/product_bloc.dart';
 import 'package:wulflex_admin/data/services/category_services.dart';
@@ -45,6 +47,7 @@ class MyApp extends StatelessWidget {
     final categoryServices = CategoryServices();
     final orderServices = OrderServices();
     final reviewServices = ReviewServices();
+    final chatServices = ChatServices();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -61,6 +64,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ReviewBloc(reviewServices),
+        ),
+        BlocProvider(
+          create: (context) => ChatBloc(chatServices),
         ),
       ],
       child: MaterialApp(

@@ -8,7 +8,7 @@ import 'package:wulflex_admin/core/main_screen_drawer/presentation/widgets/drawe
 import 'package:wulflex_admin/features/orders/presentation/screens/orders_main_screen.dart';
 import 'package:wulflex_admin/features/products/presentation/screens/products_main_screen.dart';
 import 'package:wulflex_admin/features/settings/presentation/screens/signout.dart';
-import 'package:wulflex_admin/features/users/presentation/screens/screen_users.dart';
+import 'package:wulflex_admin/features/chats/presentation/screens/all_chats_screen.dart';
 
 class ScreenSideDrawer extends StatefulWidget {
   const ScreenSideDrawer({super.key});
@@ -30,7 +30,7 @@ class _ScreenSideDrawerState extends State<ScreenSideDrawer> {
       ScreenHiddenDrawer(categoryMenu, ScreenMainCategory()),
       ScreenHiddenDrawer(ordersMenu, ScreenOrdersMainScreen()),
       ScreenHiddenDrawer(reviewsMenu, ScreenReviewMain()),
-      ScreenHiddenDrawer(usersMenu, ScreenUsers()),
+      ScreenHiddenDrawer(chatMenu, ScreenAllChats()),
       ScreenHiddenDrawer(settingsMenu, ScreenSignOut()),
     ];
   }
@@ -45,7 +45,7 @@ class _ScreenSideDrawerState extends State<ScreenSideDrawer> {
       slidePercent: 50,
       contentCornerRadius: 30,
       enableShadowItensMenu: true,
-      elevationAppBar: 10,
+      elevationAppBar: 0,
       curveAnimation: Curves.easeInOutCubic,
       styleAutoTittleName: AppTextStyles.sideDrawerSelectedHeading
           .copyWith(color: AppColors.blackThemeColor),

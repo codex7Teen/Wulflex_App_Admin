@@ -218,4 +218,11 @@ class AppTextStyles {
       fontWeight: FontWeight.bold,
       letterSpacing: 1.2,
       color: AppColors.blackThemeColor);
+
+      //! CONTENT TITLE TEXTS
+  static final TextStyle contentTitleTexts = GoogleFonts.robotoCondensed(
+      fontWeight: FontWeight.bold,
+      fontSize: 17,
+      color: Colors.black,
+      letterSpacing: 0.4);
 }
