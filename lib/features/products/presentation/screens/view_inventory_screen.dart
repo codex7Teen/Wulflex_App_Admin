@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -201,30 +202,18 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: SizedBox(
-              height: 84, // Fixed height
-              width: MediaQuery.of(context).size.width * 0.21,
-              child: Image.network(
-                product.imageUrls[0],
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) =>
-                    Image.asset('assets/wulflex_logo_nobg.png'),
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Center(
-                    child: SizedBox(
-                      width: 26,
-                      height: 26,
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
+                height: 84, // Fixed height
+                width: MediaQuery.of(context).size.width * 0.21,
+                child: CachedNetworkImage(
+                  imageUrl: product.imageUrls[0],
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) {
+                    return SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: Image.asset('assets/wulflex_logo_nobg.png'));
+                  },
+                )),
           ),
 
           SizedBox(width: 14),

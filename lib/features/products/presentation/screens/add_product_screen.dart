@@ -113,8 +113,9 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Upload Image', 
-                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
+                        Text('Upload Image',
+                            style:
+                                AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         Center(
                           child: CustomImagePickerContainerWidget(
@@ -175,9 +176,11 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                             visible: selectedImages.isEmpty,
                             child: SizedBox(height: 25)),
                         Text('Item Brand',
-                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
+                            style:
+                                AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         CustomAddFieldsWidget(
+                          maxLength: 20,
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
                               return 'Please enter a brand name';
@@ -188,9 +191,11 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         ),
                         SizedBox(height: 25),
                         Text('Item Name',
-                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
+                            style:
+                                AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         CustomAddFieldsWidget(
+                          maxLength: 60,
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
                               return 'Please enter an item name';
@@ -201,7 +206,8 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         ),
                         SizedBox(height: 25),
                         Text('Item Description',
-                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
+                            style:
+                                AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         CustomAddFieldsWidget(
                             validator: (value) {
@@ -216,7 +222,8 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         SizedBox(height: 25),
                         //! Category
                         Text('Item Category',
-                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
+                            style:
+                                AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         Row(
                           children: [
@@ -334,7 +341,8 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         Visibility(
                           visible: selectedSizes.isEmpty,
                           child: Text('Pick available Weight',
-                              style: AppTextStyles.sideDrawerSelectedHeadingSmall),
+                              style:
+                                  AppTextStyles.sideDrawerSelectedHeadingSmall),
                         ),
                         Visibility(
                             visible: selectedSizes.isEmpty,
@@ -405,7 +413,8 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         Visibility(
                           visible: selectedWeights.isEmpty,
                           child: Text('Pick available sizes',
-                              style: AppTextStyles.sideDrawerSelectedHeadingSmall),
+                              style:
+                                  AppTextStyles.sideDrawerSelectedHeadingSmall),
                         ),
                         Visibility(
                             visible: selectedWeights.isEmpty,
@@ -470,9 +479,11 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         ),
                         SizedBox(height: 25),
                         Text('Item Retail Price (₹)',
-                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
+                            style:
+                                AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         CustomAddFieldsWidget(
+                          maxLength: 7,
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
                               return 'Please enter item retail price';
@@ -484,9 +495,11 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         ),
                         SizedBox(height: 25),
                         Text('Item Offer Price (₹)',
-                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
+                            style:
+                                AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         CustomAddFieldsWidget(
+                          maxLength: 7,
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
                               return 'Please enter item offer price';
@@ -498,7 +511,8 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         ),
                         SizedBox(height: 25),
                         Text('ADD ITEM TO SALE SECTION',
-                            style: AppTextStyles.sideDrawerSelectedHeadingSmall),
+                            style:
+                                AppTextStyles.sideDrawerSelectedHeadingSmall),
                         SizedBox(height: 8),
                         Transform.scale(
                           scale: 1.5,

@@ -124,4 +124,98 @@ class AppTextStyles {
           fontSize: 15,
           letterSpacing: 0.3,
           color: AppColors.blackThemeColor));
+
+  //! REVIEWS TEXT
+  static final TextStyle reviewsText = GoogleFonts.robotoCondensed(
+      color: AppColors.blackThemeColor,
+      fontWeight: FontWeight.w600,
+      fontSize: 21,
+      letterSpacing: 0.4);
+  //! REVIEWS NUMBER BIG BLUE TEXT
+  static final TextStyle reviewsNumberBigText = GoogleFonts.bebasNeue(
+      fontSize: 42,
+      color: AppColors.blueThemeColor,
+      letterSpacing: 1.2,
+      fontWeight: FontWeight.w600);
+
+  //! EMPTY SECTION TEXT
+  static final TextStyle emptySectionText = GoogleFonts.bebasNeue(
+      fontSize: 17.5, color: AppColors.blackThemeColor, letterSpacing: 0.8);
+
+  //! VIEW RATINGS BIG RATING TEXT
+  static final TextStyle viewRatingBigRatingText = GoogleFonts.bebasNeue(
+      textStyle: TextStyle(
+          fontSize: 38,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 3,
+          color: AppColors.blueThemeColor));
+
+  //! TOTAL REVIEWS TEXT
+  static TextStyle buildTotalReviewsText = GoogleFonts.bebasNeue(
+      fontSize: 17.5,
+      color: AppColors.darkishGrey,
+      letterSpacing: 2.5,
+      fontWeight: FontWeight.w600);
+
+  //! LINEAR PROGESS INDICATOR LEADING TEXT
+  static final TextStyle linearProgressIndicatorLeadingText =
+      GoogleFonts.robotoCondensed(
+          fontSize: 17,
+          color: AppColors.blueThemeColor,
+          letterSpacing: 2.5,
+          fontWeight: FontWeight.w600);
+
+  //! LINEAR PROGESS INDICATOR TRAILING TEXT
+  static TextStyle linearProgressIndicatorTrailingText =
+      GoogleFonts.robotoCondensed(
+          fontSize: 13.2,
+          color: AppColors.darkishGrey,
+          letterSpacing: 0.2,
+          fontWeight: FontWeight.w500);
+
+  //! SELECTED SIZE OR WEIGNT TEXT
+  static final TextStyle selectedSizeOrWeightText = GoogleFonts.robotoCondensed(
+      fontWeight: FontWeight.bold,
+      color: AppColors.blackThemeColor,
+      fontSize: 14,
+      letterSpacing: 0.2);
+
+  //! REVIEW USERNAME TEXT
+  static final reviewUsernameText = GoogleFonts.robotoCondensed(
+      fontWeight: FontWeight.bold,
+      color: AppColors.blackThemeColor,
+      fontSize: 16,
+      letterSpacing: 0.5);
+
+  //! REVIEW DATE TEXT
+  static final reviewDateText = GoogleFonts.robotoCondensed(
+      fontWeight: FontWeight.w500,
+      color: AppColors.greyThemeColor,
+      fontSize: 11.5,
+      letterSpacing: 0.5);
+
+  //! REVIEW ORDERED SIZE OR WEIGHT
+  static final reviewOrderdSizeorweightText = GoogleFonts.robotoCondensed(
+      fontWeight: FontWeight.w500,
+      color: AppColors.greyThemeColor,
+      fontSize: 14,
+      letterSpacing: 0.5);
+
+  //! RATE SCRREEN SUPER MINI TEXT
+  static final TextStyle rateScreenSupermini = GoogleFonts.robotoCondensed(
+      fontSize: 14, color: AppColors.greyThemeColor, letterSpacing: 0);
+
+  //! DESCRIPTION TEXT
+  static final TextStyle descriptionText = GoogleFonts.robotoCondensed(
+      textStyle: TextStyle(
+    fontSize: 16,
+    color: AppColors.darkishGrey,
+  ));
+
+   //! ORDER QUANTITY TEXT
+  static final TextStyle orderQuantityText = GoogleFonts.bebasNeue(
+      fontSize: 15,
+      fontWeight: FontWeight.bold,
+      letterSpacing: 1.2,
+      color: AppColors.blackThemeColor);
 }

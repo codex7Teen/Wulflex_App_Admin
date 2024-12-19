@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -73,35 +74,15 @@ class ScreenCategoryManage extends StatelessWidget {
                                                 .startsWith('assets/')
                                             ? Image.asset(category['image_url'],
                                                 fit: BoxFit.cover)
-                                            : Image.network(
-                                                category['image_url'],
+                                            : CachedNetworkImage(
+                                                imageUrl: category['image_url'],
                                                 fit: BoxFit.cover,
-                                                errorBuilder: (context, error,
-                                                        stackTrace) =>
-                                                    Image.asset(
-                                                        'assets/wulflex_logo_nobg.png'),
-                                                loadingBuilder: (context, child,
-                                                    loadingProgress) {
-                                                  if (loadingProgress == null) {
-                                                    return child;
-                                                  }
-                                                  return Center(
-                                                    child: SizedBox(
-                                                      width: 26,
-                                                      height: 26,
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        value: loadingProgress
-                                                                    .expectedTotalBytes !=
-                                                                null
-                                                            ? loadingProgress
-                                                                    .cumulativeBytesLoaded /
-                                                                loadingProgress
-                                                                    .expectedTotalBytes!
-                                                            : null,
-                                                      ),
-                                                    ),
-                                                  );
+                                                placeholder: (context, url) {
+                                                  return SizedBox(
+                                                      width: 16,
+                                                      height: 16,
+                                                      child: Image.asset(
+                                                          'assets/wulflex_logo_nobg.png'));
                                                 },
                                               )),
                                   ),

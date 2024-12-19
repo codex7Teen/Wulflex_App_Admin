@@ -108,13 +108,16 @@ class ScreenOrderManage extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          "${product.brandName} ${product.name}",
-                                          style: AppTextStyles.bodySmall
-                                              .copyWith(color: Colors.black),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
+                                        Expanded(
+                                          child: Text(
+                                            "${product.brandName} ${product.name}",
+                                            style: AppTextStyles.bodySmall
+                                                .copyWith(color: Colors.black),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
+                                        SizedBox(width: 8),
                                         Icon(
                                           Icons.arrow_forward_ios_rounded,
                                           size: 18,

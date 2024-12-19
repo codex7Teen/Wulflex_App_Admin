@@ -87,81 +87,93 @@ class _ScreenOrderDetailsState extends State<ScreenOrderDetails> {
                     color: AppColors.lightGreyThemeColor,
                     borderRadius: BorderRadius.circular(18),
                   ),
-                  child: Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Product Details
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              product.brandName,
-                              style: AppTextStyles.itemCardBrandText,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Text(
-                              product.name,
-                              style: AppTextStyles.itemCardNameText,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(height: 13),
-                            Row(
+                      Row(
+                        children: [
+                          // Product Details
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "₹${product.retailPrice.round()}",
-                                  style:
-                                      AppTextStyles.itemCardSecondSubTitleText,
+                                  product.brandName,
+                                  style: AppTextStyles.itemCardBrandText,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                                SizedBox(width: 8),
                                 Text(
-                                  "₹${product.offerPrice.round()}",
-                                  style: AppTextStyles.itemCardSubTitleText,
+                                  product.name,
+                                  style: AppTextStyles.itemCardNameText,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
+                                ),
+                                SizedBox(height: 13),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "₹${product.retailPrice.round()}",
+                                      style: AppTextStyles
+                                          .itemCardSecondSubTitleText,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      "₹${product.offerPrice.round()}",
+                                      style: AppTextStyles.itemCardSubTitleText,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 14),
-                      // Product Image
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: SizedBox(
-                          height: 84, // Fixed height
-                          width: MediaQuery.of(context).size.width * 0.21,
-                          child: Image.network(
-                            product.imageUrls[0],
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                Image.asset('assets/wulflex_logo_nobg.png'),
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) {
-                                return child;
-                              }
-                              return Center(
-                                child: SizedBox(
-                                  width: 26,
-                                  height: 26,
-                                  child: CircularProgressIndicator(
-                                    value: loadingProgress.expectedTotalBytes !=
-                                            null
-                                        ? loadingProgress
-                                                .cumulativeBytesLoaded /
-                                            loadingProgress.expectedTotalBytes!
-                                        : null,
-                                  ),
-                                ),
-                              );
-                            },
                           ),
-                        ),
+                          SizedBox(width: 14),
+                          // Product Image
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: SizedBox(
+                              height: 84, // Fixed height
+                              width: MediaQuery.of(context).size.width * 0.21,
+                              child: Image.network(
+                                product.imageUrls[0],
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Image.asset('assets/wulflex_logo_nobg.png'),
+                                loadingBuilder:
+                                    (context, child, loadingProgress) {
+                                  if (loadingProgress == null) {
+                                    return child;
+                                  }
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 26,
+                                      height: 26,
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                null
+                                            ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                loadingProgress
+                                                    .expectedTotalBytes!
+                                            : null,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
+                      //!xxxxxxxxxxxxxxx
+                      SizedBox(height: 8),
+                      Text('QUANTITY: ${product.quantity}',
+                          style: AppTextStyles.orderQuantityText),
                     ],
                   ),
                 ),
