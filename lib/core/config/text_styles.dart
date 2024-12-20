@@ -212,17 +212,45 @@ class AppTextStyles {
     color: AppColors.darkishGrey,
   ));
 
-   //! ORDER QUANTITY TEXT
+  //! ORDER QUANTITY TEXT
   static final TextStyle orderQuantityText = GoogleFonts.bebasNeue(
       fontSize: 15,
       fontWeight: FontWeight.bold,
       letterSpacing: 1.2,
       color: AppColors.blackThemeColor);
 
-      //! CONTENT TITLE TEXTS
+  //! CONTENT TITLE TEXTS
   static final TextStyle contentTitleTexts = GoogleFonts.robotoCondensed(
       fontWeight: FontWeight.bold,
       fontSize: 17,
       color: Colors.black,
       letterSpacing: 0.4);
+
+  //! CHAT HINT TEXT
+  static final TextStyle chatHintText = GoogleFonts.robotoCondensed(
+    fontSize: 18,
+    color: AppColors.greyThemeColor,
+  );
+
+  //! CHAT TEXTFIELD TEXT
+  static final TextStyle chatTextfieldstyle = GoogleFonts.robotoCondensed(
+    fontSize: 18,
+    letterSpacing: 0.1,
+    fontWeight: FontWeight.w500,
+    color: AppColors.blackThemeColor,
+  );
+
+  //! CHAT CHATBUBBLE TEXT
+  static TextStyle chatBubbleText(bool isMe) => GoogleFonts.robotoCondensed(
+        fontSize: 17,
+        letterSpacing: 0.6,
+        color: isMe ? Colors.white : Colors.black,
+      );
+
+  //! CHAT CHATBUBBLE DATE TIME TEXT
+  static final TextStyle chatBubbleDateTimeText = GoogleFonts.robotoCondensed(
+    fontSize: 10,
+    letterSpacing: 0.55,
+    color: AppColors.greyThemeColor,
+  );
 }

@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wulflex_admin/core/config/app_colors.dart';
+import 'package:wulflex_admin/core/config/text_styles.dart';
 import 'package:wulflex_admin/features/chats/bloc/bloc/chat_bloc.dart';
 import 'package:wulflex_admin/shared/widgets/appbar_with_back_button_widget.dart';
 
@@ -44,6 +44,10 @@ class ScreenUserChat extends StatelessWidget {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
                       }
+                      if (snapshot.hasData && snapshot.data!.docs.isEmpty) {
+                        return Center(
+                            child: Text('Start sending messages... 💬💬'));
+                      }
                       return ListView(
                         children: snapshot.data!.docs.map((doc) {
                           final data = doc.data() as Map<String, dynamic>;
@@ -63,44 +67,67 @@ class ScreenUserChat extends StatelessWidget {
                 //! Message input
                 Padding(
                   padding:
-                      const EdgeInsets.only(left: 10, right: 10, bottom: 16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _messageController,
-                          decoration: const InputDecoration(
-                            focusedBorder:
-                                OutlineInputBorder(borderSide: BorderSide.none),
-                            disabledBorder:
-                                OutlineInputBorder(borderSide: BorderSide.none),
-                            hintText: 'Type a message...',
-                          ),
-                          onSubmitted: (message) {
-                            context.read<ChatBloc>().add(
-                                  SendMessage(
+                      const EdgeInsets.only(left: 12, right: 12, bottom: 20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(25),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 10,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: TextField(
+                            style: AppTextStyles.chatTextfieldstyle,
+                            controller: _messageController,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Type a message...',
+                              hintStyle: AppTextStyles.chatHintText,
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: 16,
+                              ),
+                            ),
+                            onSubmitted: (message) {
+                              context.read<ChatBloc>().add(SendMessage(
                                     receiverId: recieverID,
                                     message: message,
-                                  ),
-                                );
-                          },
+                                  ));
+                              //                 );
+                            },
+                          ),
                         ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.send),
-                        onPressed: () {
-                          // Handle send button press
-                          if (_messageController.text.isNotEmpty) {
-                            // send the message
-                            context.read<ChatBloc>().add(SendMessage(
-                                receiverId: recieverID,
-                                message: _messageController.text));
-                            // clear the textfiels
-                            _messageController.clear();
-                          }
-                        },
-                      ),
-                    ],
+                        Container(
+                          margin: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.send,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                            onPressed: () {
+                              if (_messageController.text.isNotEmpty) {
+                                context.read<ChatBloc>().add(SendMessage(
+                                    receiverId: recieverID,
+                                    message: _messageController.text));
+                                _messageController.clear();
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -134,7 +161,6 @@ class MessageBubble extends StatelessWidget {
     int hour = dateTime.hour > 12 ? dateTime.hour - 12 : dateTime.hour;
     hour = hour == 0 ? 12 : hour;
     String minute = dateTime.minute.toString().padLeft(2, '0');
-
     List<String> months = [
       'Jan',
       'Feb',
@@ -150,7 +176,6 @@ class MessageBubble extends StatelessWidget {
       'Dec'
     ];
     String month = months[dateTime.month - 1];
-
     return "$month ${dateTime.day}, $hour:$minute $period";
   }
 
@@ -158,66 +183,99 @@ class MessageBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
-      child: Column(
-        crossAxisAlignment:
-            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: isMe ? Colors.blue : Colors.grey[300],
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
-                bottomLeft: isMe ? Radius.circular(15) : Radius.circular(0),
-                bottomRight: isMe ? Radius.circular(0) : Radius.circular(15),
-              ),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (!isMe && userImage.isNotEmpty)
-                  CircleAvatar(
-                    radius: 11,
-                    backgroundImage: NetworkImage(userImage),
-                  ),
-                if (!isMe) const SizedBox(width: 8),
-                Flexible(
-                  child: Text(
-                    message,
-                    style: TextStyle(
-                      color: isMe ? Colors.white : Colors.black,
-                      fontSize: 16,
-                    ),
-                  ),
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: isMe ? 60 : 16,
+          right: isMe ? 16 : 60,
+          bottom: 4,
+        ),
+        child: Column(
+          crossAxisAlignment:
+              isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: isMe
+                    ? AppColors.blueThemeColor.withOpacity(0.95)
+                    : AppColors.lightGreyThemeColor.withOpacity(0.95),
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(18),
+                  topRight: const Radius.circular(18),
+                  bottomLeft: Radius.circular(isMe ? 18 : 4),
+                  bottomRight: Radius.circular(isMe ? 4 : 18),
                 ),
-                isMe
-                    ? Padding(
-                        padding: const EdgeInsets.only(left: 6),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.04),
+                    blurRadius: 6,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 10,
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    if (!isMe && userImage.isNotEmpty) ...[
+                      Container(
+                        margin: const EdgeInsets.only(right: 8),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: AppColors.lightGreyThemeColor,
+                            width: 1.5,
+                          ),
+                        ),
+                        child: CircleAvatar(
+                          radius: 11,
+                          backgroundImage: NetworkImage(userImage),
+                        ),
+                      ),
+                    ],
+                    Flexible(
+                      child: Text(
+                        message,
+                        style: AppTextStyles.chatBubbleText(isMe),
+                      ),
+                    ),
+                    if (isMe) ...[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
                         child: Image.asset(
                           'assets/wulflex_logo_nobg.png',
                           width: 20,
                           height: 20,
+                          color: isMe
+                              ? AppColors.whiteThemeColor
+                              : AppColors.blackThemeColor,
                         ),
-                      )
-                    : SizedBox(width: 8)
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
-            child: Text(
-              _formatDateTime(timeStamp),
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey,
+                      ),
+                    ],
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 8)
-        ],
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 4,
+                left: 4,
+                right: 4,
+                bottom: 2,
+              ),
+              child: Text(
+                _formatDateTime(timeStamp),
+                style: AppTextStyles.chatBubbleDateTimeText.copyWith(
+                  fontSize: 11,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
