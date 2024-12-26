@@ -112,7 +112,7 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
                             hintText: 'Search by product or category',
                             hintStyle: GoogleFonts.robotoCondensed(
                               fontSize: 18,
-                              color: AppColors.darkishGrey,
+                              color: AppColors.greyThemeColor,
                             ),
                             border: InputBorder.none,
                           ),

@@ -18,7 +18,7 @@ class ScreenCancelledOrders extends StatelessWidget {
         .add(FilterOrderByStatusEvent(status: OrderStatus.cancelled));
     return Scaffold(
         backgroundColor: AppColors.whiteThemeColor,
-        appBar: AppbarWithbackbuttonWidget(appBarTitle: 'Deliverd Orders'),
+        appBar: AppbarWithbackbuttonWidget(appBarTitle: 'Cancelled Orders'),
         body: BlocBuilder<OrderBloc, OrderState>(
           builder: (context, state) {
             if (state is OrderLoading) {
@@ -110,13 +110,16 @@ class ScreenCancelledOrders extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          "${product.brandName} ${product.name}",
-                                          style: AppTextStyles.bodySmall
-                                              .copyWith(color: Colors.black),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
+                                        Expanded(
+                                          child: Text(
+                                            "${product.brandName} ${product.name}",
+                                            style: AppTextStyles.bodySmall
+                                                .copyWith(color: Colors.black),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
+                                        SizedBox(width: 8),
                                         Icon(
                                           Icons.arrow_forward_ios_rounded,
                                           size: 18,

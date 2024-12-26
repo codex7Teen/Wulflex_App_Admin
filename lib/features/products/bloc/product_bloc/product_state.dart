@@ -45,6 +45,16 @@ class ProductError extends ProductState {
   List<Object> get props => [message];
 }
 
+//! IMAGE PICKED ERROR STATE
+class ImagePickError extends ProductState {
+  final String message;
+
+  ImagePickError(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
 //! TRACK IMAGE UPLOAD PROGRESS
 class ImageUploadProgress extends ProductState {
   final double progress;

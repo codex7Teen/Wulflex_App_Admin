@@ -198,9 +198,9 @@ class _ScreenManageReviewsState extends State<ScreenManageReviews> {
                     fit: BoxFit.cover,
                     placeholder: (context, url) {
                       return SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: Image.asset('assets/wulflex_logo_nobg.png'));
+                          width: 16,
+                          height: 16,
+                          child: Image.asset('assets/wulflex_logo_nobg.png'));
                     },
                   )),
             ),
@@ -212,42 +212,44 @@ class _ScreenManageReviewsState extends State<ScreenManageReviews> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        product.brandName,
-                        style: GoogleFonts.robotoCondensed(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.blackThemeColor,
-                          fontSize: 18,
-                          letterSpacing: 1,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          product.brandName,
+                          style: GoogleFonts.robotoCondensed(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.blackThemeColor,
+                            fontSize: 18,
+                            letterSpacing: 1,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        product.name,
-                        style: GoogleFonts.robotoCondensed(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.darkishGrey,
-                          fontSize: 13,
-                          letterSpacing: 1,
+                        Text(
+                          product.name,
+                          style: GoogleFonts.robotoCondensed(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.darkishGrey,
+                            fontSize: 13,
+                            letterSpacing: 1,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(height: 9),
-                      Text(
-                        "₹${product.offerPrice.round()}",
-                        style: GoogleFonts.robotoCondensed(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.blackThemeColor,
-                          fontSize: 18,
-                          letterSpacing: 1,
+                        SizedBox(height: 9),
+                        Text(
+                          "₹${product.offerPrice.round()}",
+                          style: GoogleFonts.robotoCondensed(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.blackThemeColor,
+                            fontSize: 18,
+                            letterSpacing: 1,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   Icon(Icons.arrow_forward_ios_rounded,
                       size: 19, color: AppColors.greyThemeColor)

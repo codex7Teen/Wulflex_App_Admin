@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +7,7 @@ import 'package:wulflex_admin/core/config/text_styles.dart';
 import 'package:wulflex_admin/features/chats/bloc/bloc/chat_bloc.dart';
 import 'package:wulflex_admin/shared/widgets/appbar_with_back_button_widget.dart';
 
-class ScreenUserChat extends StatelessWidget {
+class ScreenUserChat extends StatefulWidget {
   final String recieverID;
   final String recieverEmail;
   final String? userImageUrl;
@@ -16,14 +17,53 @@ class ScreenUserChat extends StatelessWidget {
       required this.recieverID,
       required this.userImageUrl});
 
+  @override
+  State<ScreenUserChat> createState() => _ScreenUserChatState();
+}
+
+class _ScreenUserChatState extends State<ScreenUserChat> {
   final TextEditingController _messageController = TextEditingController();
+
+  // for textfield focus
+  FocusNode myFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // add listener to focus node
+    myFocusNode.addListener(() {
+      if (myFocusNode.hasFocus) {
+        // cause a delay so the keyboard has time to show up
+        // then the amount of remaining space will be calculated
+        // then scroll down
+        Future.delayed(Duration(milliseconds: 400), () => scrollDown());
+      }
+    });
+  }
+
+  // scroll controller
+  final ScrollController _scrollController = ScrollController();
+
+// function to scroll to maxextent
+  void scrollDown() {
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+        duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
+  }
+
+  @override
+  void dispose() {
+    myFocusNode.dispose();
+    _messageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    context.read<ChatBloc>().add(GetMessages(otherUserId: recieverID));
+    context.read<ChatBloc>().add(GetMessages(otherUserId: widget.recieverID));
     return Scaffold(
       backgroundColor: AppColors.scaffoldColor,
-      appBar: AppbarWithbackbuttonWidget(appBarTitle: recieverEmail),
+      appBar: AppbarWithbackbuttonWidget(appBarTitle: widget.recieverEmail),
       body: BlocBuilder<ChatBloc, ChatState>(
         builder: (context, state) {
           if (state is ChatLoading) {
@@ -48,15 +88,24 @@ class ScreenUserChat extends StatelessWidget {
                         return Center(
                             child: Text('Start sending messages... 💬💬'));
                       }
+                      // Scroll down when new data arrives
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        Future.delayed(Duration(milliseconds: 400), () {
+                          scrollDown();
+                        });
+                      });
                       return ListView(
+                        controller: _scrollController,
                         children: snapshot.data!.docs.map((doc) {
                           final data = doc.data() as Map<String, dynamic>;
-                          return MessageBubble(
-                            timeStamp: data['timestamp'],
-                            userImage: userImageUrl ?? '',
-                            message: data['message'],
-                            isMe: data['senderID'] ==
-                                'administratorIDofwulflex189',
+                          return SlideInRight(
+                            child: MessageBubble(
+                              timeStamp: data['timestamp'],
+                              userImage: widget.userImageUrl ?? '',
+                              message: data['message'],
+                              isMe: data['senderID'] ==
+                                  'administratorIDofwulflex189',
+                            ),
                           );
                         }).toList(),
                       );
@@ -85,6 +134,7 @@ class ScreenUserChat extends StatelessWidget {
                         const SizedBox(width: 16),
                         Expanded(
                           child: TextField(
+                            focusNode: myFocusNode,
                             style: AppTextStyles.chatTextfieldstyle,
                             controller: _messageController,
                             decoration: InputDecoration(
@@ -97,10 +147,10 @@ class ScreenUserChat extends StatelessWidget {
                             ),
                             onSubmitted: (message) {
                               context.read<ChatBloc>().add(SendMessage(
-                                    receiverId: recieverID,
+                                    receiverId: widget.recieverID,
                                     message: message,
                                   ));
-                              //                 );
+                              _messageController.clear();
                             },
                           ),
                         ),
@@ -119,7 +169,7 @@ class ScreenUserChat extends StatelessWidget {
                             onPressed: () {
                               if (_messageController.text.isNotEmpty) {
                                 context.read<ChatBloc>().add(SendMessage(
-                                    receiverId: recieverID,
+                                    receiverId: widget.recieverID,
                                     message: _messageController.text));
                                 _messageController.clear();
                               }

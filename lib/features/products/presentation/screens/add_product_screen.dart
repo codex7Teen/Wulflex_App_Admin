@@ -82,7 +82,7 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
       appBar: AppbarWithbackbuttonWidget(appBarTitle: widget.screenTitle),
       body: BlocConsumer<ProductBloc, ProductState>(
         listener: (context, state) {
-          if (state is ProductError) {
+          if (state is ImagePickError) {
             CustomSnackbar.showCustomSnackBar(
               context,
               state.message,

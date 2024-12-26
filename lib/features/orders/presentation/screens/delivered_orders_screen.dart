@@ -28,7 +28,7 @@ class ScreenDeliveredOrders extends StatelessWidget {
             } else if (state is OrderLoaded) {
               final orders = state.orders;
               if (orders.isEmpty) {
-                return Center(child: Text("No cancelled orders"));
+                return Center(child: Text("No delivered orders"));
               }
               return Padding(
                 padding: const EdgeInsets.all(18),
@@ -110,13 +110,16 @@ class ScreenDeliveredOrders extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          "${product.brandName} ${product.name}",
-                                          style: AppTextStyles.bodySmall
-                                              .copyWith(color: Colors.black),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
+                                        Expanded(
+                                          child: Text(
+                                            "${product.brandName} ${product.name}",
+                                            style: AppTextStyles.bodySmall
+                                                .copyWith(color: Colors.black),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
+                                        SizedBox(width: 8),
                                         Icon(
                                           Icons.arrow_forward_ios_rounded,
                                           size: 18,

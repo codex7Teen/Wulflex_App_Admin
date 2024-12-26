@@ -37,5 +37,3 @@ class MessagesLoaded extends ChatState {
   @override
   List<Object> get props => [messages];
 }
-
-class MessageSent extends ChatState {}

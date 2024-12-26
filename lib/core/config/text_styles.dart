@@ -253,4 +253,34 @@ class AppTextStyles {
     letterSpacing: 0.55,
     color: AppColors.greyThemeColor,
   );
+
+  //! REVENUE SECTION METRICS TOTAL TEXT
+  static final TextStyle revenueMetricsTotalText = GoogleFonts.bebasNeue(
+      fontSize: 18,
+      color: AppColors.blackThemeColor,
+      letterSpacing: 0.9,
+      fontWeight: FontWeight.w600);
+
+  //! REVENUE SECTION METRICS VALUE TEXT
+  static final TextStyle revenueMetricsValueText = GoogleFonts.robotoCondensed(
+      fontWeight: FontWeight.w600,
+      fontSize: 14.5,
+      color: Colors.black,
+      letterSpacing: 0.5);
+
+  //! REVENUE SECTION ORDER ID AND AMOUNT
+  static final TextStyle revenueSectionOrderIdText =
+      GoogleFonts.robotoCondensed(
+          fontSize: 16,
+          color: AppColors.blackThemeColor,
+          letterSpacing: 0.4,
+          fontWeight: FontWeight.w500);
+
+  //! REVENUE SECTION ORDER DATE TIME TEXT
+  static final TextStyle revenueSectionOrderDateText =
+      GoogleFonts.robotoCondensed(
+          fontSize: 14,
+          letterSpacing: 0.3,
+          color: AppColors.greyThemeColor,
+          fontWeight: FontWeight.w400);
 }

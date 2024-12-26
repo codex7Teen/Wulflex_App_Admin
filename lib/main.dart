@@ -15,6 +15,7 @@ import 'package:wulflex_admin/data/services/order_services.dart';
 import 'package:wulflex_admin/data/services/product_services.dart';
 import 'package:wulflex_admin/core/config/app_colors.dart';
 import 'package:wulflex_admin/features/auth/presentation/screens/splash_screen_1.dart';
+import 'package:wulflex_admin/features/products/bloc/sales_bloc/sales_bloc.dart';
 import 'package:wulflex_admin/features/reviews/bloc/review_bloc/review_bloc.dart';
 
 void main() async {
@@ -67,6 +68,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ChatBloc(chatServices),
+        ),
+        BlocProvider(
+          create: (context) => SalesBloc(orderServices),
         ),
       ],
       child: MaterialApp(

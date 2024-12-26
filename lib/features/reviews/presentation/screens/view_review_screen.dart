@@ -318,23 +318,37 @@ class ScreenViewReview extends StatelessWidget {
                                   children: [
                                     Row(
                                       children: [
-                                        // User image
-                                        SizedBox(
-                                          height: 46,
-                                          width: 46,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            child: CachedNetworkImage(
-                                              imageUrl: reviews.userImageUrl!,
-                                              fit: BoxFit.cover,
-                                              placeholder: (context, url) {
-                                                return Image.asset(
-                                                    'assets/wulflex_logo_nobg.png');
-                                              },
-                                            ),
-                                          ),
-                                        ),
+                                        reviews.userImageUrl != null
+                                            ?
+                                            // User image
+                                            SizedBox(
+                                                height: 46,
+                                                width: 46,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl:
+                                                        reviews.userImageUrl!,
+                                                    fit: BoxFit.cover,
+                                                    placeholder:
+                                                        (context, url) {
+                                                      return Image.asset(
+                                                          'assets/wulflex_logo_nobg.png');
+                                                    },
+                                                  ),
+                                                ),
+                                              )
+                                            : SizedBox(
+                                                height: 28,
+                                                width: 28,
+                                                child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50),
+                                                    child: Image.asset(
+                                                        'assets/wulflex_logo_nobg.png')),
+                                              ),
                                         SizedBox(width: 8),
                                         Expanded(
                                           child: Row(
@@ -554,7 +568,7 @@ class ScreenViewReview extends StatelessWidget {
             }
           }
           return Center(
-              child: Text('Unknown error has occured. reload the page'));
+              child: Text('Unknown error has occured. reload the page!'));
         },
       ),
     );

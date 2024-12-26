@@ -17,12 +17,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     //! PICK IMAGES BLOC
     on<PickImagesEvent>((event, emit) async {
       try {
-        emit(ProductLoading());
         final List<XFile> images =
             await _imagePicker.pickMultiImage(imageQuality: 80);
 
         if (images.length > 4) {
-          emit(ProductError('You can only select up to 4 images!'));
+          emit(ImagePickError('You can only select up to 4 images!'));
           return;
         }
 
@@ -30,7 +29,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
             images.map((image) => image.path).toList();
         emit(ImagesPickedSuccess(imagePaths));
       } catch (error) {
-        emit(ProductError('Failed to pick images: $error'));
+        emit(ImagePickError('Failed to pick images: $error'));
       }
     });
 
