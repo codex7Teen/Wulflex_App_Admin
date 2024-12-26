@@ -7,7 +7,7 @@ import 'package:wulflex_admin/features/reviews/presentation/screens/review_main_
 import 'package:wulflex_admin/core/main_screen_drawer/presentation/widgets/drawer_menu_items_widget.dart';
 import 'package:wulflex_admin/features/orders/presentation/screens/orders_main_screen.dart';
 import 'package:wulflex_admin/features/products/presentation/screens/products_main_screen.dart';
-import 'package:wulflex_admin/features/settings/presentation/screens/signout.dart';
+import 'package:wulflex_admin/features/settings/presentation/screens/settings_screen.dart';
 import 'package:wulflex_admin/features/chats/presentation/screens/all_chats_screen.dart';
 
 class ScreenSideDrawer extends StatefulWidget {

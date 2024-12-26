@@ -351,4 +351,12 @@ class AppTextStyles {
       color: AppColors.blueThemeColor,
       letterSpacing: 0.4,
       fontWeight: FontWeight.w400);
+
+        //! BUTTON CARDS TEXT
+  static final TextStyle buttonCardsText = GoogleFonts.robotoCondensed(
+      textStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 17.5,
+          letterSpacing: 0.8,
+          color: AppColors.blackThemeColor));
 }

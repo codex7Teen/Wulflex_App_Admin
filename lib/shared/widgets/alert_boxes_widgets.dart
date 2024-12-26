@@ -4,7 +4,9 @@ import 'package:wulflex_admin/core/config/app_colors.dart';
 
 class CustomAlertBox {
   static Future<void> showDeleteConfirmationDialog(BuildContext context,
-      {required String productName, required VoidCallback onDeleteConfirmed}) {
+      {required String productName,
+      required VoidCallback onDeleteConfirmed,
+      isSignout = false}) {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -22,13 +24,15 @@ class CustomAlertBox {
               letterSpacing: 1,
             ),
           ),
-          content: Text(
-            'You are about to delete "$productName". This action cannot be undone.',
-            style: GoogleFonts.robotoCondensed(
-              color: AppColors.darkishGrey,
-              fontSize: 16,
-            ),
-          ),
+          content: isSignout
+              ? Text('You are about to log-out from wulflex admin.')
+              : Text(
+                  'You are about to delete "$productName". This action cannot be undone.',
+                  style: GoogleFonts.robotoCondensed(
+                    color: AppColors.darkishGrey,
+                    fontSize: 16,
+                  ),
+                ),
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
@@ -59,10 +63,10 @@ class CustomAlertBox {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.delete, size: 20),
+                  Icon(isSignout ? Icons.logout : Icons.delete, size: 20),
                   SizedBox(width: 8),
                   Text(
-                    'Delete',
+                    isSignout ? 'Log-out' : 'Delete',
                     style: GoogleFonts.robotoCondensed(
                       fontWeight: FontWeight.bold,
                     ),
