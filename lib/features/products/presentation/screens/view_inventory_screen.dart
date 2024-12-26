@@ -4,10 +4,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:wulflex_admin/features/products/bloc/product_bloc/product_bloc.dart';
 import 'package:wulflex_admin/data/models/product_model.dart';
 import 'package:wulflex_admin/features/products/presentation/screens/edit_product_screen.dart';
 import 'package:wulflex_admin/core/config/app_colors.dart';
+import 'package:wulflex_admin/features/products/presentation/screens/view_product_screen.dart';
 import 'package:wulflex_admin/shared/widgets/appbar_with_back_button_widget.dart';
 import 'package:wulflex_admin/shared/widgets/alert_boxes_widgets.dart';
 import 'package:wulflex_admin/shared/widgets/custom_snacbar.dart';
@@ -199,63 +201,71 @@ class _ScreenViewInventoryState extends State<ScreenViewInventory> {
       child: Row(
         children: [
           // Product Image
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: SizedBox(
-                height: 84, // Fixed height
-                width: MediaQuery.of(context).size.width * 0.21,
-                child: CachedNetworkImage(
-                  imageUrl: product.imageUrls[0],
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) {
-                    return SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: Image.asset('assets/wulflex_logo_nobg.png'));
-                  },
-                )),
+          GestureDetector(
+            onTap: () => NavigationHelper.navigateToWithoutReplacement(
+                context, ScreenViewProducts(productModel: product)),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: SizedBox(
+                  height: 84, // Fixed height
+                  width: MediaQuery.of(context).size.width * 0.21,
+                  child: CachedNetworkImage(
+                    imageUrl: product.imageUrls[0],
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) {
+                      return SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: Image.asset('assets/wulflex_logo_nobg.png'));
+                    },
+                  )),
+            ),
           ),
 
           SizedBox(width: 14),
 
           // Product Details
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  product.brandName,
-                  style: GoogleFonts.robotoCondensed(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.blackThemeColor,
-                    fontSize: 18,
-                    letterSpacing: 1,
+            child: GestureDetector(
+              onTap: () => NavigationHelper.navigateToWithoutReplacement(
+                  context, ScreenViewProducts(productModel: product)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.brandName,
+                    style: GoogleFonts.robotoCondensed(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.blackThemeColor,
+                      fontSize: 18,
+                      letterSpacing: 1,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Text(
-                  product.name,
-                  style: GoogleFonts.robotoCondensed(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.darkishGrey,
-                    fontSize: 13,
-                    letterSpacing: 1,
+                  Text(
+                    product.name,
+                    style: GoogleFonts.robotoCondensed(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.darkishGrey,
+                      fontSize: 13,
+                      letterSpacing: 1,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(height: 9),
-                Text(
-                  "₹${product.offerPrice.round()}",
-                  style: GoogleFonts.robotoCondensed(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.blackThemeColor,
-                    fontSize: 18,
-                    letterSpacing: 1,
+                  SizedBox(height: 9),
+                  Text(
+                    "₹${NumberFormat('#,##,###.##').format(product.offerPrice)}",
+                    style: GoogleFonts.robotoCondensed(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.blackThemeColor,
+                      fontSize: 18,
+                      letterSpacing: 1,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
 

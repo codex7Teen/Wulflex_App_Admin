@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:wulflex_admin/features/products/bloc/product_bloc/product_bloc.dart';
 import 'package:wulflex_admin/data/models/product_model.dart';
 import 'package:wulflex_admin/core/config/app_colors.dart';
@@ -240,7 +241,7 @@ class _ScreenManageReviewsState extends State<ScreenManageReviews> {
                         ),
                         SizedBox(height: 9),
                         Text(
-                          "₹${product.offerPrice.round()}",
+                          "₹${NumberFormat('#,##,###.##').format(product.offerPrice)}",
                           style: GoogleFonts.robotoCondensed(
                             fontWeight: FontWeight.bold,
                             color: AppColors.blackThemeColor,

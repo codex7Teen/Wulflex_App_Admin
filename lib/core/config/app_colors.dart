@@ -20,6 +20,8 @@ class AppColors {
       Color.fromARGB(255, 232, 232, 232);
   static const Color darkishGrey = Color.fromARGB(255, 100, 100, 100);
   static const Color blueThemeColor = Color.fromARGB(255, 0, 6, 169);
+   static const Color appBarLightGreyThemeColor =
+      Color.fromARGB(255, 232, 232, 232);
 
   //! THEME COLORS
   static const Color scaffoldColor = whiteThemeColor;

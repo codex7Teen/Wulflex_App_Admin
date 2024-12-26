@@ -192,7 +192,7 @@ class ScreenViewReview extends StatelessWidget {
                                   ),
                                   SizedBox(height: 9),
                                   Text(
-                                    "₹${product.offerPrice.round()}",
+                                    "₹${NumberFormat('#,##,###.##').format(product.offerPrice)}",
                                     style: GoogleFonts.robotoCondensed(
                                       fontWeight: FontWeight.bold,
                                       color: AppColors.blackThemeColor,

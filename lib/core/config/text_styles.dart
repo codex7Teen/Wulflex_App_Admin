@@ -283,4 +283,72 @@ class AppTextStyles {
           letterSpacing: 0.3,
           color: AppColors.greyThemeColor,
           fontWeight: FontWeight.w400);
+
+  //! VIEW PRODUCT HEADING TEXT
+  static final TextStyle viewProductTitleText = GoogleFonts.bebasNeue(
+      textStyle: TextStyle(
+          fontSize: 23,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 1,
+          color: AppColors.blackThemeColor));
+
+  //! OFFER PRICE HEADING TEXT
+  static final TextStyle offerPriceHeadingText = GoogleFonts.bebasNeue(
+      fontSize: 28,
+      color: AppColors.greenThemeColor,
+      letterSpacing: 1.5,
+      fontWeight: FontWeight.w600);
+
+//! ORIGINAL PRICE TEXT
+  static final TextStyle originalPriceText = GoogleFonts.bebasNeue(
+      fontSize: 16,
+      color: AppColors.darkishGrey,
+      letterSpacing: 1.5,
+      fontWeight: FontWeight.w600,
+      decoration: TextDecoration.lineThrough,
+      decorationColor: AppColors.darkishGrey,
+      decorationThickness: 1);
+
+//! OFFER PERCENTAGE TEXT
+  static final TextStyle offerPercentageText = GoogleFonts.bebasNeue(
+    fontSize: 18,
+    color: AppColors.blueThemeColor,
+    letterSpacing: 1.5,
+    fontWeight: FontWeight.w600,
+  );
+
+  //! READ MORE & READ LESS TEXT
+  static final TextStyle readmoreAndreadLessText = GoogleFonts.robotoCondensed(
+      textStyle: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: AppColors.darkishGrey));
+
+  //! SCREEN SUB TITLES
+  static final TextStyle screenSubTitles = GoogleFonts.robotoCondensed(
+      fontWeight: FontWeight.bold,
+      color: AppColors.blackThemeColor,
+      fontSize: 18,
+      letterSpacing: 0.5);
+
+  //! SIZE CHART TEXT
+  static final TextStyle sizeChartText = GoogleFonts.robotoCondensed(
+      textStyle: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+          color: AppColors.blueThemeColor));
+
+  //! VIEW PRODUCT MAIN HEADING
+  static final TextStyle viewProductMainHeading = GoogleFonts.bebasNeue(
+      fontSize: 32,
+      color: AppColors.blackThemeColor,
+      letterSpacing: 3,
+      fontWeight: FontWeight.w600);
+
+  //! VIEW PRODUCT RATINGS TEXT
+  static final TextStyle viewProductratingsText = GoogleFonts.robotoCondensed(
+      fontSize: 14,
+      color: AppColors.blueThemeColor,
+      letterSpacing: 0.4,
+      fontWeight: FontWeight.w400);
 }

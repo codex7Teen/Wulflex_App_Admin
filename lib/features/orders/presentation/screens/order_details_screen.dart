@@ -113,7 +113,7 @@ class _ScreenOrderDetailsState extends State<ScreenOrderDetails> {
                                 Row(
                                   children: [
                                     Text(
-                                      "₹${product.retailPrice.round()}",
+                                      "₹${NumberFormat('#,##,###.##').format(product.retailPrice)}",
                                       style: AppTextStyles
                                           .itemCardSecondSubTitleText,
                                       maxLines: 1,
@@ -121,7 +121,7 @@ class _ScreenOrderDetailsState extends State<ScreenOrderDetails> {
                                     ),
                                     SizedBox(width: 8),
                                     Text(
-                                      "₹${product.offerPrice.round()}",
+                                      "₹${NumberFormat('#,##,###.##').format(product.offerPrice)}",
                                       style: AppTextStyles.itemCardSubTitleText,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
