@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wulflex_admin/features/orders/bloc/order_bloc/order_bloc.dart';
 import 'package:wulflex_admin/data/models/order_model.dart';
-import 'package:wulflex_admin/features/orders/presentation/screens/order_details_screen.dart';
+import 'package:wulflex_admin/features/orders/presentation/screens/order_status_screen.dart';
 import 'package:wulflex_admin/core/config/app_colors.dart';
 import 'package:wulflex_admin/core/config/text_styles.dart';
 import 'package:wulflex_admin/shared/widgets/appbar_with_back_button_widget.dart';
