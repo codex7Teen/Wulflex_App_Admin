@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wulflex_admin/data/models/order_model.dart';
+import 'package:wulflex_admin/data/services/notification_services.dart';
 
 class OrderServices {
   final _firestore = FirebaseFirestore.instance;
+  final _notificationServices = NotificationServices();
 
   //! FETCH ALL ORDERS
   Future<List<OrderModel>> fetchAllOrders() async {
@@ -32,6 +34,25 @@ class OrderServices {
     try {
       await _firestore.collection('orders').doc(orderId).update(
           {'status': newStatus.toString(), 'updatedAt': DateTime.now()});
+      // SENDING NOTIFICATION USING FCM
+      // Get user ID from order
+      final orderDoc = await _firestore.collection('orders').doc(orderId).get();
+      final userId = orderDoc.data()?['userId'];
+
+      if (userId != null) {
+        // Get users FCM token
+        final userDoc = await _firestore.collection('users').doc(userId).get();
+        final fcmToken = userDoc.data()?['notification_token'];
+
+        if (fcmToken != null) {
+          // Send push notification
+          const title = 'Orders Status Update';
+          final body = 'Your order #$orderId has been ${newStatus.name}';
+          await _notificationServices.pushNotifications(
+              title: title, body: body, token: fcmToken);
+          log('ADMIN SERVICES: Notification sent for order $orderId');
+        }
+      }
 
       log('ADMIN SERVICES: Updated order $orderId status to $newStatus');
     } catch (error) {

@@ -266,7 +266,7 @@ class AppTextStyles {
       fontWeight: FontWeight.w600,
       fontSize: 14.5,
       color: Colors.black,
-      letterSpacing: 0.5);
+      letterSpacing: 0.4);
 
   //! REVENUE SECTION ORDER ID AND AMOUNT
   static final TextStyle revenueSectionOrderIdText =
@@ -352,7 +352,7 @@ class AppTextStyles {
       letterSpacing: 0.4,
       fontWeight: FontWeight.w400);
 
-        //! BUTTON CARDS TEXT
+  //! BUTTON CARDS TEXT
   static final TextStyle buttonCardsText = GoogleFonts.robotoCondensed(
       textStyle: TextStyle(
           fontWeight: FontWeight.bold,

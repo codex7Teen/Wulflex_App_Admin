@@ -4,14 +4,16 @@ abstract class SalesEvent extends Equatable {
   const SalesEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchSalesData extends SalesEvent {
   final bool isDaily;
+  final DateTime? fromDate;
+  final DateTime? toDate;
 
-  FetchSalesData({this.isDaily = true});
+  FetchSalesData(this.fromDate, this.toDate, {this.isDaily = true});
 
     @override
-  List<Object> get props => [isDaily];
+  List<Object?> get props => [isDaily, fromDate, toDate];
 }

@@ -17,19 +17,26 @@ class SalesBloc extends Bloc<SalesEvent, SalesState> {
         emit(SalesLoading());
         final orders = await _orderServices.fetchAllOrders();
 
-        // Filter orders based on daily/monthly view
-        final filteredOrders = _filterOrders(orders, event.isDaily);
+        // Filter orders based on view type and date range
+        final filteredOrders = _filterOrders(
+          orders,
+          event.isDaily,
+          event.fromDate,
+          event.toDate,
+        );
 
         // Calculate metrics
         final totalRevenue = _calculateTotalRevenue(filteredOrders);
-        final revenueTimeline =
-            _generateRevenueTimeline(filteredOrders, event.isDaily);
+        final revenueTimeline = _generateRevenueTimeline(filteredOrders, event.isDaily);
 
         emit(SalesLoaded(
-            totalRevenue: totalRevenue,
-            totalOrders: filteredOrders.length,
-            revenueTimeline: revenueTimeline,
-            orders: orders));
+          totalRevenue: totalRevenue,
+          totalOrders: filteredOrders.length,
+          revenueTimeline: revenueTimeline,
+          orders: filteredOrders,
+          fromDate: event.fromDate,
+          toDate: event.toDate,
+        ));
         log('BLOC: SALES DATA FETCHED SUCCESS');
       } catch (error) {
         log('BLOC: SALES DATA FETCH ERROR!!!');
@@ -37,7 +44,22 @@ class SalesBloc extends Bloc<SalesEvent, SalesState> {
       }
     });
   }
-  List<OrderModel> _filterOrders(List<OrderModel> orders, bool isDaily) {
+
+  List<OrderModel> _filterOrders(
+    List<OrderModel> orders,
+    bool isDaily,
+    DateTime? fromDate,
+    DateTime? toDate,
+  ) {
+    if (fromDate != null && toDate != null) {
+      // If date range is specified, filter by range
+      return orders.where((order) {
+        return order.orderDate.isAfter(fromDate.subtract(Duration(days: 1))) &&
+            order.orderDate.isBefore(toDate.add(Duration(days: 1)));
+      }).toList();
+    }
+
+    // If no date range specified, use original daily/monthly logic
     final now = DateTime.now();
     return orders.where((order) {
       if (isDaily) {
