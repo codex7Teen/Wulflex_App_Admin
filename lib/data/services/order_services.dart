@@ -43,11 +43,21 @@ class OrderServices {
         // Get users FCM token
         final userDoc = await _firestore.collection('users').doc(userId).get();
         final fcmToken = userDoc.data()?['notification_token'];
+        final userName = userDoc.data()?['name'] ?? 'Customer';
 
         if (fcmToken != null) {
           // Send push notification
-          const title = 'Orders Status Update';
-          final body = 'Your order #$orderId has been ${newStatus.name}';
+          const title = '🛍️ Order Update Alert!';
+          final body = '''
+
+Hi $userName,
+Your order #$orderId has been ${newStatus.name} ...${newStatus == OrderStatus.cancelled ? '' : ' 🎉🎉🎉'}
+
+Thank you for shopping with us! 💖
+Wulflex Team
+        ''';
+
+          // Send push notification
           await _notificationServices.pushNotifications(
               title: title, body: body, token: fcmToken);
           log('ADMIN SERVICES: Notification sent for order $orderId');
