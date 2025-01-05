@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wulflex_admin/features/auth/bloc/authentication_bloc/authentication_bloc_bloc.dart';
 import 'package:wulflex_admin/core/config/app_colors.dart';
-import 'package:wulflex_admin/features/auth/presentation/widgets/login_widgets.dart';
+import 'package:wulflex_admin/features/auth/presentation/widgets/login_screen_widgets.dart';
 import 'package:wulflex_admin/core/main_screen_drawer/presentation/screens/side_drawer.dart';
 import 'package:wulflex_admin/shared/widgets/custom_snacbar.dart';
 import 'package:wulflex_admin/shared/widgets/navigation_helper_widget.dart';
@@ -54,18 +54,18 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       SizedBox(height: 75),
 
                       // image
-                      buildLoginText(context),
+                      LoginWidgets.buildLoginText(context),
                       SizedBox(height: 45),
                       // heading
-                      buildWelcomeText(),
+                      LoginWidgets.buildWelcomeText(),
                       SizedBox(height: 14),
 
                       // email textfield
-                      buildIdTextfield(_emailTextController),
+                      LoginWidgets.buildIdTextfield(_emailTextController),
                       SizedBox(height: 30),
 
                       // password field
-                      buildPasswordTextfield(
+                      LoginWidgets.buildPasswordTextfield(
                           _passwordTextController,
                           _isPasswordVisible,
                           () => setState(() {
@@ -74,8 +74,11 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       SizedBox(height: 25),
 
                       //! L O G I N - B U T T O N
-                      buildLoginButton(_formKey, _emailTextController,
-                          _passwordTextController, context),
+                      LoginWidgets.buildLoginButton(
+                          _formKey,
+                          _emailTextController,
+                          _passwordTextController,
+                          context),
                       SizedBox(height: 22),
                     ],
                   ),
