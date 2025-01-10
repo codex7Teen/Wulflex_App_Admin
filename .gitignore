@@ -31,8 +31,6 @@ migrate_working_dir/
 .pub/
 /build/
 
-lib/data/services/get_server_key.dart
-
 # Symbolication related
 app.*.symbols
 
