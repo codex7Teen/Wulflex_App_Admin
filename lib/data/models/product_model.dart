@@ -14,6 +14,8 @@ class ProductModel {
   final double offerPrice;
   final bool isOnSale;
   final DateTime createdAt;
+  final String? selectedWeight;
+  final String? selectedSize;
 
   ProductModel({
     this.id,
@@ -29,6 +31,8 @@ class ProductModel {
     required this.retailPrice,
     required this.offerPrice,
     required this.isOnSale,
+    this.selectedWeight,
+    this.selectedSize,
     DateTime? createdAt,
   }) : createdAt = createdAt ?? DateTime.now();
 
@@ -45,6 +49,8 @@ class ProductModel {
       'retailPrice': retailPrice,
       'offerPrice': offerPrice,
       'isOnSale': isOnSale,
+      'selectedWeight': selectedWeight,
+      'selectedSize': selectedSize,
       'createdAt': createdAt
     };
   }
@@ -63,6 +69,8 @@ class ProductModel {
         retailPrice: (map['retailPrice'] as num?)?.toDouble() ?? 0.0,
         offerPrice: (map['offerPrice'] as num?)?.toDouble() ?? 0.0,
         isOnSale: map['isOnSale'] ?? false,
+        selectedWeight: map['selectedWeight'],
+        selectedSize: map['selectedSize'],
         createdAt:
             (map['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now());
   }

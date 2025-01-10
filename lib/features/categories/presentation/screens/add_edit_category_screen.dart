@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wulflex_admin/features/categories/bloc/category_bloc/category_bloc.dart';
-import 'package:wulflex_admin/core/config/app_colors.dart';
-import 'package:wulflex_admin/core/config/text_styles.dart';
+import 'package:wulflex_admin/features/categories/presentation/widgets/add_edit_category_screen_widgets.dart';
 import 'package:wulflex_admin/shared/widgets/appbar_with_back_button_widget.dart';
 import 'package:wulflex_admin/shared/widgets/blue_button_widget.dart';
 import 'package:wulflex_admin/shared/widgets/custom_add_fields_widget.dart';
@@ -70,6 +69,7 @@ class _ScreenAddCategoryState extends State<ScreenAddCategory> {
         listener: (context, state) {
           if (state is CategoryError) {
             CustomSnackbar.showCustomSnackBar(
+              appearFromTop: true,
               context,
               state.message,
               icon: Icons.error,
@@ -109,41 +109,14 @@ class _ScreenAddCategoryState extends State<ScreenAddCategory> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Upload Image',
-                        style: AppTextStyles.sideDrawerSelectedHeadingSmall),
+                    AddEditCategoryScreenWidgets.buildUploadImageText(),
                     SizedBox(height: 8),
-                    Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          _pickImage();
-                        },
-                        child: SizedBox(
-                          height: _selectedImage != null ? 120 : 75,
-                          width: _selectedImage != null ? 120 : 75,
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: _selectedImage != null
-                                  ? Image.file(_selectedImage!,
-                                      fit: BoxFit.cover)
-                                  : _existingImageUrl != null
-                                      ? _existingImageUrl!.startsWith('assets/')
-                                          ? Image.asset(_existingImageUrl!,
-                                              fit: BoxFit.cover)
-                                          : Image.network(_existingImageUrl!,
-                                              fit: BoxFit.cover)
-                                      : SizedBox(
-                                          child: Image.asset(
-                                            'assets/Add Image.png',
-                                            fit: BoxFit.cover,
-                                            color: AppColors.blueThemeColor,
-                                          ),
-                                        )),
-                        ),
-                      ),
-                    ),
+                    AddEditCategoryScreenWidgets.buildImagePickerArea(
+                        onTap: _pickImage,
+                        existingImageUrl: _existingImageUrl,
+                        selectedImage: _selectedImage),
                     SizedBox(height: 25),
-                    Text('Category Name',
-                        style: AppTextStyles.sideDrawerSelectedHeadingSmall),
+                    AddEditCategoryScreenWidgets.buildCategoryNameField(),
                     SizedBox(height: 8),
                     CustomAddFieldsWidget(
                       maxLength: 12,

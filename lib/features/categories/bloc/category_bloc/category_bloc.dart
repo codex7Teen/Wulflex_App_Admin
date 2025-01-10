@@ -13,7 +13,6 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     //! GET ALL CATEGORIES BLOC
     on<LoadCategoriesEvent>((event, emit) async {
       try {
-        emit(CategoryLoading());
         // Initialize with default categories
         List<String> defaultCategories = CategoryServices.defaultCategories;
         List<String> customCategories = [];
@@ -97,11 +96,9 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       }
     });
 
-    //! DELETE CATEGORY BLOC
+    //! DELETE CATEGORY BLOC (DELETE CATEGORY AND PRODUCTS ASSOCIATED WITH CATEGORY)
     on<DeleteCategoryEvent>((event, emit) async {
       try {
-        emit(CategoryLoading());
-
         await _categoryServices.deleteCategory(event.categoryId);
         emit(CategoyDeleteSuccess());
         // loading the updated categories

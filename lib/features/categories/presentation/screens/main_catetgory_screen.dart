@@ -21,12 +21,18 @@ class ScreenMainCategory extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomCategoryButtonWidget(
-                    onTap: () => NavigationHelper.navigateToWithoutReplacement(context, ScreenAddCategory(screenTitle: 'Add Category')),
+                      onTap: () =>
+                          NavigationHelper.navigateToWithoutReplacement(context,
+                              ScreenAddCategory(screenTitle: 'Add Category')),
                       name: "Add Category",
                       icon: Icons.add),
                   SizedBox(width: 20),
                   CustomCategoryButtonWidget(
-                      onTap: () => NavigationHelper.navigateToWithoutReplacement(context, ScreenCategoryManage(screenTitle: 'Manage Category')),
+                      onTap: () =>
+                          NavigationHelper.navigateToWithoutReplacement(
+                              context,
+                              ScreenCategoryManage(
+                                  screenTitle: 'Manage Category')),
                       name: "Category Management",
                       icon: Icons.category_sharp),
                 ],

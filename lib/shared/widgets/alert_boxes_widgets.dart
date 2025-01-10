@@ -27,7 +27,7 @@ class CustomAlertBox {
           content: isSignout
               ? Text('You are about to log-out from wulflex admin.')
               : Text(
-                  'You are about to delete "$productName". This action cannot be undone.',
+                  'Are you sure you want to delete the category "$productName"? All products within this category will also be deleted. This action is irreversible.',
                   style: GoogleFonts.robotoCondensed(
                     color: AppColors.darkishGrey,
                     fontSize: 16,

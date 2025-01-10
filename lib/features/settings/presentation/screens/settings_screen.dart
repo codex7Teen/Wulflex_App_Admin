@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wulflex_admin/features/auth/bloc/authentication_bloc/authentication_bloc_bloc.dart';
 import 'package:wulflex_admin/features/auth/presentation/screens/login_screen.dart';
+import 'package:wulflex_admin/features/settings/presentation/screens/privacy_policy_screen.dart';
+import 'package:wulflex_admin/features/settings/presentation/screens/terms_and_conditions_screen.dart';
 import 'package:wulflex_admin/features/settings/presentation/widgets/settings_screen_widgets.dart';
 import 'package:wulflex_admin/shared/widgets/alert_boxes_widgets.dart';
 import 'package:wulflex_admin/shared/widgets/custom_snacbar.dart';
@@ -37,10 +39,16 @@ class ScreenSignOut extends StatelessWidget {
                   name: 'LOG-OUT'),
               SizedBox(height: 14),
               SettingsScreenWidgets.buildButtonCards(
-                  icon: Icons.security, name: "PRIVACY POLICY"),
+                  onTap: () => NavigationHelper.navigateToWithoutReplacement(
+                      context, PrivacyPolicyScreen()),
+                  icon: Icons.security,
+                  name: "PRIVACY POLICY"),
               SizedBox(height: 14),
               SettingsScreenWidgets.buildButtonCards(
-                  icon: Icons.assignment, name: "TERMS & CONDITIONS"),
+                  onTap: () => NavigationHelper.navigateToWithoutReplacement(
+                      context, TermsAndConditionsScreen()),
+                  icon: Icons.assignment,
+                  name: "TERMS & CONDITIONS"),
             ],
           ),
         ),

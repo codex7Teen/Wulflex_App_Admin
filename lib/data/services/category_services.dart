@@ -108,76 +108,150 @@ class CategoryServices {
   }
 
   //! EDIT CATEGORY SERVICES
- Future<void> editCategory(
-    String categoryId, String newCategoryName, File? newImageFile) async {
-  try {
-    // prevent taking default category name
-    if (defaultCategories.contains(newCategoryName)) {
-      throw Exception('Cannot rename to default categoryname');
-    }
-
-    // Get the existing document to retrieve the current image URL
-    DocumentSnapshot oldDoc = await _firestore
-        .collection('custom_categories')
-        .doc(categoryId)
-        .get();
-
-    // prepare update data
-    Map<String, dynamic> updateData = {
-      'name': newCategoryName,
-      'timeStamp': FieldValue.serverTimestamp()
-    };
-
-    // If no new image is provided, keep the existing image URL
-    if (newImageFile == null && oldDoc.exists) {
-      updateData['image_url'] = oldDoc.get('image_url');
-    }
-
-    // handle image upload if a new image is provided
-    if (newImageFile != null) {
-      // delete old image from firebase storage
-      if (oldDoc.exists && oldDoc.get('image_url') != null) {
-        await _fireStorage.refFromURL(oldDoc.get('image_url')).delete();
+  Future<void> editCategory(
+      String categoryId, String newCategoryName, File? newImageFile) async {
+    try {
+      // Check if new name is a default category name
+      if (defaultCategories.contains(newCategoryName)) {
+        throw Exception('Cannot rename to default category name');
       }
 
-      // upload new image
-      final storageRef =
-          _fireStorage.ref().child('category_images/$newCategoryName');
-      final uploadTask = await storageRef.putFile(newImageFile);
-      final imageUrl = await uploadTask.ref.getDownloadURL();
-
-      updateData['image_url'] = imageUrl;
-    }
-
-    await _firestore
-        .collection('custom_categories')
-        .doc(categoryId)
-        .update(updateData);
-
-    log('SERVICES: CATEGORY UPDATED');
-  } catch (error) {
-    log('SERVICES: CATEGORY UPDATION FAILED $error');
-    throw Exception('Failed to edit category: $error');
-  }
-}
-
-  //! DELETE CATEGORY SERVICES
-  Future<void> deleteCategory(String categoryId) async {
-    try {
-      // Get the document to retrieve image URL before deletion
-      final doc = await _firestore
+      // Get the existing category document
+      DocumentSnapshot oldDoc = await _firestore
           .collection('custom_categories')
           .doc(categoryId)
           .get();
 
-      // Delete image from Firebase Storage if it exists
-      if (doc.exists && doc.data()?['image_url'] != null) {
-        await _fireStorage.refFromURL(doc.data()!['image_url']).delete();
+      if (!oldDoc.exists) {
+        throw Exception('Category not found');
       }
 
-      // Delete the category from Firestore
+      final String oldCategoryName = oldDoc.get('name');
+
+      // prepare update data for category
+      Map<String, dynamic> updateData = {
+        'name': newCategoryName,
+        'timestamp': FieldValue.serverTimestamp()
+      };
+
+      // If no new image is provided, keep the existing image URL
+      if (newImageFile == null) {
+        updateData['image_url'] = oldDoc.get('image_url');
+      }
+
+      // Handle image upload if a new image is provided
+      if (newImageFile != null) {
+        // Delete old image from firebase storage
+        if (oldDoc.get('image_url') != null) {
+          try {
+            await _fireStorage.refFromURL(oldDoc.get('image_url')).delete();
+          } catch (error) {
+            log('Error deleting old category image: $error');
+          }
+        }
+
+        // Upload new image
+        final storageRef =
+            _fireStorage.ref().child('category_images/$newCategoryName');
+        final uploadTask = await storageRef.putFile(newImageFile);
+        final imageUrl = await uploadTask.ref.getDownloadURL();
+
+        updateData['image_url'] = imageUrl;
+      }
+
+      // Start a batch write
+      final batch = _firestore.batch();
+
+      // Update the category document
+      batch.update(_firestore.collection('custom_categories').doc(categoryId),
+          updateData);
+
+      // Get all products with the old category name
+      final productsSnapshot = await _firestore
+          .collection('products')
+          .where('category', isEqualTo: oldCategoryName)
+          .get();
+
+      // Update each product's category field
+      for (var doc in productsSnapshot.docs) {
+        batch.update(doc.reference, {'category': newCategoryName});
+      }
+
+      // Commit all updates in a single batch
+      await batch.commit();
+
+      log('SERVICES: CATEGORY AND ${productsSnapshot.docs.length} PRODUCTS UPDATED');
+    } catch (error) {
+      log('SERVICES: CATEGORY UPDATE FAILED $error');
+      throw Exception('Failed to edit category: $error');
+    }
+  }
+
+  //! DELETE CATEGORY SERVICES (DELETE CATEGORY AND PRODUCTS UNDER THE CATEGORY)
+  Future<void> deleteCategory(String categoryId) async {
+    try {
+      // Get the category document to retrieve name and image URL before deletion
+      final categoryDoc = await _firestore
+          .collection('custom_categories')
+          .doc(categoryId)
+          .get();
+
+      if (!categoryDoc.exists) {
+        throw Exception('Category not found');
+      }
+
+      final categoryName = categoryDoc.data()?['name'];
+      final imageUrl = categoryDoc.data()?['image_url'];
+
+      // Delete all products with this category
+      final productsSnapshot = await _firestore
+          .collection('products')
+          .where('category', isEqualTo: categoryName)
+          .get();
+
+      // Batch delete for products and their images
+      final batch = _firestore.batch();
+
+      // Keep track of all product image URLs that need to be deleted
+      final List<String> productImageUrls = [];
+
+      // Add each product deletion to batch and collect image URLs
+      for (var doc in productsSnapshot.docs) {
+        batch.delete(doc.reference);
+
+        // Get image URLs from the product
+        final List<String> images =
+            List<String>.from(doc.data()['imageUrls'] ?? []);
+        productImageUrls.addAll(images);
+      }
+
+      // Execute the batch delete
+      await batch.commit();
+
+      // Delete all product images from storage
+      for (String url in productImageUrls) {
+        try {
+          await _fireStorage.refFromURL(url).delete();
+        } catch (imageError) {
+          log('Error deleting product image: $imageError');
+          // Continue with other deletions even if one fails
+        }
+      }
+
+      // Delete category image from Firebase Storage if it exists
+      if (imageUrl != null) {
+        try {
+          await _fireStorage.refFromURL(imageUrl).delete();
+        } catch (imageError) {
+          log('Error deleting category image: $imageError');
+        }
+      }
+
+      // Finally delete the category document
       await _firestore.collection('custom_categories').doc(categoryId).delete();
-      log('SERVICES: CATEGORY DELETED');
+
+      log('SERVICES: CATEGORY AND ASSOCIATED PRODUCTS DELETED');
+      log('Deleted ${productsSnapshot.docs.length} products');
     } catch (error) {
       log('SERVICES: CATEGORY DELETION ERROR $error');
       throw Exception('Failed to delete category: $error');

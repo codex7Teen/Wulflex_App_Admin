@@ -359,4 +359,8 @@ class AppTextStyles {
           fontSize: 17.5,
           letterSpacing: 0.8,
           color: AppColors.blackThemeColor));
+
+  //! EMPTY SCREEN TEXT
+  static final TextStyle emptyScreenText = GoogleFonts.bebasNeue(
+      fontSize: 20, color: AppColors.blackThemeColor, letterSpacing: 1);
 }

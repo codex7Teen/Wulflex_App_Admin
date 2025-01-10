@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -7,12 +6,10 @@ import 'package:wulflex_admin/features/categories/bloc/category_bloc/category_bl
 import 'package:wulflex_admin/features/products/bloc/product_bloc/product_bloc.dart';
 import 'package:wulflex_admin/core/config/app_colors.dart';
 import 'package:wulflex_admin/core/config/text_styles.dart';
+import 'package:wulflex_admin/features/products/presentation/widgets/add_product_screen_widgets.dart';
 import 'package:wulflex_admin/shared/widgets/appbar_with_back_button_widget.dart';
 import 'package:wulflex_admin/shared/widgets/blue_button_widget.dart';
-import 'package:wulflex_admin/shared/widgets/custom_add_fields_widget.dart';
-import 'package:wulflex_admin/shared/widgets/custom_image_picker_container_widget.dart';
 import 'package:wulflex_admin/shared/widgets/custom_snacbar.dart';
-import 'package:wulflex_admin/shared/widgets/custom_weightandsize_selector_container_widget.dart';
 
 class ScreenAddProducts extends StatefulWidget {
   final String screenTitle;
@@ -113,60 +110,25 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Upload Image',
-                            style:
-                                AppTextStyles.sideDrawerSelectedHeadingSmall),
+                        AddProductScreenWidgets.buildUploadImageText(),
                         SizedBox(height: 8),
-                        Center(
-                          child: CustomImagePickerContainerWidget(
-                              // delte individual images
-                              onDeleteImage: (index) {
-                                setState(() {
-                                  selectedImages.removeAt(index);
-                                });
-                              },
-                              onTap: () {
-                                context
-                                    .read<ProductBloc>()
-                                    .add(PickImagesEvent());
-                              },
-                              imagePaths: selectedImages),
-                        ),
+                        AddProductScreenWidgets.buildImagePickerContainer(
+                            selectedImages, context, onDeleteImage: (index) {
+                          setState(() {
+                            selectedImages.removeAt(index);
+                          });
+                        }),
                         Visibility(
                             visible: selectedImages.isNotEmpty,
                             child: SizedBox(height: 16)),
                         Visibility(
                           visible: selectedImages.isNotEmpty,
-                          child: GestureDetector(
+                          child: AddProductScreenWidgets.buildClearImagesButton(
                             onTap: () {
                               setState(() {
                                 selectedImages = [];
                               });
                             },
-                            child: Center(
-                              child: Container(
-                                width: 150,
-                                padding: EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                    color: AppColors.blueThemeColor,
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.clear,
-                                      size: 17,
-                                      color: AppColors.whiteThemeColor,
-                                    ),
-                                    SizedBox(width: 3),
-                                    Text('CLEAR IMAGES',
-                                        style: AppTextStyles.bodySmall.copyWith(
-                                            fontWeight: FontWeight.bold)),
-                                  ],
-                                ),
-                              ),
-                            ),
                           ),
                         ),
                         Visibility(
@@ -175,344 +137,127 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         Visibility(
                             visible: selectedImages.isEmpty,
                             child: SizedBox(height: 25)),
-                        Text('Item Brand',
-                            style:
-                                AppTextStyles.sideDrawerSelectedHeadingSmall),
+                        AddProductScreenWidgets.buildItemBrandText(),
                         SizedBox(height: 8),
-                        CustomAddFieldsWidget(
-                          maxLength: 20,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Please enter a brand name';
-                            }
-                            return null;
-                          },
-                          controller: _brandController,
-                        ),
+                        AddProductScreenWidgets.buildBrandField(
+                            _brandController),
                         SizedBox(height: 25),
-                        Text('Item Name',
-                            style:
-                                AppTextStyles.sideDrawerSelectedHeadingSmall),
+                        AddProductScreenWidgets.buildItemNameText(),
                         SizedBox(height: 8),
-                        CustomAddFieldsWidget(
-                          maxLength: 60,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Please enter an item name';
-                            }
-                            return null;
-                          },
-                          controller: _nameController,
-                        ),
+                        AddProductScreenWidgets.buildItemNameField(
+                            _nameController),
                         SizedBox(height: 25),
-                        Text('Item Description',
-                            style:
-                                AppTextStyles.sideDrawerSelectedHeadingSmall),
+                        AddProductScreenWidgets.buildItemDescriptionText(),
                         SizedBox(height: 8),
-                        CustomAddFieldsWidget(
-                            validator: (value) {
-                              if (value == null || value.trim().isEmpty) {
-                                return 'Please enter an item description';
-                              }
-                              return null;
-                            },
-                            controller: _descriptionController,
-                            textInputType: TextInputType.multiline,
-                            minLines: 4),
+                        AddProductScreenWidgets.buildItemDescriptionField(
+                            _descriptionController),
                         SizedBox(height: 25),
                         //! Category
-                        Text('Item Category',
-                            style:
-                                AppTextStyles.sideDrawerSelectedHeadingSmall),
+                        AddProductScreenWidgets.buildItemCategoryText(),
                         SizedBox(height: 8),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: AppColors.lightGreyThemeColor,
-                                ),
-                                child: BlocBuilder<CategoryBloc, CategoryState>(
-                                  builder: (context, state) {
-                                    log('Current category bloc state: $state');
-                                    List<String> defaultCategories = [];
-                                    List<String> customCategories = [];
-
-                                    if (state is CategoriesLoaded) {
-                                      defaultCategories =
-                                          state.defaultCategories;
-                                      customCategories = state.customCategories;
-                                    }
-
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 5),
-                                      child: DropdownButtonFormField<String>(
-                                        value: _selectedCategory,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _selectedCategory = value!;
-                                          });
-                                        },
-                                        items: [
-                                          // Show default categories
-                                          ...defaultCategories.map((category) {
-                                            return DropdownMenuItem(
-                                              value: category,
-                                              child: Text(
-                                                category,
-                                                style: AppTextStyles.titleMedium
-                                                    .copyWith(
-                                                        color: Colors.black),
-                                              ),
-                                            );
-                                          }),
-                                          // divider if there are custom categories
-                                          if (customCategories.isNotEmpty)
-                                            DropdownMenuItem<String>(
-                                              enabled: false,
-                                              value: null,
-                                              child: Container(
-                                                height: 1,
-                                                decoration: BoxDecoration(
-                                                  border: Border(
-                                                    bottom: BorderSide(
-                                                      color:
-                                                          Colors.grey.shade300,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          // Show custom categories
-                                          ...customCategories.map((category) {
-                                            return DropdownMenuItem(
-                                              value: category,
-                                              child: Text(
-                                                category,
-                                                style: AppTextStyles.titleMedium
-                                                    .copyWith(
-                                                        color: Colors.black),
-                                              ),
-                                            );
-                                          }),
-                                        ],
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: 'Select Category',
-                                          hintStyle: AppTextStyles.titleMedium
-                                              .copyWith(
-                                            color: Colors.grey[
-                                                600], // Made hint text darker
-                                            fontSize: 16, // Increased font size
-                                          ),
-                                          fillColor: Colors.transparent,
-                                        ),
-                                        style:
-                                            AppTextStyles.titleMedium.copyWith(
-                                          color: Colors.black,
-                                          fontSize: 16,
-                                        ),
-                                        icon: Icon(Icons.arrow_drop_down,
-                                            color: Colors.grey[600]),
-                                        isExpanded: true,
-                                        hint: Text(
-                                          'Select Category',
-                                          style: AppTextStyles.titleMedium
-                                              .copyWith(
-                                            color: Colors.grey[600],
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                          ],
-                        ),
+                        AddProductScreenWidgets.buildCategorySelectionSection(
+                            _selectedCategory, (value) {
+                          setState(() {
+                            _selectedCategory = value!;
+                          });
+                        }),
                         Visibility(
                             visible: selectedSizes.isEmpty,
                             child: SizedBox(height: 20)),
-                        // Weight
-                        Visibility(
-                          visible: selectedSizes.isEmpty,
-                          child: Text('Pick available Weight',
-                              style:
-                                  AppTextStyles.sideDrawerSelectedHeadingSmall),
-                        ),
+                        //! Weight
+                        AddProductScreenWidgets.buildWeightText(selectedSizes),
                         Visibility(
                             visible: selectedSizes.isEmpty,
                             child: SizedBox(height: 8)),
-                        Visibility(
-                          visible: selectedSizes.isEmpty,
-                          child: Row(
-                            children: [
-                              CustomWeightandsizeSelectorContainerWidget(
-                                  weightOrSize: '5 KG',
-                                  isSelected: selectedWeights.contains('5 KG'),
-                                  onTap: () {
-                                    setState(() {
-                                      if (selectedWeights.contains('5 KG')) {
-                                        selectedWeights.remove('5 KG');
-                                      } else {
-                                        selectedWeights.add('5 KG');
-                                      }
-                                    });
-                                  }),
-                              SizedBox(width: 8),
-                              CustomWeightandsizeSelectorContainerWidget(
-                                  weightOrSize: '10 KG',
-                                  isSelected: selectedWeights.contains('10 KG'),
-                                  onTap: () {
-                                    setState(() {
-                                      if (selectedWeights.contains('10 KG')) {
-                                        selectedWeights.remove('10 KG');
-                                      } else {
-                                        selectedWeights.add('10 KG');
-                                      }
-                                    });
-                                  }),
-                              SizedBox(width: 8),
-                              CustomWeightandsizeSelectorContainerWidget(
-                                  weightOrSize: '20 KG',
-                                  isSelected: selectedWeights.contains('20 KG'),
-                                  onTap: () {
-                                    setState(() {
-                                      if (selectedWeights.contains('20 KG')) {
-                                        selectedWeights.remove('20 KG');
-                                      } else {
-                                        selectedWeights.add('20 KG');
-                                      }
-                                    });
-                                  }),
-                              SizedBox(width: 8),
-                              CustomWeightandsizeSelectorContainerWidget(
-                                  weightOrSize: '30 KG',
-                                  isSelected: selectedWeights.contains('30 KG'),
-                                  onTap: () {
-                                    setState(() {
-                                      if (selectedWeights.contains('30 KG')) {
-                                        selectedWeights.remove('30 KG');
-                                      } else {
-                                        selectedWeights.add('30 KG');
-                                      }
-                                    });
-                                  }),
-                            ],
-                          ),
-                        ),
+                        AddProductScreenWidgets.buildWeightSelectors(
+                            selectedSizes, selectedWeights, onFiveKgTapped: () {
+                          setState(() {
+                            if (selectedWeights.contains('5 KG')) {
+                              selectedWeights.remove('5 KG');
+                            } else {
+                              selectedWeights.add('5 KG');
+                            }
+                          });
+                        }, onTenKgTapped: () {
+                          setState(() {
+                            if (selectedWeights.contains('10 KG')) {
+                              selectedWeights.remove('10 KG');
+                            } else {
+                              selectedWeights.add('10 KG');
+                            }
+                          });
+                        }, onTwentyKgTapped: () {
+                          setState(() {
+                            if (selectedWeights.contains('20 KG')) {
+                              selectedWeights.remove('20 KG');
+                            } else {
+                              selectedWeights.add('20 KG');
+                            }
+                          });
+                        }, onThirtyKgTapped: () {
+                          setState(() {
+                            if (selectedWeights.contains('30 KG')) {
+                              selectedWeights.remove('30 KG');
+                            } else {
+                              selectedWeights.add('30 KG');
+                            }
+                          });
+                        }),
                         Visibility(
                             visible: selectedWeights.isEmpty,
                             child: SizedBox(height: 25)),
 
-                        // Sizes
-                        Visibility(
-                          visible: selectedWeights.isEmpty,
-                          child: Text('Pick available sizes',
-                              style:
-                                  AppTextStyles.sideDrawerSelectedHeadingSmall),
-                        ),
+                        //! Sizes
+                        AddProductScreenWidgets.buildSizedText(selectedWeights),
                         Visibility(
                             visible: selectedWeights.isEmpty,
                             child: SizedBox(height: 8)),
-                        Visibility(
-                          visible: selectedWeights.isEmpty,
-                          child: Row(
-                            children: [
-                              CustomWeightandsizeSelectorContainerWidget(
-                                  weightOrSize: 'S',
-                                  isSelected: selectedSizes.contains('S'),
-                                  onTap: () {
-                                    setState(() {
-                                      if (selectedSizes.contains('S')) {
-                                        selectedSizes.remove('S');
-                                      } else {
-                                        selectedSizes.add('S');
-                                      }
-                                    });
-                                  }),
-                              SizedBox(width: 8),
-                              CustomWeightandsizeSelectorContainerWidget(
-                                  weightOrSize: 'M',
-                                  isSelected: selectedSizes.contains('M'),
-                                  onTap: () {
-                                    setState(() {
-                                      if (selectedSizes.contains('M')) {
-                                        selectedSizes.remove('M');
-                                      } else {
-                                        selectedSizes.add('M');
-                                      }
-                                    });
-                                  }),
-                              SizedBox(width: 8),
-                              CustomWeightandsizeSelectorContainerWidget(
-                                  weightOrSize: 'L',
-                                  isSelected: selectedSizes.contains('L'),
-                                  onTap: () {
-                                    setState(() {
-                                      if (selectedSizes.contains('L')) {
-                                        selectedSizes.remove('L');
-                                      } else {
-                                        selectedSizes.add('L');
-                                      }
-                                    });
-                                  }),
-                              SizedBox(width: 8),
-                              CustomWeightandsizeSelectorContainerWidget(
-                                  weightOrSize: 'XL',
-                                  isSelected: selectedSizes.contains('XL'),
-                                  onTap: () {
-                                    setState(() {
-                                      if (selectedSizes.contains('XL')) {
-                                        selectedSizes.remove('XL');
-                                      } else {
-                                        selectedSizes.add('XL');
-                                      }
-                                    });
-                                  }),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 25),
-                        Text('Item Retail Price (₹)',
-                            style:
-                                AppTextStyles.sideDrawerSelectedHeadingSmall),
-                        SizedBox(height: 8),
-                        CustomAddFieldsWidget(
-                          maxLength: 7,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Please enter item retail price';
+                        AddProductScreenWidgets.buildSizeSelectors(
+                            selectedWeights, selectedSizes, onSTapped: () {
+                          setState(() {
+                            if (selectedSizes.contains('S')) {
+                              selectedSizes.remove('S');
+                            } else {
+                              selectedSizes.add('S');
                             }
-                            return null;
-                          },
-                          controller: _retailPriceController,
-                          textInputType: TextInputType.number,
-                        ),
-                        SizedBox(height: 25),
-                        Text('Item Offer Price (₹)',
-                            style:
-                                AppTextStyles.sideDrawerSelectedHeadingSmall),
-                        SizedBox(height: 8),
-                        CustomAddFieldsWidget(
-                          maxLength: 7,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Please enter item offer price';
+                          });
+                        }, onMTapped: () {
+                          setState(() {
+                            if (selectedSizes.contains('M')) {
+                              selectedSizes.remove('M');
+                            } else {
+                              selectedSizes.add('M');
                             }
-                            return null;
-                          },
-                          controller: _offerPriceController,
-                          textInputType: TextInputType.number,
-                        ),
+                          });
+                        }, onLTapped: () {
+                          setState(() {
+                            if (selectedSizes.contains('L')) {
+                              selectedSizes.remove('L');
+                            } else {
+                              selectedSizes.add('L');
+                            }
+                          });
+                        }, onXLTapped: () {
+                          setState(() {
+                            if (selectedSizes.contains('XL')) {
+                              selectedSizes.remove('XL');
+                            } else {
+                              selectedSizes.add('XL');
+                            }
+                          });
+                        }),
                         SizedBox(height: 25),
-                        Text('ADD ITEM TO SALE SECTION',
-                            style:
-                                AppTextStyles.sideDrawerSelectedHeadingSmall),
+                        AddProductScreenWidgets.buildRetailPriceText(),
+                        SizedBox(height: 8),
+                        AddProductScreenWidgets.buildRetailPriceField(
+                            _retailPriceController),
+                        SizedBox(height: 25),
+                        AddProductScreenWidgets.buildOfferpriceText(),
+                        SizedBox(height: 8),
+                        AddProductScreenWidgets.buildOfferpriceField(
+                            _offerPriceController),
+                        SizedBox(height: 25),
+                        AddProductScreenWidgets.buildSaleText(),
                         SizedBox(height: 8),
                         Transform.scale(
                           scale: 1.5,
@@ -581,7 +326,7 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
               //! Show loading when product is uploading
               if (state is ProductLoading)
                 Container(
-                  color: Colors.black.withOpacity(0.5),
+                  color: Colors.black.withValues(alpha: 0.5),
                   child: Center(
                     child: Container(
                       padding: EdgeInsets.all(20),
@@ -590,7 +335,7 @@ class ScreenAddProductsState extends State<ScreenAddProducts> {
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
+                            color: Colors.black.withValues(alpha: 0.1),
                             blurRadius: 10,
                             spreadRadius: 5,
                           ),

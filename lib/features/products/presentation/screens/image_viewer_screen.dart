@@ -97,7 +97,7 @@ class ScreenFullScreenImageViewerState
                 count: widget.imageUrls.length,
                 effect: ExpandingDotsEffect(
                   activeDotColor: AppColors.blueThemeColor,
-                  dotColor: Colors.white.withOpacity(0.4),
+                  dotColor: Colors.white.withValues(alpha: 0.4),
                   dotHeight: 8,
                   dotWidth: 8,
                 ),

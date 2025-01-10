@@ -85,11 +85,18 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<DeleteProductEvent>((event, emit) async {
       try {
         await _productServices.deleteProduct(event.productId, event.imageUrls);
-        // Emit delete success without changing the current products state
-        emit(ProductDeleteSuccess());
-        // Re-emit the previous state with products
+
+        // Get the current products list from state
         if (state is ProductLoaded) {
-          emit(state);
+          final currentProducts = (state as ProductLoaded).products;
+          // Create new list without the deleted product
+          final updatedProducts = currentProducts
+              .where((product) => product.id != event.productId)
+              .toList();
+
+          // Emit delete success followed by updated products list
+          emit(ProductDeleteSuccess());
+          emit(ProductLoaded(updatedProducts));
         }
       } catch (error) {
         emit(ProductError('Failed to delete product: $error'));
@@ -130,7 +137,14 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         await _productServices.updateProduct(
             updatedProduct, event.productId, newImageFiles);
 
-        emit(ProductUpdateSuccess());
+        // Get the current products list from state
+        if (state is ProductLoaded) {
+          final currentProducts = (state as ProductLoaded).products;
+
+          // Emit updated success with updated products
+          emit(ProductUpdateSuccess());
+          emit(ProductLoaded(currentProducts));
+        }
       } catch (error) {
         emit(ProductError('Failed to update product: $error'));
       }
